@@ -53,19 +53,61 @@ t_cmd   *new_cmd(char   *cmd, t_token id)
     return (elem);
 }
 
-void	check_parsing_errors(t_minishell *msh)
+//Function to display syntax error at character where.
+char	*syntax_error(char where)
+{
+	char	*ret;
+
+	if (where == '\n')
+		return (ft_strdup("syntax error near unexpected token \'newline\'"));
+	ret = ft_strdup("syntax error near unexpected token \'?\'");
+	ret[ft_strlen(ret) - 2] = where;
+	return (ret);
+}
+
+//Function to check if first token is allowed
+int	handle_first_node_error(t_minishell *msh)
+{
+	size_t i;
+	t_cmd* first_node;
+	static const char *forbidden_tokens[] = {
+		"|",
+		"<<",
+	};
+
+	i = 0;
+	first_node = (t_cmd*)msh->cmd->content;
+	if (!msh->cmd)
+		return (0);
+	while (forbidden_tokens[i])
+	{
+		if (is_identical((char*)forbidden_tokens[i], first_node->cmd))
+		{
+			msh->parsing_error = syntax_error(first_node->cmd[0]);
+			return (1);
+		}
+		printf("sdfd%c\n", first_node->cmd[0]);
+		i++;
+	}
+	return (0);
+}
+
+void	check_parsing_errors(t_minishell *msh, int end)
 {
 	t_list *iter = msh->cmd;
     t_cmd   *current = NULL;
+	if (end && handle_first_node_error(msh))
+		return ;
     while (iter)
     {
         current = (t_cmd*) iter->content;
-		if (is_token(current->cmd[0]) && !current->id)
+		if (is_token(current->cmd[0]) && !current->id) // checks if token is unknown
 		{
-			msh->parsing_error = ft_strdup("syntax error near unexpected token \'?\'");
-			msh->parsing_error[ft_strlen(msh->parsing_error) - 2] = current->cmd[0];
+			msh->parsing_error = syntax_error(current->cmd[0]);
 			break ;
 		}
+		if (!iter->next && end && is_token(current->cmd[0])) // checks if last node id is an operator
+			msh->parsing_error = syntax_error('\n');
         iter = iter->next;
     }
 }
@@ -77,10 +119,9 @@ void    delimitor(char **cmd, t_minishell *msh)
     if (!*cmd || msh->parsing_error)
         return ;
     ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd))));
-	check_parsing_errors(msh);
+	check_parsing_errors(msh, 0);
     *cmd = NULL;
 }
-
 void __debug_parsing(t_minishell *msh)
 {
     t_list *iter = msh->cmd;
@@ -108,10 +149,12 @@ int get_cmd(t_minishell *msh)
 		if ((is_token(msh->prompt[i]) && str && !is_token(str[0]))
 		|| (!is_token(msh->prompt[i]) && str && is_token(str[0])))
 			delimitor(&str, msh);
-        get_char(msh->prompt[i], &str);
+		if(msh->prompt[i] != ' ')
+        	get_char(msh->prompt[i], &str);
         i++;
     }
     delimitor(&str, msh);
     __debug_parsing(msh);
+	check_parsing_errors(msh, 1);	
     return(!msh->parsing_error);
 }
