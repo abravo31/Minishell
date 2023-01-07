@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/01/07 17:20:19 by motero           ###   ########.fr        #
+#    Updated: 2023/01/07 17:26:43 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,21 @@ MINILIBX = $(MINILIBX_HDIR)libmlx.a
 #=============================================================================#
 
 SRCS_DIR_project = sources/
+
+SRCS_DIR_parsing = [0]parsing/
+
+SRCS_DIR_lexer = [1]lexer/
+
+SRCS_DIR_expander = [2]expander/
+
+SRCS_DIR_builtin = [3]builtin/
+
+SRCS_DIR_exeucton = [4]execution/
+
+SRCS_DIR_signal_handling = [5]signal_handling/
+
 SRCS_NAME_project = [0]main.c \
+					$(addprefix $(SRCS_DIR_parsing), [x]file_name.c) \
 
 SRCS_project = $(addprefix $(SRCS_DIR_project), $(SRCS_NAME_project))
 
