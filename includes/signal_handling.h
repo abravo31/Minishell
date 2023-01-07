@@ -6,16 +6,40 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/07 17:18:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/07 18:58:15 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIGNAL_HANDLING_H
 # define SIGNAL_HANDLING_H
 
+# include <signal.h>
+# include <stdio.h>
+# include <unistd.h>
+
+# ifndef EXIT_SUCCESS
+#  define EXIT_SUCCESS 0
+# endif
+
 
 /*############################################################################*/
 /*                              STRUCTURES                                    */
 /*############################################################################*/
+
+/*############################################################################*/
+/*                              SIGNAL_HANDLING                               */
+/*############################################################################*/
+
+// Set up the signal handlers
+void	setup_signal_handlers(void);
+
+// Handle the SIGINT signal (ctrl-C)
+void	sigint_handler(int sig);
+
+// Handle the EOF signal (ctrl-D)
+void	eof_handler(int sig);
+
+// Handle the SIGQUIT signal (ctrl-\)
+void	sigquit_handler(int sig);
 
 #endif
