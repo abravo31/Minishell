@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:51:54 by abravo            #+#    #+#             */
-/*   Updated: 2023/01/04 21:44:18 by abravo           ###   ########.fr       */
+/*   Updated: 2023/01/08 23:33:53 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef enum e_token
     L_REDIR,
     L_DREDIR,
     PIPE,
-    BULTINS,
+    WORD,
     D_QUOTE,
     S_QUOTE,
 } t_token;

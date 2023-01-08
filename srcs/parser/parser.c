@@ -42,8 +42,8 @@ t_token eval_token(char *cmd)
         return (L_DREDIR);
     else if (is_identical("|", cmd))
         return (PIPE);
-    //else if (is_builtin(cmd))
-        //return (BULTINS);
+    else if (!is_token(cmd[0]))
+        return (WORD);
     return (UNASSIGNED);
 }
 
@@ -112,6 +112,8 @@ void	check_parsing_errors(t_minishell *msh, int end)
 		}
 		if (!iter->next && end && is_token(current->cmd[0])) // checks if last node id is an operator
 			msh->parsing_error = syntax_error('\n');
+        // if (current->id >= 1 && current->id <= 4 && (((t_cmd *)(iter->next->content))->id < 7 || !iter->next))
+        //     msh->parsing_error = syntax_error();
         iter = iter->next;
     }
 }
@@ -187,23 +189,36 @@ int get_cmd(t_minishell *msh)
     str = NULL;
     while (msh->prompt[i] && !msh->parsing_error)
     {
+        //__debug_parsing(msh);
         if (msh->prompt[i] == ' ')
             delimitor(&str, msh);
         else if (msh->prompt[i] != ' ' && (msh->prompt[i] != '\'' && msh->prompt[i] != '\"'))
-		{
+		{  
+             //printf("%c\n", msh->prompt[i]);
             if ((is_token(msh->prompt[i]) && str && !is_token(str[0]))
             || (!is_token(msh->prompt[i]) && str && is_token(str[0])))
             {
                 //printf("msh : %c\n prev : %c\n", msh->prompt[i], str[0]);
                 delimitor(&str, msh);
+            } 
+            if ((msh->prompt[i] == '>' || msh->prompt[i] == '<') && str && str[0] == '|')
+            {
+                //printf("str[0] : %c\n", str[0]);
+                delimitor(&str, msh);   
             }
             get_char(msh->prompt[i], &str);
+            printf("%s\n", str);
         }
 		else if(msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
+        {
+            if (i > 0 && !is_token(msh->prompt[i - 1]) && msh->prompt[i - 1] != ' ')
+                delimitor(&str, msh);
             i = is_quote(msh, i, &msh->prompt);
+        }
         i++;
     }
     delimitor(&str, msh);
+    //check_parsing_errors(msh, 0);
     __debug_parsing(msh);
 	check_parsing_errors(msh, 1);	
     return(!msh->parsing_error);

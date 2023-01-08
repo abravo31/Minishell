@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/01/04 21:23:30 by abravo           ###   ########.fr       */
+/*   Updated: 2023/01/08 19:54:24 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ size_t	ft_strlen(const char *s)
 
 int     is_identical(char *s1, char *s2)
 {
-    size_t  i;
-    
-    i = 0;
-    if (ft_strlen(s1) != ft_strlen(s2))
-        return (0);
-    while (s1[i] && s1[i] == s2[i])
-        i++;
-    return (s1[i] == '\0');
+	size_t  i;
+	
+	i = 0;
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (0);
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] == '\0');
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -87,16 +87,16 @@ char	*ft_strdup(const char *s)
 
 void    get_char(char c, char **cmd)
 {
-    char    *ptr;
-    char    *tmp;
+	char    *ptr;
+	char    *tmp;
 
-    if (!*cmd)
-    {
-        *cmd = ft_strdup("?");
-        *cmd[0] = c;
-        return ;
-    }
-    tmp = ft_strjoin(*cmd, "?");
-    tmp[ft_strlen(tmp) - 1] = c;
-    *cmd = tmp;
+	if (!*cmd)
+	{
+		*cmd = ft_strdup("?");
+		*cmd[0] = c;
+		return ;
+	}
+	tmp = ft_strjoin(*cmd, "?");
+	tmp[ft_strlen(tmp) - 1] = c;
+	*cmd = tmp;
 }
