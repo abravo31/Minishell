@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/07 19:01:07 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/09 18:02:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ void	eof_handler(int sig)
 // Handle the SIGQUIT signal (ctrl-\)
 void	sigquit_handler(int sig)
 {
-	kill(getpid(), SIGKILL);
+	(void)sig;
 }
