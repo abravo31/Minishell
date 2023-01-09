@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/01/07 17:26:43 by motero           ###   ########.fr        #
+#    Updated: 2023/01/09 22:12:13 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,7 @@ NAME = minishell
 #                                 HEADERS                                     #
 #=============================================================================#
 
-HDR_NAME = minishell.h \ #here other headers too
-			structures.h \
-			execution.h \
-			builtin.h \ 
-			expander.h \
-			lexer.h \
-			parsing.h \
-			signal_handling.h
+HDR_NAME = minishell.h  structures.h execution.h builtin.h expander.h lexer.h parsing.h signal_handling.h
 HDR_DIR = includes/
 HDRS = $(addprefix $(HDR_DIR), $(HDR_NAME))
 HDR_INC = -I includes -I libft/includes
@@ -59,16 +52,21 @@ SRCS_DIR_lexer = [1]lexer/
 
 SRCS_DIR_expander = [2]expander/
 
-SRCS_DIR_builtin = [3]builtin/
+SRCS_DIR_builtin = builtin/
 
 SRCS_DIR_exeucton = [4]execution/
 
 SRCS_DIR_signal_handling = [5]signal_handling/
 
 SRCS_NAME_project = [0]main.c \
-					$(addprefix $(SRCS_DIR_parsing), [x]file_name.c) \
+					builtin/[0]builtin_main.c \
+					$(addprefix $(SRCS_DIR_builtin), [1]ft_directory.c) \
+					$(addprefix $(SRCS_DIR_builtin), [0]ft_environment.c) \
+					$(addprefix $(SRCS_DIR_builtin), [0]ft_miscellaneous.c) \
+					$(addprefix $(SRCS_DIR_signal_handling), [0]signal_handling.c) 
 
-SRCS_project = $(addprefix $(SRCS_DIR_project), $(SRCS_NAME_project))
+
+SRCS_PROJECT = $(addprefix $(SRCS_DIR_project), $(SRCS_NAME_project))
 
 #=============================================================================#
 #                             		GNL                                       #

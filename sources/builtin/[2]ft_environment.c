@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_environment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/07 18:07:09 by motero           ###   ########.fr       */
+/*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
+/*   Updated: 2023/01/09 20:44:15 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtin.h"
+#include "structures.h"
 
-int	main(int argc, char **argv, char **envp)
+int	builtin_export(t_cmd *cmd)
 {
-	setup_signal_handlers();
+	printf("Execute export\n");
+}
+
+int	builtin_unset(t_cmd *cmd)
+{
+	printf("Execute unset\n");
+}
+
+int	builtin_env(t_cmd *cmd)
+{
+	printf("Execute env\n");
 }
