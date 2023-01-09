@@ -18,12 +18,13 @@
 # endif
 
 # include "libft.h"
+# include "structures.h"
 
 /*############################################################################*/
 /*                              BUILTIN_FUNCTIONS                             */
 /*############################################################################*/
 
-//Search for builtin funtion wereinina table and return the corresponding ptr ft
+//Search for builtin ft wher in a table and return the corresponding ptr ft
 int	execute_builtin(t_cmd *cmd);
 //Echo function wth only option-n
 int	builtin_echo(t_cmd *cmd);

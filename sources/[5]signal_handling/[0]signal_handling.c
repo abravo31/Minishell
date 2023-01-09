@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handling.c                                  :+:      :+:    :+:   */
+/*   [0]signal_handling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 18:11:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/09 23:37:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	setup_signal_handlers(void)
 // Handle the SIGINT signal (ctrl-C)
 void	sigint_handler(int sig)
 {
+	(void)sig;
 	ft_printf("\n%s", PROMPT_NAME);
 	write(STDOUT_FILENO, "", 1);
 }
@@ -63,11 +64,12 @@ void	sigint_handler(int sig)
 // Handle the EOF signal (ctrl-D)
 void	eof_handler(int sig)
 {
+	(void)sig;
 	exit(EXIT_SUCCESS);
 }
 
 // Handle the SIGQUIT signal (ctrl-\)
 void	sigquit_handler(int sig)
 {
-	(void)sig;`
+	(void)sig;
 }

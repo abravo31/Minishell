@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/01/09 22:55:29 by motero           ###   ########.fr        #
+#    Updated: 2023/01/09 23:44:13 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,19 +58,13 @@ SRCS_DIR_exeucton = [4]execution/
 
 SRCS_DIR_signal_handling = [5]signal_handling/
 
-SRCS_NAME_DIRECTORIES = [0]parsing \
-						[1]lexer \
-						[2]expander \
-						[3]builtin \
-						[4]execution \
-						[5]signal_handling
+SRCS_RAW_NAME_DIRECTORIES = $(wildcard $(SRCS_DIR_project)/*)
+SRCS_NAME_DIRECTORIES = $(patsubst sources/%,%,$(SRCS_RAW_NAME_DIRECTORIES))
+
+SRCS_ALL = $(wildcard $(SRCS_NAME_DIRECTORIES)/*.c)
 
 SRCS_NAME_project = [0]main.c \
-					$(addprefix $(SRCS_DIR_builtin), [0]builtin_main.c) \
-					$(addprefix $(SRCS_DIR_builtin), [1]ft_directory.c) \
-					$(addprefix $(SRCS_DIR_builtin), [0]ft_environment.c) \
-					$(addprefix $(SRCS_DIR_builtin), [0]ft_miscellaneous.c) \
-					$(addprefix $(SRCS_DIR_signal_handling), [0]signal_handling.c) 
+					$(SRCS_ALL)
 
 
 SRCS_PROJECT = $(addprefix $(SRCS_DIR_project), $(SRCS_NAME_project))

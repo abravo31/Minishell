@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/07 18:58:15 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/09 23:36:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 # include <signal.h>
 # include <stdio.h>
 # include <unistd.h>
+# include "libft.h"
 
 # ifndef EXIT_SUCCESS
 #  define EXIT_SUCCESS 0
 # endif
 
+# ifndef PROMPT_NAME
+#  define PROMPT_NAME "minishell"
+# endif
 
 /*############################################################################*/
 /*                              STRUCTURES                                    */
