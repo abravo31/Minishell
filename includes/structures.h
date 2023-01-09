@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/07 18:39:52 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/09 20:05:38 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_token
 	L_REDIR,
 	L_DREDIR,
 	PIPE,
-	BULTINS,
+	BUILTIN,
 	D_QUOTE,
 	S_QUOTE,
 }	t_token;
@@ -49,6 +49,6 @@ typedef struct s_minishell
 	int		status;
 	t_list	*cmd;
 	t_list	*env;
-}	t_minishell;w
+}	t_minishell;
 
 #endif

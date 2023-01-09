@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   ft_environment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 18:52:37 by motero           ###   ########.fr       */
+/*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
+/*   Updated: 2023/01/09 20:34:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include "builtin.h"
+#include "structures.h"
 
-/*############################################################################*/
-/*                              STRUCTURES                                    */
-/*############################################################################*/
+int	builtin_export(t_cmd *cmd)
+{
+	printf("Execute export\n");
+}
 
-#endif
+int	builtin_unset(t_cmd *cmd)
+{
+	printf("Execute unset\n");
+}
+
+int	builtin_env(t_cmd *cmd)
+{
+	printf("Execute env\n");
+}
