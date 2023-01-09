@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/01/09 22:12:13 by motero           ###   ########.fr        #
+#    Updated: 2023/01/09 22:55:29 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,14 +52,21 @@ SRCS_DIR_lexer = [1]lexer/
 
 SRCS_DIR_expander = [2]expander/
 
-SRCS_DIR_builtin = builtin/
+SRCS_DIR_builtin = [3]builtin/
 
 SRCS_DIR_exeucton = [4]execution/
 
 SRCS_DIR_signal_handling = [5]signal_handling/
 
+SRCS_NAME_DIRECTORIES = [0]parsing \
+						[1]lexer \
+						[2]expander \
+						[3]builtin \
+						[4]execution \
+						[5]signal_handling
+
 SRCS_NAME_project = [0]main.c \
-					builtin/[0]builtin_main.c \
+					$(addprefix $(SRCS_DIR_builtin), [0]builtin_main.c) \
 					$(addprefix $(SRCS_DIR_builtin), [1]ft_directory.c) \
 					$(addprefix $(SRCS_DIR_builtin), [0]ft_environment.c) \
 					$(addprefix $(SRCS_DIR_builtin), [0]ft_miscellaneous.c) \
@@ -184,8 +191,8 @@ project:
 
 
 $(OBJS_PATH):
-		@mkdir $@
-		@echo "\t [ $(GREEN)✔$(NONE)] $@directory"
+		@mkdir -p $(addprefix $(OBJS_PATH), $(SRCS_NAME_DIRECTORIES))
+		@echo "\t [ $(GREEN)✔$(NONE)] $@directories"
 
 $(OBJS_PATH)%.o: $(SRCS_DIR_project)%.c $(HDRS)
 		@$(CC) $(CFLAGS) $(HDR_INC) $(LIBFT_HDIR_INC) -o $@ -c $<
