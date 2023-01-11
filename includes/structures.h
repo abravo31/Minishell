@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 20:05:38 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/11 15:52:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef enum e_token
 	BUILTIN,
 	D_QUOTE,
 	S_QUOTE,
+	CMD_NAME,
+	CMD_WORD,
 }	t_token;
 
 typedef struct s_cmd
@@ -39,6 +41,7 @@ typedef struct s_cmd
 typedef struct s_list
 {
 	void			*content;
+	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
 
