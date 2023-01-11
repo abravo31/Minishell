@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/11 16:35:49 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/11 19:22:14 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ t_list	*ft_lstnew2(void const *content, size_t content_size)
 	new_node->next = NULL;
 	return (new_node);
 }
-
 
 //cmd ahardcoded cat << EOF > file | wc -c | tr -d " " > file2
 t_list	*hardcode_cmds(void)
