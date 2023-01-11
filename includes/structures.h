@@ -6,12 +6,14 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/11 19:49:28 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/11 23:43:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+
+# include <stdlib.h>
 
 /*############################################################################*/
 /*                              STRUCTURES                                    */
@@ -30,6 +32,7 @@ typedef enum e_token
 	S_QUOTE,
 	CMD_NAME,
 	CMD_WORD,
+	SIMPLE_COMMAND,
 }	t_token;
 
 typedef struct s_cmd
@@ -61,7 +64,7 @@ typedef struct s_minishell
 typedef struct s_ast_node
 {
 	char				*data;
-	int					token;
+	t_token				id;
 	struct s_ast_node	*parent;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;

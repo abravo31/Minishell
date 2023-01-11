@@ -13,11 +13,14 @@
 #ifndef AST_H
 # define AST_H
 
+# include "libft.h"
 # include "structures.h"
 
 /*############################################################################*/
 /*                              AST FUNCTIONS                                 */
 /*############################################################################*/
 
-
+t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right);
+t_ast	*t_cmd_list_to_ast(t_list *cmd_list, int pos);
+void	print_ast(t_ast *root, int level);
 #endif

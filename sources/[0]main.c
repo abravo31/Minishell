@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/11 19:22:14 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/12 00:15:55 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_list	*hardcode_cmds(void)
 	t_cmd	cmd;
 
 	cmd.cmd = "cat";
-	cmd.id = CMD_NAME;
+	cmd.id = UNASSIGNED;
 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
 	head = current;
 	cmd.cmd = "<<";
@@ -57,7 +57,7 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "EOF";
-	cmd.id = CMD_WORD;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = ">";
@@ -65,7 +65,7 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "file";
-	cmd.id = CMD_WORD;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "|";
@@ -73,11 +73,11 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "wc";
-	cmd.id = CMD_NAME;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "-c";
-	cmd.id = CMD_WORD;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "|";
@@ -85,15 +85,15 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "tr";
-	cmd.id = CMD_NAME;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "-d";
-	cmd.id = CMD_WORD;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = " ";
-	cmd.id = CMD_WORD;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = ">";
@@ -101,7 +101,7 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	cmd.cmd = "file2";
-	cmd.id = CMD_WORD;
+	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 	return (head);
@@ -137,4 +137,5 @@ int	main(int argc, char **argv, char **envp)
 	print_cmd(cmd);
 	ast_root = t_cmd_list_to_ast(cmd, 0);
 	printf("\n\n");
+	print_ast(ast_root, 0);
 }
