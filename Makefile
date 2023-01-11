@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/01/09 23:44:13 by motero           ###   ########.fr        #
+#    Updated: 2023/01/11 16:25:22 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = minishell
 #                                 HEADERS                                     #
 #=============================================================================#
 
-HDR_NAME = minishell.h structures.h execution.h builtin.h expander.h lexer.h parsing.h signal_handling.h
+HDR_NAME = minishell.h structures.h execution.h builtin.h expander.h lexer.h parsing.h signal_handling.h ast_.h
 HDR_DIR = includes/
 HDRS = $(addprefix $(HDR_DIR), $(HDR_NAME))
 HDR_INC = -I includes -I libft/includes

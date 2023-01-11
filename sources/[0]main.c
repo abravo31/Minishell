@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/11 16:08:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/11 16:35:49 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_list	*cmd;
 	char	*line;
+	t_ast	*ast_root;
 
 	setup_signal_handlers();
 	(void)argc;
@@ -135,5 +136,6 @@ int	main(int argc, char **argv, char **envp)
 	line = readline("PROMPT_NAME > cat << EOF > file | wc -c | tr -d " " > file2");
 	cmd = hardcode_cmds();
 	print_cmd(cmd);
-	(void)line;
+	ast_root = t_cmd_list_to_ast(cmd, 0);
+	printf("\n\n");
 }
