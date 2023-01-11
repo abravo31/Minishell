@@ -65,11 +65,11 @@ void	sigint_handler(int sig)
 void	eof_handler(int sig)
 {
 	(void)sig;
-	exit(EXIT_SUCCESS);
 }
 
 // Handle the SIGQUIT signal (ctrl-\)
 void	sigquit_handler(int sig)
 {
 	(void)sig;
+	exit(EXIT_SUCCESS);
 }

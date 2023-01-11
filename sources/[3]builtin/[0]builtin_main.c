@@ -19,7 +19,7 @@ int	execute_external(t_cmd *cmd)
 	return (printf("Execute external\n"));
 }
 
-void static	init_builtin_functions(int (**builtin_functions)(t_cmd *))
+static void	init_builtin_functions(int (**builtin_functions)(t_cmd *))
 {
 	builtin_functions[0] = &builtin_echo;
 	builtin_functions[1] = &builtin_cd;

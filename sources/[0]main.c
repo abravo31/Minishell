@@ -12,9 +12,17 @@
 
 #include "minishell.h"
 
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
+
 int	main(int argc, char **argv, char **envp)
 {
+	setup_signal_handlers();
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	char * line = readline("PROMPT_NAME>");
+	(void)line;
+
 }

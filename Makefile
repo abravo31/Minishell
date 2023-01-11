@@ -16,7 +16,7 @@ NAME = minishell
 #                                 HEADERS                                     #
 #=============================================================================#
 
-HDR_NAME = minishell.h  structures.h execution.h builtin.h expander.h lexer.h parsing.h signal_handling.h
+HDR_NAME = minishell.h structures.h execution.h builtin.h expander.h lexer.h parsing.h signal_handling.h
 HDR_DIR = includes/
 HDRS = $(addprefix $(HDR_DIR), $(HDR_NAME))
 HDR_INC = -I includes -I libft/includes
@@ -27,7 +27,7 @@ HDR_INC = -I includes -I libft/includes
 
 LIBFT_HDIR = libft/includes
 LIBFT_HDIR_INC = -I./libft/includes/
-LIB_BINARY = -Llibft -lft
+LIB_BINARY = -Llibft -lft -lreadline
 LIBFT = libft/libft.a
 
 #=============================================================================#
@@ -46,26 +46,14 @@ MINILIBX = $(MINILIBX_HDIR)libmlx.a
 
 SRCS_DIR_project = sources/
 
-SRCS_DIR_parsing = [0]parsing/
-
-SRCS_DIR_lexer = [1]lexer/
-
-SRCS_DIR_expander = [2]expander/
-
-SRCS_DIR_builtin = [3]builtin/
-
-SRCS_DIR_exeucton = [4]execution/
-
-SRCS_DIR_signal_handling = [5]signal_handling/
-
-SRCS_RAW_NAME_DIRECTORIES = $(wildcard $(SRCS_DIR_project)/*)
+SRCS_RAW_NAME_DIRECTORIES = $(wildcard $(SRCS_DIR_project)* )
 SRCS_NAME_DIRECTORIES = $(patsubst sources/%,%,$(SRCS_RAW_NAME_DIRECTORIES))
 
-SRCS_ALL = $(wildcard $(SRCS_NAME_DIRECTORIES)/*.c)
+#SRCS_ALL = $(wildcard $(SRCS_RAW_NAME_DIRECTORIES)/)
+SRCS_RAW_ALL = $(shell find $(SRCS_DIR_project) -type f -name "*.c")
+SRCS_ALL = $(patsubst sources/%,%,$(SRCS_RAW_ALL))
 
-SRCS_NAME_project = [0]main.c \
-					$(SRCS_ALL)
-
+SRCS_NAME_project = $(SRCS_ALL)
 
 SRCS_PROJECT = $(addprefix $(SRCS_DIR_project), $(SRCS_NAME_project))
 
@@ -193,6 +181,7 @@ $(OBJS_PATH)%.o: $(SRCS_DIR_project)%.c $(HDRS)
 		@echo "\t[ $(GREEN)✔$(NONE) ] $@ objet project"
 
 $(NAME): $(GNL_OBJ) $(OBJS_PATH) $(OBJS) $(HDRS)
+		@echo $(SRCS_ALL)
 		@$(CC) $(CFLAGS) $(GNL_OBJ) $(OBJS) $(LIB_BINARY) $(HDR_INC) -o $@
 		@echo "\t[ $(GREEN)✔$(NONE) ] project"
 
