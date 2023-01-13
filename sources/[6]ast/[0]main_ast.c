@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_ast.c                                         :+:      :+:    :+:   */
+/*   [0]main_ast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:31:37 by motero            #+#    #+#             */
-/*   Updated: 2023/01/13 21:15:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/13 23:49:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,46 +60,4 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 		node->right = right;
 	}
 	return (node);
-}
-
-t_ast	*t_cmd_list_to_ast(t_list *cmd_list, int pos)
-{
-	t_cmd		*cmd;
-	t_cmd		*cmd_suffix;
-	t_ast		*left;
-	t_ast		*right;
-	t_ast		*cmd_name_node = NULL;
-	t_ast		*cmd_suffix_node;
-	t_list		*cmd_suffix_list;
-
-	if (!cmd_list)
-		return (NULL);
-	ft_printf("STARFOULA?\n");
-	cmd = (t_cmd *)cmd_list->content;
-	ft_printf("STARFOULA twos?\n");
-	if (cmd->id == PIPE)
-	{
-		ft_printf("THERE IS  PIPE");
-		left = t_cmd_list_to_ast(cmd_list->next, pos);
-		right = t_cmd_list_to_ast(cmd_list->next, pos + 1);
-		return (create_ast_node(cmd, left, right));
-	}
-	else if (cmd->id == UNASSIGNED || cmd->id == BUILTIN)
-	{
-		cmd_suffix_list = cmd_list->next;
-		cmd_name_node = create_ast_node(cmd, NULL, NULL);
-		cmd_suffix_node = NULL;
-		ft_printf("command");
-		while (cmd_suffix_list)
-		{
-			cmd_suffix = (t_cmd *)cmd_suffix_list->content;
-			if (cmd_suffix_node == NULL)
-				cmd_suffix_node = create_ast_node(cmd_suffix, NULL, NULL);
-			else
-				cmd_suffix_node = create_ast_node(cmd_suffix, cmd_suffix_node, NULL);
-			cmd_suffix_list = cmd_suffix_list->next;
-		}
-		return (create_ast_node(NULL, cmd_name_node, cmd_suffix_node));
-	}
-	return (cmd_name_node);
 }
