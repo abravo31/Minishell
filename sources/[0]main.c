@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/13 17:47:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 00:14:14 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	main(int argc, char **argv, char **envp)
 	line = readline("PROMPT_NAME > cat << EOF > file | wc -c | tr -d " " > file2");
 	cmd = hardcode_cmds();
 	print_cmd(cmd);
-	ast_root = t_cmd_list_to_ast(cmd, 0);
+	ast_root = pipe_sequence(cmd, 0);
 	printf("\n\n");
 	print_ast(ast_root, 0);
 }

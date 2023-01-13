@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [1]no_terminal functions.c                         :+:      :+:    :+:   */
+/*   [1]no_terminal_functions.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/13 23:53:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 00:24:14 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ argument		: cmd_word
 				| cmd_word cmd_word
                 ;
 redirection 	: '<' cmd_word
-				| '>' cmd_word
+				|  cmd_word '>' 
 				| '<<' cmd_word
-				| '>>' cmd_word
+				|  cmd_word '>>' 
 				;                 
 */
 
@@ -39,7 +39,7 @@ t_ast	*pipe_sequence(t_list *head, int *i)
 	t_ast			*left;
 	t_ast			*right;
 	t_cmd			*cmd;
-	size_t const	list_len = ft_lstsize(head);
+	int const		list_len = (int)ft_lstlen(head);
 
 	if (head == NULL)
 		return (NULL);
@@ -61,7 +61,6 @@ t_ast	*complexe_command(t_list *head, int *i)
 {
 	t_ast			*left;
 	t_ast			*right;
-	t_cmd			*cmd;
 
 	if (head == NULL)
 		return (NULL);
@@ -69,7 +68,7 @@ t_ast	*complexe_command(t_list *head, int *i)
 	right = NULL;
 	if (is_redirection((t_cmd *)head->content))
 	{
-		left = redirection((t_cmd *)head->content, i);
+		left = redirection(head, i);
 		(*i)++;
 		if (head->next)
 			right = simple_command(head->next, i);
@@ -79,11 +78,11 @@ t_ast	*complexe_command(t_list *head, int *i)
 		left = simple_command(head, i);
 		(*i)++;
 		if (head->next && is_redirection((t_cmd *)head->next->content))
-			right = redirection((t_cmd *)head->next->content, i);
+			right = redirection(head->next, i);
 	}
 	if (right == NULL)
 		return (left);
-	return (create_ast_node(cmd, left, right));
+	return (create_ast_node((t_cmd *)head->content, left, right));
 }
 
 t_ast	*simple_command(t_list *head, int *i)
@@ -94,6 +93,7 @@ t_ast	*simple_command(t_list *head, int *i)
 
 	if (head == NULL)
 		return (NULL);
+	cmd = (t_cmd *)head->content;
 	left = NULL;
 	if ((t_cmd *)head->content == UNASSIGNED)
 		left = cmd_name(head, i);
@@ -101,5 +101,37 @@ t_ast	*simple_command(t_list *head, int *i)
 	(*i)++;
 	if (((t_cmd *)head->next)->id == UNASSIGNED)
 		right = argument(head->next, i);
+	return (create_ast_node(cmd, left, right));
+}
+
+t_ast	*argument(t_list *head, int *i)
+{
+	t_ast			*left;
+	t_ast			*right;
+	t_cmd			*cmd;
+
+	if (head == NULL)
+		return (NULL);
+	cmd = (t_cmd *)head->content;
+	left = NULL;
+	if ((t_cmd *)head->content == UNASSIGNED)
+		left = cmd_word(head, i);
+	right = NULL;
+	return (create_ast_node(cmd, left, right));
+}
+
+t_ast	*redirection(t_list *head, int *i)
+{
+	t_ast			*left;
+	t_ast			*right;
+	t_cmd			*cmd;
+
+	if (head == NULL)
+		return (NULL);
+	cmd = (t_cmd *)head->content;
+	left = NULL;
+	if ((t_cmd *)head->content == UNASSIGNED)
+		left = cmd_word(head, i);
+	right = NULL;
 	return (create_ast_node(cmd, left, right));
 }
