@@ -6,11 +6,36 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:31:37 by motero            #+#    #+#             */
-/*   Updated: 2023/01/12 00:20:31 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/13 21:15:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
+
+/*
+Grammar table being a grammar-free parser
+
+pipe_sequence    : complexe_command
+                 | complexe_command '|' pipe_sequence
+                 ;
+complexe_command : simple_command 
+				 | simple_command  redirection
+				 | redirection	simple_command
+simple_command	: cmd_name
+				| cmd_name argument
+				;
+argument		: cmd_word
+				| cmd_word cmd_word
+cmd_name         : WORD                   
+                 ;
+cmd_word         : WORD
+                 ;
+redirection 	: '<' WORD
+				| '>' WORD
+				| '<<' WORD
+				| '>>' WORD
+				;
+*/
 
 void	print_ast(t_ast *root, int level)
 {
@@ -29,7 +54,7 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 	node = ft_calloc(1, sizeof(t_ast));
 	if (cmd)
 	{
-		node->id = cmd->id;
+		node->id->token = cmd->id;
 		node->data = cmd->cmd;
 		node->left = left;
 		node->right = right;

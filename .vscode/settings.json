@@ -2,6 +2,7 @@
 	"files.associations": {
 		"stdio.h": "c",
 		"cstdlib": "c",
-		"expander.h": "c"
+		"expander.h": "c",
+		"structures.h": "c"
 	}
 }

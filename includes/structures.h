@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/11 23:43:46 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/13 21:46:24 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ typedef enum e_token
 	BUILTIN,
 	D_QUOTE,
 	S_QUOTE,
-	CMD_NAME,
-	CMD_WORD,
-	SIMPLE_COMMAND,
 }	t_token;
 
 typedef struct s_cmd
@@ -48,6 +45,28 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef enum e_operator{
+	PIPE_SEQUENCE ,
+	COMPLEXE_COMMAND,
+	SIMPLE_COMMAND,
+	ARGUMENT,
+	REDIRECTION,
+}	t_op;
+
+typedef union id{
+	t_op		op;
+	t_token		token;
+}	t_id;
+
+typedef struct s_ast_node
+{
+	char				*data;
+	t_id				*id;
+	struct s_ast_node	*parent;
+	struct s_ast_node	*left;
+	struct s_ast_node	*right;
+}						t_ast;
+
 typedef struct s_minishell
 {
 	char	*prompt;
@@ -55,19 +74,7 @@ typedef struct s_minishell
 	int		status;
 	t_list	*cmd;
 	t_list	*env;
+	t_ast	*root;
 }	t_minishell;
-
-/*############################################################################*/
-/*                              STRUCTURES                                    */
-/*############################################################################*/
-
-typedef struct s_ast_node
-{
-	char				*data;
-	t_token				id;
-	struct s_ast_node	*parent;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-}						t_ast;
 
 #endif
