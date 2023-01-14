@@ -44,5 +44,6 @@ t_ast	*cmd_word(t_list *head, int *i);
 /*############################################################################*/
 size_t	ft_lstlen(t_list *lst);
 int		is_redirection(t_cmd *cmd);
+void	print2DUtil(t_ast *root, int space);
 
 #endif
