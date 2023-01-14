@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 20:06:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 20:28:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,18 +120,9 @@ t_list	*hardcode_cmds(void)
 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
 	head = current;
 
-	cmd.cmd = "|";
-	cmd.id = PIPE;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-
+	
 	cmd.cmd = "ls";
 	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-
-	cmd.cmd = "|";
-	cmd.id = PIPE;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 

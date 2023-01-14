@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 18:38:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 20:50:37 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_ast	*cmd_word(t_list **head, int *i)
 		return (NULL);
 	first_word = (t_cmd *)(*head)->content;
 	cmd = (t_cmd *)(*head)->content;
-	while (cmd->id == UNASSIGNED)
+	while ((*head) && cmd->id == UNASSIGNED)
 	{
 		(*i)++;
 		(*head) = (*head)->next;

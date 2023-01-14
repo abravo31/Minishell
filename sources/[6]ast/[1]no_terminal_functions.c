@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 20:05:52 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 20:50:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,7 @@ t_ast	*simple_command(t_list **head, int *i)
 	{
 		left = cmd_name(head, i);
 		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
-		{
-			//to analyze if it necesary to advance the head and i
-			(*i)++;
-			(*head) = (*head)->next;
 			right = argument(head, i);
-		}
 	}
 	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));
 }
@@ -125,7 +120,7 @@ t_ast	*argument(t_list **head, int *i)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
-	if ((t_cmd *)(*head)->content == UNASSIGNED)
+	if (cmd->id == UNASSIGNED)
 		left = cmd_word(head, i);
 	right = NULL;
 	return (create_ast_no_terminal(ARGUMENT, left, right));
