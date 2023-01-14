@@ -27,17 +27,17 @@ void	print_ast(t_ast *root, int level);
 /*############################################################################*/
 /*							NOTERMINAL FUNCTIONS                              */
 /*############################################################################*/
-t_ast	*pipe_sequence(t_list *head, int *i);
-t_ast	*complexe_command(t_list *head, int *i);
-t_ast	*simple_command(t_list *head, int *i);
-t_ast	*argument(t_list *head, int *i);
-t_ast	*redirection(t_list *head, int *i);
+t_ast	*pipe_sequence(t_list **head, int *i);
+t_ast	*complexe_command(t_list **head, int *i);
+t_ast	*simple_command(t_list **head, int *i);
+t_ast	*argument(t_list **head, int *i);
+t_ast	*redirection(t_list **head, int *i);
 
 /*############################################################################*/
 /*							TERMINAL FUNCTIONS                              */
 /*############################################################################*/
-t_ast	*cmd_name(t_list *head, int *i);
-t_ast	*cmd_word(t_list *head, int *i);
+t_ast	*cmd_name(t_list **head, int *i);
+t_ast	*cmd_word(t_list **head, int *i);
 
 /*############################################################################*/
 /*							AUXILIARY FUNCTIONS                              */
