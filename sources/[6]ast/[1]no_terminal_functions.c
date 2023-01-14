@@ -76,9 +76,12 @@ t_ast	*complexe_command(t_list *head, int *i)
 	else
 	{
 		left = simple_command(head, i);
-		(*i)++;
+		//(*i)++;
 		if (head->next && is_redirection((t_cmd *)head->next->content))
+		{
+			(*i)++;
 			right = redirection(head->next, i);
+		}
 	}
 	if (right == NULL)
 		return (left);
@@ -98,9 +101,12 @@ t_ast	*simple_command(t_list *head, int *i)
 	if (((t_cmd *)head->content)->id == UNASSIGNED)
 		left = cmd_name(head, i);
 	right = NULL;
-	(*i)++;
+//	(*i)++;
 	if (((t_cmd *)head->next)->id == UNASSIGNED)
+	{
+		(*i)++;
 		right = argument(head->next, i);
+	}
 	return (create_ast_node(cmd, left, right));
 }
 

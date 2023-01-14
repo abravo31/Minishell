@@ -174,6 +174,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd = hardcode_cmds();
 	print_cmd(cmd);
 	ast_root = pipe_sequence(cmd, &i);
+
 	printf("\n\n");
 	//print_ast(ast_root, 0);
 	print2DUtil(ast_root, 0);
