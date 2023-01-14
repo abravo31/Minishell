@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 21:29:36 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:59:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,18 @@ t_ast	*argument(t_list **head, int *i)
 	return (create_ast_no_terminal(ARGUMENT, left, right));
 }
 
-t_ast	*redirection(t_list **head, int *i)
-{
-	t_ast			*left;
-	t_ast			*right;
-	t_cmd			*cmd;
+// t_ast	*redirection(t_list **head, int *i)
+// {
+// 	t_ast			*left;
+// 	t_ast			*right;
+// 	t_cmd			*cmd;
 
-	if ((*head) == NULL)
-		return (NULL);
-	cmd = (t_cmd *)(*head)->content;
-	left = NULL;
-	if ((t_cmd *)(*head)->content == UNASSIGNED)
-		left = cmd_word(head, i);
-	right = NULL;
-	return (create_ast_no_terminal(REDIRECTION, left, right));
-}
+// 	if ((*head) == NULL)
+// 		return (NULL);
+// 	cmd = (t_cmd *)(*head)->content;
+// 	left = NULL;
+// 	if ((t_cmd *)(*head)->content == UNASSIGNED)
+// 		left = cmd_word(head, i);
+// 	right = NULL;
+// 	return (create_ast_no_terminal(REDIRECTION, left, right));
+// }

@@ -20,18 +20,26 @@
 /*                              AST FUNCTIONS                                 */
 /*############################################################################*/
 
-t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right);
-t_ast	*t_cmd_list_to_ast(t_list *cmd_list, int pos);
-void	print_ast(t_ast *root, int level);
+t_ast		*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right);
+t_ast		*t_cmd_list_to_ast(t_list *cmd_list, int pos);
+void		print_ast(t_ast *root, int level);
 
 /*############################################################################*/
 /*							NOTERMINAL FUNCTIONS                              */
 /*############################################################################*/
-t_ast	*pipe_sequence(t_list **head, int *i);
-t_ast	*complexe_command(t_list **head, int *i);
-t_ast	*simple_command(t_list **head, int *i);
-t_ast	*argument(t_list **head, int *i);
-t_ast	*redirection(t_list **head, int *i);
+t_ast		*pipe_sequence(t_list **head, int *i);
+t_ast		*complexe_command(t_list **head, int *i);
+t_ast		*simple_command(t_list **head, int *i);
+t_ast		*argument(t_list **head, int *i);
+
+/*############################################################################*/
+/*							REDIRECTION FUNCTIONS                             */
+/*############################################################################*/
+t_ast		*redirection(t_list **head, int *i);
+t_ast		*redirection_left(t_list **head, int *i);
+t_ast		*redirection_right(t_list **head, int *i);
+t_ast		*redirection_double_left(t_list **head, int *i);
+t_ast		*redirection_double_right(t_list **head, int *i);
 
 /*############################################################################*/
 /*							TERMINAL FUNCTIONS                              */
