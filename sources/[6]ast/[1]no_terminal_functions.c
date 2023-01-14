@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 19:00:23 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 20:05:52 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,19 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	t_ast			*left;
 	t_ast			*right;
 	t_cmd			*cmd;
-	int const		list_len = (int)ft_lstlen(*head);
 
 	if ((*head) == NULL)
 		return (NULL);
 	left = complexe_command(head, i);
 	right = NULL;
-	while (*i < list_len && ((t_cmd *)(*head)->content)->id == PIPE)
+	while ((*head) && ((t_cmd *)(*head)->content)->id == PIPE)
 	{
 		cmd = (t_cmd *)(*head)->content;
 		*head = (*head)->next;
 		(*i)++;
 		right = pipe_sequence(head, i);
 	}
-	if (*i < list_len - 1)
+	if ((*head) == NULL && right == NULL)
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
@@ -79,7 +78,7 @@ t_ast	*complexe_command(t_list **head, int *i)
 	else
 	{
 		left = simple_command(head, i);
-		if ((*head)->next && is_redirection((t_cmd *)(*head)->next->content))
+		if ((*head) && (*head)->next && is_redirection((t_cmd *)(*head)->next->content))
 		{
 			(*i)++;
 			(*head) = (*head)->next;
@@ -101,16 +100,17 @@ t_ast	*simple_command(t_list **head, int *i)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
-	if (((t_cmd *)(*head)->content)->id == UNASSIGNED)
-		left = cmd_name(head, i);
 	right = NULL;
-//	(*i)++;
-//wrong when left is wring we have advance head and we do not need anymore to have head->next, this should go inside the first if 
-	if (((t_cmd *)(*head)->next->content)->id == UNASSIGNED)
+	if (((t_cmd *)(*head)->content)->id == UNASSIGNED)
 	{
-		(*i)++;
-		(*head) = (*head)->next;
-		right = argument(head, i);
+		left = cmd_name(head, i);
+		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+		{
+			//to analyze if it necesary to advance the head and i
+			(*i)++;
+			(*head) = (*head)->next;
+			right = argument(head, i);
+		}
 	}
 	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));
 }
