@@ -40,11 +40,15 @@ t_ast	*pipe_sequence(t_list *head, int *i)
 	t_ast			*right;
 	t_cmd			*cmd;
 	int const		list_len = (int)ft_lstlen(head);
+	int				j;
 
 	if (head == NULL)
 		return (NULL);
 	left = complexe_command(head, i);
 	right = NULL;
+	j = 0;
+	while (j++ < *i)
+		head = head->next;
 	while (*i < list_len && ((t_cmd *)head->content)->id == PIPE)
 	{
 		cmd = (t_cmd *)head->content;
@@ -71,16 +75,19 @@ t_ast	*complexe_command(t_list *head, int *i)
 		left = redirection(head, i);
 		(*i)++;
 		if (head->next)
-			right = simple_command(head->next, i);
+		{
+			head = head->next;
+			right = simple_command(head, i);
+		}
 	}
 	else
 	{
 		left = simple_command(head, i);
-		//(*i)++;
 		if (head->next && is_redirection((t_cmd *)head->next->content))
 		{
 			(*i)++;
-			right = redirection(head->next, i);
+			head = head->next;
+			right = redirection(head, i);
 		}
 	}
 	if (right == NULL)
@@ -105,7 +112,8 @@ t_ast	*simple_command(t_list *head, int *i)
 	if (((t_cmd *)head->next)->id == UNASSIGNED)
 	{
 		(*i)++;
-		right = argument(head->next, i);
+		head = head->next;
+		right = argument(head, i);
 	}
 	return (create_ast_node(cmd, left, right));
 }
