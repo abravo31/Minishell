@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 00:08:04 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 17:56:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_ast	*cmd_name(t_list *head, int *i)
 	if (cmd->id == UNASSIGNED)
 	{
 		(*i)++;
-		return (create_ast_node(cmd, NULL, NULL));
+		return (create_ast_terminal(cmd, NULL, NULL));
 	}
 	return (NULL);
 }
@@ -47,5 +47,5 @@ t_ast	*cmd_word(t_list *head, int *i)
 		(*i)++;
 		head = head->next;
 	}
-	return (create_ast_node(first_word, NULL, NULL));
+	return (create_ast_terminal(first_word, NULL, NULL));
 }

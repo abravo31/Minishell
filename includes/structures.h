@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/13 21:46:24 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 17:49:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef union id{
 typedef struct s_ast_node
 {
 	char				*data;
+	int					terminal;	
 	t_id				*id;
 	struct s_ast_node	*parent;
 	struct s_ast_node	*left;

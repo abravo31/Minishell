@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 00:24:14 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 17:56:01 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ t_ast	*pipe_sequence(t_list *head, int *i)
 	t_ast			*right;
 	t_cmd			*cmd;
 	int const		list_len = (int)ft_lstlen(head);
-	int				j;
+	// int				j;
 
 	if (head == NULL)
 		return (NULL);
 	left = complexe_command(head, i);
 	right = NULL;
-	j = 0;
-	while (j++ < *i)
-		head = head->next;
+	// j = 0;
+	// while (j++ < *i)
+	// 	head = head->next;
 	while (*i < list_len && ((t_cmd *)head->content)->id == PIPE)
 	{
 		cmd = (t_cmd *)head->content;
@@ -58,7 +58,8 @@ t_ast	*pipe_sequence(t_list *head, int *i)
 	}
 	if (*i < list_len - 1)
 		return (left);
-	return (create_ast_node(cmd, left, right));
+	//return (create_ast_node((t_cmd *)head->content, left, right));
+	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
 
 t_ast	*complexe_command(t_list *head, int *i)
@@ -92,7 +93,7 @@ t_ast	*complexe_command(t_list *head, int *i)
 	}
 	if (right == NULL)
 		return (left);
-	return (create_ast_node((t_cmd *)head->content, left, right));
+	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
 }
 
 t_ast	*simple_command(t_list *head, int *i)
@@ -115,7 +116,7 @@ t_ast	*simple_command(t_list *head, int *i)
 		head = head->next;
 		right = argument(head, i);
 	}
-	return (create_ast_node(cmd, left, right));
+	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));
 }
 
 t_ast	*argument(t_list *head, int *i)
@@ -131,7 +132,7 @@ t_ast	*argument(t_list *head, int *i)
 	if ((t_cmd *)head->content == UNASSIGNED)
 		left = cmd_word(head, i);
 	right = NULL;
-	return (create_ast_node(cmd, left, right));
+	return (create_ast_no_terminal(ARGUMENT, left, right));
 }
 
 t_ast	*redirection(t_list *head, int *i)
@@ -147,5 +148,5 @@ t_ast	*redirection(t_list *head, int *i)
 	if ((t_cmd *)head->content == UNASSIGNED)
 		left = cmd_word(head, i);
 	right = NULL;
-	return (create_ast_node(cmd, left, right));
+	return (create_ast_no_terminal(REDIRECTION, left, right));
 }

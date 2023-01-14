@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 00:14:14 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 17:56:23 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ int	main(int argc, char **argv, char **envp)
 	cmd = hardcode_cmds();
 	print_cmd(cmd);
 	ast_root = pipe_sequence(cmd, &i);
-
 	printf("\n\n");
 	//print_ast(ast_root, 0);
 	print2DUtil(ast_root, 0);
