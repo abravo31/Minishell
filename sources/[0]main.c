@@ -42,6 +42,73 @@ t_list	*ft_lstnew2(void const *content, size_t content_size)
 }
 
 //cmd ahardcoded cat << EOF > file | wc -c | tr -d " " > file2
+// t_list	*hardcode_cmds(void)
+// {
+// 	t_list	*head = NULL;
+// 	t_list	*current = NULL;
+// 	t_cmd	cmd;
+
+// 	cmd.cmd = "cat";
+// 	cmd.id = UNASSIGNED;
+// 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	head = current;
+// 	cmd.cmd = "<<";
+// 	cmd.id = L_DREDIR;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "EOF";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = ">";
+// 	cmd.id = R_REDIR;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "file";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "|";
+// 	cmd.id = PIPE;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "wc";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "-c";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "|";
+// 	cmd.id = PIPE;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "tr";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "-d";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = " ";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = ">";
+// 	cmd.id = R_REDIR;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	cmd.cmd = "file2";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+// 	return (head);
+// }
+
+
+//ls |cat| cat
 t_list	*hardcode_cmds(void)
 {
 	t_list	*head = NULL;
@@ -52,59 +119,28 @@ t_list	*hardcode_cmds(void)
 	cmd.id = UNASSIGNED;
 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
 	head = current;
-	cmd.cmd = "<<";
-	cmd.id = L_DREDIR;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	cmd.cmd = "EOF";
-	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	cmd.cmd = ">";
-	cmd.id = R_REDIR;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	cmd.cmd = "file";
-	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
+
 	cmd.cmd = "|";
 	cmd.id = PIPE;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
-	cmd.cmd = "wc";
+
+	cmd.cmd = "ls";
 	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
-	cmd.cmd = "-c";
-	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
+
 	cmd.cmd = "|";
 	cmd.id = PIPE;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
-	cmd.cmd = "tr";
+
+	cmd.cmd = "cat";
 	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
-	cmd.cmd = "-d";
-	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	cmd.cmd = " ";
-	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	cmd.cmd = ">";
-	cmd.id = R_REDIR;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	cmd.cmd = "file2";
-	cmd.id = UNASSIGNED;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
-	return (head);
+
+	return(head);
 }
 
 //print whole cmd linked list with all the tokens
@@ -127,15 +163,17 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*cmd;
 	char	*line;
 	t_ast	*ast_root;
+	int		i = 0;
 
 	setup_signal_handlers();
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	line = readline("PROMPT_NAME > cat << EOF > file | wc -c | tr -d " " > file2");
+	(void)line;
 	cmd = hardcode_cmds();
 	print_cmd(cmd);
-	ast_root = pipe_sequence(cmd, 0);
+	ast_root = pipe_sequence(cmd, &i);
 	printf("\n\n");
 	print_ast(ast_root, 0);
 }

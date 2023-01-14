@@ -52,8 +52,10 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 	t_ast	*node;
 
 	node = ft_calloc(1, sizeof(t_ast));
+	node->id = malloc(sizeof(t_id));
 	if (cmd)
 	{
+		//ft_printf("cmd->id = %s\n", cmd->id);
 		node->id->token = cmd->id;
 		node->data = cmd->cmd;
 		node->left = left;

@@ -95,7 +95,7 @@ t_ast	*simple_command(t_list *head, int *i)
 		return (NULL);
 	cmd = (t_cmd *)head->content;
 	left = NULL;
-	if ((t_cmd *)head->content == UNASSIGNED)
+	if (((t_cmd *)head->content)->id == UNASSIGNED)
 		left = cmd_name(head, i);
 	right = NULL;
 	(*i)++;
