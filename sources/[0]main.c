@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 20:28:31 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:27:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,66 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 
-	cmd.cmd = "cat";
+	cmd.cmd = "cat3";
+	cmd.id = UNASSIGNED;
+	current = ft_lstnew2(&cmd, sizeof(t_cmd));
+	head = current;
+		cmd.cmd = "cat2";
+	cmd.id = UNASSIGNED;
+	current = ft_lstnew2(&cmd, sizeof(t_cmd));
+	head = current;
+
+	cmd.cmd = "|";
+	cmd.id = PIPE;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "secondpipe";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "arg2d";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+		cmd.cmd = "|";
+	cmd.id = PIPE;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "thirdpipe";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "arg3d";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+		cmd.cmd = "|";
+	cmd.id = PIPE;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "fourthpipe";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "arg4d";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+		cmd.cmd = "arg4d";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+		cmd.cmd = "arg4d";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+		cmd.cmd = "arg4d";
 	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;

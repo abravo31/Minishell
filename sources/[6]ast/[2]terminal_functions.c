@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 20:50:37 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/14 21:29:13 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ t_ast	*cmd_word(t_list **head, int *i)
 	{
 		(*i)++;
 		(*head) = (*head)->next;
+		if ((*head) == NULL)
+			break ;
+		cmd = (t_cmd *)(*head)->content;
 	}
 	return (create_ast_terminal(first_word, NULL, NULL));
 }
