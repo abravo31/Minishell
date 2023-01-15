@@ -20,6 +20,7 @@ pipe_sequence 	:complexe_command
 complexe_command : complexe_command redirection
 				 | simple_command 
 				 | simple_command redirection
+				 ;
 simple_command	: cmd_name
 				| cmd_name argument
 				;
@@ -77,9 +78,14 @@ t_ast	*complexe_command(t_list **head, int *i)
 		left = complexe_command(head, i);
 	}
 	if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+	{
 		left = simple_command(head, i);
+		right = complexe_command(head, i);
+	}
 	if (right == NULL)
 		return (left);
+	if (left == NULL)
+		return (right);
     return create_ast_no_terminal(COMPLEXE_COMMAND, left, right);
 }
 
