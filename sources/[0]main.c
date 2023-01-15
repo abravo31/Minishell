@@ -165,6 +165,26 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 
+	cmd.cmd = "cmd1";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+	
+	cmd.cmd = "arg1";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "|";
+	cmd.id = PIPE;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "tr";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
 	return(head);
 }
 

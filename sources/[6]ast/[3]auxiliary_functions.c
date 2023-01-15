@@ -40,15 +40,15 @@ void	print2DUtil(t_ast *root, int space)
 
 	if (root == NULL)
 		return ;
-	space += 20;
+	space += 10;
 	print2DUtil(root->right, space);
 	ft_printf("\n");
-	for (int i = 20; i < space; i++)
+	for (int i = 10; i < space; i++)
 		ft_printf(" ");
 	if (root->terminal)
 	{
 		ft_printf("%s\n", tokens[root->id->token]);
-		for (int i = 20; i < space; i++)
+		for (int i = 10; i < space; i++)
 			ft_printf(" ");
 		ft_printf("%s\n",root->data);
 	}

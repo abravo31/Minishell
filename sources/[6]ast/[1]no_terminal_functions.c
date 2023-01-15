@@ -76,8 +76,10 @@ t_ast	*complexe_command(t_list **head, int *i)
 		right = redirection(head, i);
 		left = complexe_command(head, i);
 	}
-	if ((*head))
+	if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
 		left = simple_command(head, i);
+	if (right == NULL)
+		return (left);
     return create_ast_no_terminal(COMPLEXE_COMMAND, left, right);
 }
 
