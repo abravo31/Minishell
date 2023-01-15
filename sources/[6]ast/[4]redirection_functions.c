@@ -26,12 +26,13 @@ t_ast	*redirection(t_list **head, int *i)
 	int			index;
 	t_ast		*(*redirection_function[4])(t_list **, int *i);
 
+
 	init_redirection_function(redirection_function);
-	index = ((t_cmd *)(*head)->content)->id;
+	index = 1;
 	while (index <= L_DREDIR)
 	{
 		if (index == (int)((t_cmd *)(*head)->content)->id)
-			return (redirection_function[index](head, i));
+			return (redirection_function[index - 1](head, i));
 		index++;
 	}
 	return (NULL);
@@ -42,8 +43,8 @@ t_ast	*redirection_left(t_list **head, int *i)
 	t_ast	*left;
 	t_ast	*right;
 
-	left = cmd_name(head, i);
-	right = cmd_redir(head, i);
+	right = cmd_name(head, i);
+	left = cmd_redir(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
@@ -52,8 +53,9 @@ t_ast	*redirection_right(t_list **head, int *i)
 	t_ast	*left;
 	t_ast	*right;
 
-	right = cmd_redir(head, i);
-	left = cmd_name(head, i);
+	ft_printf("redirection_right\n");
+	left = cmd_redir(head, i);
+	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 

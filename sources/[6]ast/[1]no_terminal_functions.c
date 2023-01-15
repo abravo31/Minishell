@@ -79,10 +79,10 @@ t_ast	*complexe_command(t_list **head, int *i)
 	else
 	{
 		left = simple_command(head, i);
-		if ((*head) && (*head)->next && is_redirection((t_cmd *)(*head)->next->content))
+		if ((*head) && is_redirection((t_cmd *)(*head)->content))
 		{
-			(*i)++;
-			(*head) = (*head)->next;
+			// (*i)++;
+			// (*head) = (*head)->next;
 			right = redirection(head, i);
 		}
 	}
