@@ -16,7 +16,11 @@ cmd_name         : WORD
                  ;
 cmd_word         : WORD
                  ;
-
+cdm_redir        : '<' cmd_word
+				 |  cmd_word '>' 
+				 | '<<' cmd_word
+				 |  cmd_word '>>' 
+				 ;
 */
 
 t_ast	*cmd_name(t_list **head, int *i)
