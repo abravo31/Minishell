@@ -37,16 +37,6 @@ redirection 	: '<' WORD
 				;
 */
 
-void	print_ast(t_ast *root, int level)
-{
-	if (root == NULL)
-		return ;
-	for (int i = 0; i < level; i++) ft_printf("\t");
-	ft_printf("%s\n", root->data);
-	print_ast(root->left, level + 1);
-	print_ast(root->right, level + 1);
-}
-
 t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 {
 	t_ast	*node;
@@ -55,7 +45,6 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 	node->id = malloc(sizeof(t_id));
 	if (cmd)
 	{
-		//ft_printf("cmd->id = %s\n", cmd->id);
 		node->id->token = cmd->id;
 		node->data = cmd->cmd;
 		node->left = left;
