@@ -20,15 +20,14 @@ t_list	*ft_lstnew2(void const *content, size_t content_size)
 {
 	t_list	*new_node;
 
-	if (!(new_node = (t_list*)malloc(sizeof(t_list))))
+	new_node = (t_list *)malloc(sizeof(t_list));
+	if (!new_node)
 		return (NULL);
 	if (content)
 	{
-		if (!(new_node->content = malloc(content_size)))
-		{
-			free(new_node);
-			return (NULL);
-		}
+		new_node->content = malloc(content_size);
+		if (!new_node->content)
+			return (free(new_node), NULL);
 		ft_memcpy(new_node->content, content, content_size);
 		new_node->content_size = content_size;
 	}
