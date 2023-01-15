@@ -12,6 +12,13 @@
 
 #include "ast.h"
 
+/*
+This function initializes an array of function pointers with the address of the 
+corresponding redirection functions, which are redirection_right, 
+redirection_double_right, redirection_left, and redirection_double_left.
+The array is indexed by the id of the redirection operator, allowing for easy
+lookup and execution of the correct redirection function.
+*/
 void	init_redirection_function(t_ast *(*redirection_function[4])
 (t_list **, int *))
 {
@@ -21,41 +28,65 @@ void	init_redirection_function(t_ast *(*redirection_function[4])
 	redirection_function[3] = &redirection_double_left;
 }
 
+/*
+Creates a redirection AST node with a cmd_redir node as the left 
+child and a cmd_name node as the right child.
+*/
 t_ast	*redirection_left(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
 
+	left = NULL;
+	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
+/*
+Creates a redirection AST node with a cmd_redir node as 
+the left child and a cmd_name node as the right child.
+*/
 t_ast	*redirection_right(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
 
+	left = NULL;
+	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
+/*
+Creates a redirection AST node with a cmd_redir node as the 
+left child and a cmd_name node as the right child.
+*/
 t_ast	*redirection_double_left(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
 
+	left = NULL;
+	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
+/*
+Creates a redirection AST node with a cmd_redir node as 
+the left child and a cmd_name node as the right child.
+*/
 t_ast	*redirection_double_right(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
 
+	left = NULL;
+	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
