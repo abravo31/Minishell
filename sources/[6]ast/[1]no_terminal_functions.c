@@ -37,13 +37,16 @@ redirection 	: '<' cmd_word
 
 /*
 pipe_sequence - function that creates an AST node for a pipe sequence.
-A pipe sequence is a series of one or more complex commands separated by the pipe operator '|'.
+A pipe sequence is a series of one or more complex commands separated 
+by the pipe operator '|'.
 This function takes a pointer to a linked list of tokens and an index.
 It starts by creating a left AST node with the first complex command.
-Then it loops through the linked list while the current token is a pipe operator.
-For each iteration, it moves to the next token and creates a right AST node with the next pipe sequence.
+Then it loops through the linked list while the current token is '|' operator.
+For each iteration, it moves to the next token and creates a right AST node 
+with the next pipe sequence.
 If there are no more pipe operators, the right AST node is set to NULL.
-Finally, it returns an AST node with the type PIPE_SEQUENCE and left and right children set to the left and right AST nodes.
+Finally, it returns an AST node with the type PIPE_SEQUENCE and left 
+and right children set to the left and right AST nodes.
 */
 t_ast	*pipe_sequence(t_list **head, int *i)
 {
@@ -65,15 +68,32 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
 
-/*complexe_comand function following this new rule
+/*
+complexe_comand function following this new rule
 complexe_command : complexe_command redirection
 				 | simple_command 
 				 | simple_command redirection
-				 */
+				 ;
+
+This function is for parsing the complex command in the input command line.
+It starts by initializing the left and right pointers of the AST as NULL.
+Then, it checks if there are any redirection operators at the beginning of 
+the input command line.
+If there are, it assigns the left pointer to the first redirection operator
+and recursively calls the function to find any additional redirection 
+operators before the command.
+Once it finds the command, it assigns the left pointer to the command and 
+recursively calls the function to find any additional redirection operators
+after the command.
+If there are no more elements in the input command line, the function will
+return the left pointer as the final AST node for the complex command.
+Otherwise, it creates a new AST node for the complex command and assigns
+the left and right pointers as its left and right children.
+*/
 
 t_ast	*complexe_command(t_list **head, int *i)
 {
-    t_ast	*left;
+	t_ast	*left;
 	t_ast	*right;
 
 	if ((*head) == NULL)
@@ -94,7 +114,7 @@ t_ast	*complexe_command(t_list **head, int *i)
 		return (left);
 	if (left == NULL)
 		return (right);
-    return create_ast_no_terminal(COMPLEXE_COMMAND, left, right);
+	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
 }
 
 t_ast	*simple_command(t_list **head, int *i)
