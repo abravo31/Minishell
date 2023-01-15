@@ -117,16 +117,24 @@ t_ast	*complexe_command(t_list **head, int *i)
 	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
 }
 
+/*
+This function is responsible for creating an AST node for 
+a simple command. It does so by:
+
+-Checking if the current command is of type UNASSIGNED.
+-If it is, it gets the command name and assigns it to the left child 
+the AST node.
+-If the new node is also of type UNASSIGNED, we deduce it is an argument 
+and assigns it to the right child of the AST node.
+-Finally, it returns the AST node representing this simple command.
+*/
 t_ast	*simple_command(t_list **head, int *i)
 {
 	t_ast			*left;
 	t_ast			*right;
-	t_cmd			*cmd;
 
-	(void)cmd;
 	if ((*head) == NULL)
 		return (NULL);
-	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
 	right = NULL;
 	if (((t_cmd *)(*head)->content)->id == UNASSIGNED)
@@ -138,6 +146,19 @@ t_ast	*simple_command(t_list **head, int *i)
 	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));
 }
 
+/*
+This function checks if the current command is an argument and creates 
+an AST node for it. It also handles the case where there are multiple arguments.
+
+-The head of the command list is checked for NULL. 
+If it is, the function returns NULL.
+-A variable cmd is assigned the current command.
+-The left and right nodes of the AST are set to NULL.
+-If the current command is an argument, the left node is set to the
+cmd_word and the right node is set to NULL.
+-The AST node is created with the type ARGUMENT and left and right
+nodes as arguments. The function then returns this node.
+*/
 t_ast	*argument(t_list **head, int *i)
 {
 	t_ast			*left;
@@ -151,5 +172,7 @@ t_ast	*argument(t_list **head, int *i)
 	if (cmd->id == UNASSIGNED)
 		left = cmd_word(head, i);
 	right = NULL;
+	if (left == NULL)
+		return (NULL);
 	return (create_ast_no_terminal(ARGUMENT, left, right));
 }
