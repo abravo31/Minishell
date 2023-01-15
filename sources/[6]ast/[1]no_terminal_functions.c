@@ -44,6 +44,7 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 		return (NULL);
 	left = complexe_command(head, i);
 	right = NULL;
+	(void)cmd;
 	while ((*head) && ((t_cmd *)(*head)->content)->id == PIPE)
 	{
 		cmd = (t_cmd *)(*head)->content;
@@ -69,7 +70,7 @@ t_ast	*complexe_command(t_list **head, int *i)
 	{
 		left = redirection(head, i);
 		(*i)++;
-		if ((*head)->next)
+		if ((*head) && (*head)->next)
 		{
 			(*head) = (*head)->next;
 			right = simple_command(head, i);
@@ -96,6 +97,7 @@ t_ast	*simple_command(t_list **head, int *i)
 	t_ast			*right;
 	t_cmd			*cmd;
 
+	(void)cmd;
 	if ((*head) == NULL)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;

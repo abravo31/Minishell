@@ -212,8 +212,8 @@ t_list	*hardcode_cmds(void)
 
 	cmd.cmd = ">";
 	cmd.id = R_REDIR;
-	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	current = current->next;
+	current = ft_lstnew2(&cmd, sizeof(t_cmd));
+	head = current;
 
 	cmd.cmd = "file2";
 	cmd.id = UNASSIGNED;

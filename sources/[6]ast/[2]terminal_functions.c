@@ -53,3 +53,19 @@ t_ast	*cmd_word(t_list **head, int *i)
 	}
 	return (create_ast_terminal(first_word, NULL, NULL));
 }
+
+t_ast	*cmd_redir(t_list **head, int *i)
+{
+	t_cmd	*cmd;
+
+	if ((*head) == NULL)
+		return (NULL);
+	cmd = (t_cmd *)(*head)->content;
+	if (is_redirection(cmd))
+	{
+		(*i)++;
+		(*head) = (*head)->next;
+		return (create_ast_terminal(cmd, NULL, NULL));
+	}
+	return (NULL);
+}
