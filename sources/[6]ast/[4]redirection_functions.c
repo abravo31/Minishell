@@ -12,30 +12,13 @@
 
 #include "ast.h"
 
-static void	init_redirection_function(t_ast *(*redirection_function[4])
+void	init_redirection_function(t_ast *(*redirection_function[4])
 (t_list **, int *))
 {
 	redirection_function[0] = &redirection_right;
 	redirection_function[1] = &redirection_double_right;
 	redirection_function[2] = &redirection_left;
 	redirection_function[3] = &redirection_double_left;
-}
-
-t_ast	*redirection(t_list **head, int *i)
-{
-	int			index;
-	t_ast		*(*redirection_function[4])(t_list **, int *i);
-
-
-	init_redirection_function(redirection_function);
-	index = 1;
-	while (index <= L_DREDIR)
-	{
-		if (index == (int)((t_cmd *)(*head)->content)->id)
-			return (redirection_function[index - 1](head, i));
-		index++;
-	}
-	return (NULL);
 }
 
 t_ast	*redirection_left(t_list **head, int *i)

@@ -34,6 +34,8 @@ t_ast		*argument(t_list **head, int *i);
 /*############################################################################*/
 /*							REDIRECTION FUNCTIONS                             */
 /*############################################################################*/
+void		init_redirection_function(t_ast *(*redirection_function[4])
+				(t_list **, int *));
 t_ast		*redirection(t_list **head, int *i);
 t_ast		*redirection_left(t_list **head, int *i);
 t_ast		*redirection_right(t_list **head, int *i);
