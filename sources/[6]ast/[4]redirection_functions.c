@@ -53,7 +53,6 @@ t_ast	*redirection_right(t_list **head, int *i)
 	t_ast	*left;
 	t_ast	*right;
 
-	ft_printf("redirection_right\n");
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
