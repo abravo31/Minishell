@@ -108,119 +108,29 @@ t_list	*ft_lstnew2(void const *content, size_t content_size)
 // }
 
 
-//ls |cat| cat
-// t_list	*hardcode_cmds(void)
-// {
-// 	t_list	*head = NULL;
-// 	t_list	*current = NULL;
-// 	t_cmd	cmd;
-
-// 	cmd.cmd = "cat";
-// 	cmd.id = UNASSIGNED;
-// 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	head = current;
-
-	
-// 	cmd.cmd = "ls";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "cat3";
-// 	cmd.id = UNASSIGNED;
-// 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	head = current;
-// 		cmd.cmd = "cat2";
-// 	cmd.id = UNASSIGNED;
-// 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	head = current;
-
-// 	cmd.cmd = "|";
-// 	cmd.id = PIPE;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "secondpipe";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "arg2d";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-// 		cmd.cmd = "|";
-// 	cmd.id = PIPE;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "thirdpipe";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "arg3d";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-// 		cmd.cmd = "|";
-// 	cmd.id = PIPE;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "fourthpipe";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = "arg4d";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-// 		cmd.cmd = "arg4d";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-// 		cmd.cmd = "arg4d";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-// 		cmd.cmd = "arg4d";
-// 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	return(head);
-// }
-
-//harcode cmd but with only one redirection
+//ls  > cat> cat
 t_list	*hardcode_cmds(void)
 {
 	t_list	*head = NULL;
 	t_list	*current = NULL;
 	t_cmd	cmd;
 
-	// cmd.cmd = "cat";
-	// cmd.id = UNASSIGNED;
-	// current = ft_lstnew2(&cmd, sizeof(t_cmd));
-	// head = current;
-
-	// cmd.cmd = "file1";
-	// cmd.id = UNASSIGNED;
-	// current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-	// current = current->next;
-
 	cmd.cmd = ">";
 	cmd.id = R_REDIR;
 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
 	head = current;
 
-	cmd.cmd = "outfile";
+	cmd.cmd = "file";
 	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 
-	cmd.cmd = "cat";
+	cmd.cmd = ">";
+	cmd.id = R_DREDIR;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "file2";
 	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
@@ -230,13 +140,78 @@ t_list	*hardcode_cmds(void)
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 
-	cmd.cmd = "infile";
+	cmd.cmd = "file3";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+	
+	cmd.cmd = ">";
+	cmd.id = R_DREDIR;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "file4";
 	cmd.id = UNASSIGNED;
 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 	current = current->next;
 
-	return (head);
+	cmd.cmd = ">";
+	cmd.id = R_REDIR;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	cmd.cmd = "file5";
+	cmd.id = UNASSIGNED;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
+
+	return(head);
 }
+
+//harcode cmd but with only one redirection
+// t_list	*hardcode_cmds(void)
+// {
+// 	t_list	*head = NULL;
+// 	t_list	*current = NULL;
+// 	t_cmd	cmd;
+
+// 	// cmd.cmd = "cat";
+// 	// cmd.id = UNASSIGNED;
+// 	// current = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	// head = current;
+
+// 	// cmd.cmd = "file1";
+// 	// cmd.id = UNASSIGNED;
+// 	// current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	// current = current->next;
+
+// 	cmd.cmd = ">";
+// 	cmd.id = R_REDIR;
+// 	current = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	head = current;
+
+// 	cmd.cmd = "outfile";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+
+// 	cmd.cmd = "cat";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+
+// 	cmd.cmd = ">";
+// 	cmd.id = R_REDIR;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+
+// 	cmd.cmd = "infile";
+// 	cmd.id = UNASSIGNED;
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current = current->next;
+
+// 	return (head);
+// }
 
 //print whole cmd linked list with all the tokens
 void	print_cmd(t_list *head)
@@ -269,6 +244,6 @@ int	main(int argc, char **argv, char **envp)
 	cmd = hardcode_cmds();
 	print_cmd(cmd);
 	ast_root = pipe_sequence(&cmd, &i);
-	printf("\n\n");
+	printf("\n");
 	print2DUtil(ast_root, 0);
 }

@@ -18,10 +18,8 @@ pipe_sequence 	:complexe_command
 				| complexe_command '|' pipe_sequence
 				;
 complexe_command : complexe_command redirection
-				| redirection complexe_command
 				 | simple_command 
 				 | simple_command redirection
-				 | redirection	simple_command
 simple_command	: cmd_name
 				| cmd_name argument
 				;
@@ -58,35 +56,59 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
 
+/*complexe_comand function following this new rule
+complexe_command : complexe_command redirection
+				 | simple_command 
+				 | simple_command redirection
+				 */
 
 t_ast	*complexe_command(t_list **head, int *i)
 {
-	t_ast			*left;
-	t_ast			*right;
+    t_ast	*left;
+	t_ast	*right;
 
-	(*i)++;
 	if ((*head) == NULL)
 		return (NULL);
 	left = NULL;
 	right = NULL;
-	if (is_redirection((t_cmd *)(*head)->content))
+	if ((*head) && is_redirection((t_cmd *)(*head)->content))
 	{
-		left = redirection(head, i);
-		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
-			right = simple_command(head, i);
-		else if ((*head) && is_redirection((t_cmd *)(*head)->content))
-			right = redirection(head, i);
+		right = redirection(head, i);
+		left = complexe_command(head, i);
 	}
-	else
-	{
+	if ((*head))
 		left = simple_command(head, i);
-		if ((*head) && is_redirection((t_cmd *)(*head)->content))
-			right = redirection(head, i);
-	}
-	if (right == NULL)
-		return (left);
-	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
+    return create_ast_no_terminal(COMPLEXE_COMMAND, left, right);
 }
+
+// t_ast	*complexe_command(t_list **head, int *i)
+// {
+// 	t_ast			*left;
+// 	t_ast			*right;
+
+// 	(*i)++;
+// 	if ((*head) == NULL)
+// 		return (NULL);
+// 	left = NULL;
+// 	right = NULL;
+// 	if (is_redirection((t_cmd *)(*head)->content))
+// 	{
+// 		left = redirection(head, i);
+// 		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+// 			right = complexe_command(head, i);
+// 		else if ((*head) && is_redirection((t_cmd *)(*head)->content))
+// 			right = redirection(head, i);
+// 	}
+// 	else
+// 	{
+// 		left = simple_command(head, i);
+// 		if ((*head) && is_redirection((t_cmd *)(*head)->content))
+// 			right = redirection(head, i);
+// 	}
+// 	if (right == NULL)
+// 		return (left);
+// 	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
+// }
 
 t_ast	*simple_command(t_list **head, int *i)
 {
@@ -124,19 +146,3 @@ t_ast	*argument(t_list **head, int *i)
 	right = NULL;
 	return (create_ast_no_terminal(ARGUMENT, left, right));
 }
-
-// t_ast	*redirection(t_list **head, int *i)
-// {
-// 	t_ast			*left;
-// 	t_ast			*right;
-// 	t_cmd			*cmd;
-
-// 	if ((*head) == NULL)
-// 		return (NULL);
-// 	cmd = (t_cmd *)(*head)->content;
-// 	left = NULL;
-// 	if ((t_cmd *)(*head)->content == UNASSIGNED)
-// 		left = cmd_word(head, i);
-// 	right = NULL;
-// 	return (create_ast_no_terminal(REDIRECTION, left, right));
-// }
