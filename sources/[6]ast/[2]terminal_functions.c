@@ -11,7 +11,16 @@
 /* ************************************************************************** */
 
 #include "ast.h"
-/* gramamr free table with the terminal functions
+/* 
+Terminal operators are the leaf nodes of an Abstract Syntax Tree (AST).
+ They represent the smallest units of input in the language being parsed. 
+ In this case, the terminal operators are:
+
+cmd_name, which represents a single word
+cmd_word, which represents a single word in an argument
+cmd_redir, which represents a redirection operator (<, >, <<, >>)
+These terminal operators are defined in the grammar table as follows:
+gramamr free table with the terminal functions
 cmd_name         : WORD                   
                  ;
 cmd_word         : WORD
@@ -23,6 +32,10 @@ cdm_redir        : '<' cmd_word
 				 ;
 */
 
+/*
+ This function is used to extract the command name from the input list 
+ and create an AST node for it.
+*/
 t_ast	*cmd_name(t_list **head, int *i)
 {
 	t_cmd	*cmd;
@@ -39,6 +52,11 @@ t_ast	*cmd_name(t_list **head, int *i)
 	return (NULL);
 }
 
+/*
+This function is used to extract the command word from the input list
+ and create an AST node for it. It also handles the case where multiple 
+ words are present.
+*/
 t_ast	*cmd_word(t_list **head, int *i)
 {
 	t_cmd	*cmd;
@@ -59,6 +77,11 @@ t_ast	*cmd_word(t_list **head, int *i)
 	return (create_ast_terminal(first_word, NULL, NULL));
 }
 
+/*
+This function is used to extract the redirection operator from the
+input list and create an AST node for it. It checks if the current
+element in the input list is a redirection operator.
+*/
 t_ast	*cmd_redir(t_list **head, int *i)
 {
 	t_cmd	*cmd;
