@@ -74,8 +74,8 @@ t_ast	*complexe_command(t_list **head, int *i)
 	right = NULL;
 	if ((*head) && is_redirection((t_cmd *)(*head)->content))
 	{
-		right = redirection(head, i);
-		left = complexe_command(head, i);
+		left = redirection(head, i);
+		right = complexe_command(head, i);
 	}
 	if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
 	{
