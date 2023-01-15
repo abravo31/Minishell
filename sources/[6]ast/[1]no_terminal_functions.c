@@ -34,25 +34,33 @@ redirection 	: '<' cmd_word
 				;                 
 */
 
+
+/*
+pipe_sequence - function that creates an AST node for a pipe sequence.
+A pipe sequence is a series of one or more complex commands separated by the pipe operator '|'.
+This function takes a pointer to a linked list of tokens and an index.
+It starts by creating a left AST node with the first complex command.
+Then it loops through the linked list while the current token is a pipe operator.
+For each iteration, it moves to the next token and creates a right AST node with the next pipe sequence.
+If there are no more pipe operators, the right AST node is set to NULL.
+Finally, it returns an AST node with the type PIPE_SEQUENCE and left and right children set to the left and right AST nodes.
+*/
 t_ast	*pipe_sequence(t_list **head, int *i)
 {
 	t_ast			*left;
 	t_ast			*right;
-	t_cmd			*cmd;
 
-	if ((*head) == NULL)
+	if (!head || !(*head))
 		return (NULL);
 	left = complexe_command(head, i);
 	right = NULL;
-	(void)cmd;
 	while ((*head) && ((t_cmd *)(*head)->content)->id == PIPE)
 	{
-		cmd = (t_cmd *)(*head)->content;
 		*head = (*head)->next;
 		(*i)++;
 		right = pipe_sequence(head, i);
 	}
-	if ((*head) == NULL && right == NULL)
+	if (!(*head) && !right)
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
@@ -88,35 +96,6 @@ t_ast	*complexe_command(t_list **head, int *i)
 		return (right);
     return create_ast_no_terminal(COMPLEXE_COMMAND, left, right);
 }
-
-// t_ast	*complexe_command(t_list **head, int *i)
-// {
-// 	t_ast			*left;
-// 	t_ast			*right;
-
-// 	(*i)++;
-// 	if ((*head) == NULL)
-// 		return (NULL);
-// 	left = NULL;
-// 	right = NULL;
-// 	if (is_redirection((t_cmd *)(*head)->content))
-// 	{
-// 		left = redirection(head, i);
-// 		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
-// 			right = complexe_command(head, i);
-// 		else if ((*head) && is_redirection((t_cmd *)(*head)->content))
-// 			right = redirection(head, i);
-// 	}
-// 	else
-// 	{
-// 		left = simple_command(head, i);
-// 		if ((*head) && is_redirection((t_cmd *)(*head)->content))
-// 			right = redirection(head, i);
-// 	}
-// 	if (right == NULL)
-// 		return (left);
-// 	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
-// }
 
 t_ast	*simple_command(t_list **head, int *i)
 {
