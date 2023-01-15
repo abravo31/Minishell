@@ -200,10 +200,10 @@ t_list	*hardcode_cmds(void)
 	t_list	*current = NULL;
 	t_cmd	cmd;
 
-	// cmd.cmd = "cat";
-	// cmd.id = UNASSIGNED;
-	// current = ft_lstnew2(&cmd, sizeof(t_cmd));
-	// head = current;
+	cmd.cmd = "cat";
+	cmd.id = UNASSIGNED;
+	current = ft_lstnew2(&cmd, sizeof(t_cmd));
+	head = current;
 
 	// cmd.cmd = "file1";
 	// cmd.id = UNASSIGNED;
@@ -212,8 +212,8 @@ t_list	*hardcode_cmds(void)
 
 	cmd.cmd = ">";
 	cmd.id = R_REDIR;
-	current = ft_lstnew2(&cmd, sizeof(t_cmd));
-	head = current;
+	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+	current = current->next;
 
 	cmd.cmd = "file2";
 	cmd.id = UNASSIGNED;
