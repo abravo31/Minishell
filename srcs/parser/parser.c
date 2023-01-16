@@ -100,6 +100,7 @@ void	check_parsing_errors(t_minishell *msh, int end)
 {
 	t_list *iter = msh->cmd;
     t_cmd   *current = NULL;
+
 	if (end && handle_first_node_error(msh))
 		return ;
     while (iter)
@@ -112,8 +113,11 @@ void	check_parsing_errors(t_minishell *msh, int end)
 		}
 		if (!iter->next && end && is_token(current->cmd[0])) // checks if last node id is an operator
 			msh->parsing_error = syntax_error('\n');
-        // if (current->id >= 1 && current->id <= 4 && (((t_cmd *)(iter->next->content))->id < 7 || !iter->next))
-        //     msh->parsing_error = syntax_error();
+        //printf("%d\n", current->id);
+        //printf("%d\n", end);
+        //printf("%d\n", ((t_cmd *)(iter->next->content))->id);
+        else if (current->id >= 1 && current->id <= 4 && end && (((t_cmd *)(iter->next->content))->id < 7 || !iter->next))
+             msh->parsing_error = syntax_error(current->cmd[0]);
         iter = iter->next;
     }
 }
