@@ -49,7 +49,11 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 	t_ast	*node;
 
 	node = ft_calloc(1, sizeof(t_ast));
+	if (node == NULL)
+		return (NULL);
 	node->id = malloc(sizeof(t_id));
+	if (node->id == NULL)
+		return (free(node), NULL);
 	if (cmd)
 	{
 		node->id->token = cmd->id;
