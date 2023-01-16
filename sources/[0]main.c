@@ -34,4 +34,5 @@ int	main(int argc, char **argv, char **envp)
 	ast_root = pipe_sequence(&cmd, &i);
 	printf("\n");
 	print2DUtil(ast_root, 0);
+	free_ast(ast_root);
 }
