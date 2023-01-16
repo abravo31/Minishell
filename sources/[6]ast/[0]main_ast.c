@@ -37,6 +37,13 @@ redirection 	: '<' WORD
 				;
 */
 
+/*
+This function creates a new node for an abstract syntax tree (AST) and
+initializes it with the provided information. It allocates memory for the node,
+sets its id and data fields, and sets its left and right child pointers to the
+provided left and right child nodes. The function also handle the case where
+the cmd parameter is null and handle the memory allocation .
+*/
 t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 {
 	t_ast	*node;

@@ -264,3 +264,28 @@ void	print_cmd(t_list *head)
 		current = current->next;
 	}
 }
+
+
+void	print2DUtil(t_ast *root, int space)
+{
+	char const	*operators[] = {"PIPE_SEQUENCE", "COMPLEXE_COMMAND", "SIMPLE_COMMAND", "ARGUMENT", "REDIRECTION"};
+	char const	*tokens[] = {"UNASSIGNED", "R_REDIR", "R_DREDIR", "L_REDIR", "L_DREDIR", "PIPE", "BUILTIN", "D_QUOTE", "S_QUOTE"};
+
+	if (root == NULL)
+		return ;
+	space += 10;
+	print2DUtil(root->right, space);
+	ft_printf("\n");
+	for (int i = 10; i < space; i++)
+		ft_printf(" ");
+	if (root->terminal)
+	{
+		ft_printf("%s\n", tokens[root->id->token]);
+		for (int i = 10; i < space; i++)
+			ft_printf(" ");
+		ft_printf("%s\n",root->data);
+	}
+	else
+		ft_printf("%s\n", operators[root->id->op]);
+	print2DUtil(root->left, space);
+}

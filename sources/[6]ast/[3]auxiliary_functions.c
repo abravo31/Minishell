@@ -12,6 +12,9 @@
 
 #include "ast.h"
 
+/*
+calculates and returns the number of elements in a linked list
+*/
 size_t	ft_lstlen(t_list *lst)
 {
 	size_t	len;
@@ -25,6 +28,9 @@ size_t	ft_lstlen(t_list *lst)
 	return (len);
 }
 
+/*
+checks if a given command is a redirection operator
+*/
 int	is_redirection(t_cmd *cmd)
 {
 	return (cmd->id == L_REDIR
@@ -33,30 +39,10 @@ int	is_redirection(t_cmd *cmd)
 		|| cmd->id == R_DREDIR);
 }
 
-void	print2DUtil(t_ast *root, int space)
-{
-	char const	*operators[] = {"PIPE_SEQUENCE", "COMPLEXE_COMMAND", "SIMPLE_COMMAND", "ARGUMENT", "REDIRECTION"};
-	char const	*tokens[] = {"UNASSIGNED", "R_REDIR", "R_DREDIR", "L_REDIR", "L_DREDIR", "PIPE", "BUILTIN", "D_QUOTE", "S_QUOTE"};
-
-	if (root == NULL)
-		return ;
-	space += 10;
-	print2DUtil(root->right, space);
-	ft_printf("\n");
-	for (int i = 10; i < space; i++)
-		ft_printf(" ");
-	if (root->terminal)
-	{
-		ft_printf("%s\n", tokens[root->id->token]);
-		for (int i = 10; i < space; i++)
-			ft_printf(" ");
-		ft_printf("%s\n",root->data);
-	}
-	else
-		ft_printf("%s\n", operators[root->id->op]);
-	print2DUtil(root->left, space);
-}
-
+/*
+creates a non-terminal node in an abstract syntax tree,
+with the given operator and left/right child nodes
+*/
 t_ast	*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right)
 {
 	t_ast	*node;
@@ -71,6 +57,10 @@ t_ast	*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right)
 	return (node);
 }
 
+/*
+creates a terminal node in an abstract syntax tree, with the given
+command, and left/right child nodes.
+*/
 t_ast	*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right)
 {
 	t_ast	*node;

@@ -35,6 +35,7 @@
 
 t_list		*hardcode_cmds(void);
 void		print_cmd(t_list *head);
+void		print2DUtil(t_ast *root, int space);
 
 
 /*############################################################################*/

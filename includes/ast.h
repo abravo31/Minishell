@@ -54,7 +54,6 @@ t_ast		*cmd_redir(t_list **head, int *i);
 /*############################################################################*/
 size_t		ft_lstlen(t_list *lst);
 int			is_redirection(t_cmd *cmd);
-void		print2DUtil(t_ast *root, int space);
 t_ast		*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right);
 t_ast		*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right);
 
