@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 21:59:39 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/17 19:40:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ redirection 	: '<' cmd_word
 				|  cmd_word '>>' 
 				;                 
 */
-
 
 /*
 pipe_sequence - function that creates an AST node for a pipe sequence.
