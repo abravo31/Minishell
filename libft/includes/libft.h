@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 16:01:07 by motero            #+#    #+#             */
-/*   Updated: 2022/11/16 12:05:21 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:34:11 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,23 @@ char			*ft_strconcat(char *dest, char *src);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strcat(char *dest, char *src);
 
-typedef struct s_lst
+typedef struct s_list
 {
-	void				*content;
-	size_t				zu;
-	struct s_lst		*next;
-}						t_lst;
+	void			*content;
+	size_t			content_size;
+	struct s_list	*next;
+}					t_list;
 
-t_lst			*ft_lstnew(void *content);
-void			ft_lstadd_front(t_lst **lst, t_lst *new);
-int				ft_lstsize(t_lst *lst);
-t_lst			*ft_lstlast(t_lst *lst);
-void			ft_lstadd_back(t_lst **lst, t_lst *new);
-void			ft_lstdelone(t_lst *lst, void (*del)(void *));
-void			ft_lstclear(t_lst **lst, void (*del)(void *));
-void			ft_lstiter(t_lst *lst, void (*f)(void *));
-t_lst			*ft_lstmap(t_lst *lst, void *(*f)(void *), void (*del)(void *));
+t_list			*ft_lstnew(void *content);
+void			ft_lstadd_front(t_list **lst, t_list *new);
+int				ft_lstsize(t_list *lst);
+t_list			*ft_lstlast(t_list *lst);
+void			ft_lstadd_back(t_list **lst, t_list *new);
+void			ft_lstdelone(t_list *lst, void (*del)(void *));
+void			ft_lstclear(t_list **lst, void (*del)(void *));
+void			ft_lstiter(t_list *lst, void (*f)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
+					void (*del)(void *));
 
 //Main fonction
 

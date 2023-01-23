@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/11 23:47:57 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/23 21:36:09 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "../gnl/get_next_line.h"
 # include "libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
+
+# define PROMPT_NAME "Minishell > "
 
 /*############################################################################*/
 /*                              HEADERS                                       */
@@ -36,7 +41,6 @@
 t_list		*hardcode_cmds(void);
 void		print_cmd(t_list *head);
 void		print2DUtil(t_ast *root, int space);
-
 
 /*############################################################################*/
 /*                              STRUCTURES                                    */

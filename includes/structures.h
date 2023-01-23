@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 17:49:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:38:27 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRUCTURES_H
 
 # include <stdlib.h>
+# include "libft.h"
 
 /*############################################################################*/
 /*                              STRUCTURES                                    */
@@ -27,6 +28,7 @@ typedef enum e_token
 	L_REDIR,
 	L_DREDIR,
 	PIPE,
+	WORD,
 	BUILTIN,
 	D_QUOTE,
 	S_QUOTE,
@@ -37,13 +39,6 @@ typedef struct s_cmd
 	char	*cmd;
 	t_token	id;
 }	t_cmd;
-
-typedef struct s_list
-{
-	void			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
 
 typedef enum e_operator{
 	PIPE_SEQUENCE ,

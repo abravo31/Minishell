@@ -3,6 +3,10 @@
 		"stdio.h": "c",
 		"cstdlib": "c",
 		"expander.h": "c",
-		"structures.h": "c"
+		"structures.h": "c",
+		"get_next_line.h": "c",
+		"history.h": "c",
+		"unistd.h": "c",
+		"libft.h": "c"
 	}
 }
