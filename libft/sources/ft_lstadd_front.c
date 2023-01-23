@@ -6,13 +6,13 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 14:59:15 by motero            #+#    #+#             */
-/*   Updated: 2022/07/20 16:43:04 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:34:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_lst **lst, t_lst *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (!new)
 		return ;

@@ -6,13 +6,13 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 00:28:05 by motero            #+#    #+#             */
-/*   Updated: 2022/07/20 16:43:23 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/23 22:35:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_lst	*ft_lstlast(t_lst	*lst)
+t_list	*ft_lstlast(t_list	*lst)
 {
 	while (lst && lst->next)
 		lst = lst->next;
