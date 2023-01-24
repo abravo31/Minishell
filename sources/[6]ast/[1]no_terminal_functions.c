@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/17 19:40:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/24 17:57:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ t_ast	*complexe_command(t_list **head, int *i)
 		left = redirection(head, i);
 		right = complexe_command(head, i);
 	}
-	if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+	if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 	{
 		left = simple_command(head, i);
 		right = complexe_command(head, i);
@@ -170,10 +170,10 @@ t_ast	*simple_command(t_list **head, int *i)
 		return (NULL);
 	left = NULL;
 	right = NULL;
-	if (((t_cmd *)(*head)->content)->id == UNASSIGNED)
+	if (((t_cmd *)(*head)->content)->id == WORD)
 	{
 		left = cmd_name(head, i);
-		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+		if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 			right = argument(head, i);
 	}
 	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));
@@ -202,7 +202,7 @@ t_ast	*argument(t_list **head, int *i)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
-	if (cmd->id == UNASSIGNED)
+	if (cmd->id == WORD)
 		left = cmd_word(head, i);
 	right = NULL;
 	if (left == NULL)

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/23 22:09:31 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/24 18:03:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,22 @@
 # include <fcntl.h>
 
 /*############################################################################*/
-/*                              LEXER FUNCTIONS                               */
+/*                              LEXER  FUNCTIONS						  */
+/*############################################################################*/
+
+void	delimitor(char **cmd, t_minishell *msh);
+int		is_token(char c);
+t_token	eval_token(char *cmd);
+t_cmd	*new_cmd(char *cmd, t_token id);
+char	*syntax_error(char where);
+int		handle_first_node_error(t_minishell *msh);
+void	check_parsing_errors(t_minishell *msh, int end);
+int		end_quote(int d_quo, int s_quo);
+int		is_quote(t_minishell *msh, int pos, char **cmd);
+void	__debug_parsing(t_minishell *msh);
+
+/*############################################################################*/
+/*                              LEXER UTILITY FUNCTIONS						  */
 /*############################################################################*/
 int		get_cmd(t_minishell *msh);
 void	get_char(char c, char **cmd);

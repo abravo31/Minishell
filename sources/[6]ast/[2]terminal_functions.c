@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 21:29:13 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/24 17:57:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_ast	*cmd_name(t_list **head, int *i)
 	if ((*head) == NULL)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
-	if (cmd->id == UNASSIGNED)
+	if (cmd->id == WORD)
 	{
 		(*i)++;
 		(*head) = (*head)->next;
@@ -66,7 +66,7 @@ t_ast	*cmd_word(t_list **head, int *i)
 		return (NULL);
 	first_word = (t_cmd *)(*head)->content;
 	cmd = (t_cmd *)(*head)->content;
-	while ((*head) && cmd->id == UNASSIGNED)
+	while ((*head) && cmd->id == WORD)
 	{
 		(*i)++;
 		(*head) = (*head)->next;
