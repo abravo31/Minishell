@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 19:51:27 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 20:08:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ int	main(int argc, char **argv, char **envp)
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
 		if (msh.prompt == NULL)
+		{
+			printf("prompt : %s\n", msh.prompt);
 			break ;
+		}
 		if (msh.prompt != NULL)
 		{
 			if (get_cmd(&msh))

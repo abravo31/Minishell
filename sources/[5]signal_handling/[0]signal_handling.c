@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 19:46:28 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 20:10:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	setup_signal_handlers(void)
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
-	quit_sa.sa_handler = sigquit_handler;
+	quit_sa.sa_handler = SIG_IGN;
 	sigemptyset(&quit_sa.sa_mask);
 	sigaction(SIGQUIT, &quit_sa, NULL);
 }
@@ -62,5 +62,6 @@ void	sigint_handler(int sig)
 void	sigquit_handler(int sig)
 {
 	(void)sig;
-	//exit(EXIT_SUCCESS);
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
