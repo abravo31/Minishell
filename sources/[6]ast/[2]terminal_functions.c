@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/24 17:57:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:46:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ t_ast	*cmd_name(t_list **head, int *i)
 	{
 		(*i)++;
 		(*head) = (*head)->next;
+		if (builtin_cmd(head))
+			return (create_terminal_builtin(cmd, NULL, NULL));
 		return (create_ast_terminal(cmd, NULL, NULL));
 	}
 	return (NULL);
@@ -96,4 +98,25 @@ t_ast	*cmd_redir(t_list **head, int *i)
 		return (create_ast_terminal(cmd, NULL, NULL));
 	}
 	return (NULL);
+}
+
+int	builtin_cmd(t_list **head)
+{
+	t_cmd		*cmd;
+	int			i;
+	char const	*builtins[7]
+		= {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	int const	nbr_builtins = sizeof(builtins) / sizeof(char const *);
+
+	if ((*head) == NULL)
+		return (0);
+	cmd = (t_cmd *)(*head)->content;
+	i = 0;
+	while (i < nbr_builtins)
+	{
+		if (ft_strcmp(cmd->cmd, builtins[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
 }

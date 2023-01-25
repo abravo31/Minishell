@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:14:51 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 23:29:24 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:46:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	execute_builtin(t_cmd *cmd)
 	i = 0;
 	while (i < nbr_builtins)
 	{
-		if (ft_strcmp(&cmd->cmd[0], builtins[i]) == 0)
+		if (ft_strcmp(cmd->cmd, builtins[i]) == 0)
 			return (cmd->id = BUILTIN, (*builtin_functions[i])(cmd));
 		i++;
 	}
