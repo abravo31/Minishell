@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:31:37 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 17:49:06 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 22:45:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ pipe_sequence    : complexe_command
                  | complexe_command '|' pipe_sequence
                  ;
 complexe_command : simple_command 
-				 | simple_command  redirection
 				 | redirection	simple_command
 simple_command	: cmd_name
 				| cmd_name argument

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/24 17:57:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:01:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ the following are the no-terminalf functions of are grammar table
 pipe_sequence 	:complexe_command
 				| complexe_command '|' pipe_sequence
 				;
-complexe_command : complexe_command redirection
+complexe_command : redirection complexe_command
 				 | simple_command 
-				 | simple_command redirection
+				 | redirection simple_command 
 				 ;
 simple_command	: cmd_name
 				| cmd_name argument
@@ -140,11 +140,11 @@ t_ast	*complexe_command(t_list **head, int *i)
 	}
 	if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 	{
-		left = simple_command(head, i);
-		right = complexe_command(head, i);
+		right = simple_command(head, i);
+		left = complexe_command(head, i);
 	}
-	if (right == NULL)
-		return (left);
+	// if (right == NULL)
+	// 	return (left);
 	if (left == NULL)
 		return (right);
 	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
