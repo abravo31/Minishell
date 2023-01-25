@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 23:01:41 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:07:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 		(*i)++;
 		right = pipe_sequence(head, i);
 	}
-	if (!(*head) && !right)
-		return (left);
+	// if (!(*head) && !right)
+	// 	return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
 
