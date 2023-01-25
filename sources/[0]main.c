@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/23 23:12:54 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/24 22:06:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,20 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&msh);
 	while (msh.status)
 	{
+		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
-		if (get_cmd(&msh))
-			printf("My line is: %s\n", msh.prompt);
-		msh.root = pipe_sequence(&msh.cmd, &i);
-		ft_printf("\nAST:\n");
-		print2DUtil(msh.root, 0);
-		free_ast(msh.root);
-		if (msh.parsing_error)
-			printf("%s\n", msh.parsing_error);
+		if (msh.prompt != NULL)
+		{
+			if (get_cmd(&msh))
+				printf("My line is: %s\n", msh.prompt);
+			msh.root = pipe_sequence(&msh.cmd, &i);
+			ft_printf("\nAST:\n");
+			print2DUtil(msh.root, 0);
+			free_ast(msh.root);
+			if (msh.parsing_error)
+				printf("%s\n", msh.parsing_error);
+		}
+
 		reset_and_free(&msh);
 	}
 	clean_exit(&msh);

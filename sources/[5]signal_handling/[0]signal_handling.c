@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 23:37:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:08:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,25 @@ void	setup_signal_handlers(void)
 
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
 	sigaction(SIGINT, &sa, NULL);
 	eof_sa.sa_handler = eof_handler;
 	sigemptyset(&eof_sa.sa_mask);
-	eof_sa.sa_flags = 0;
 	sigaction(EOF, &eof_sa, NULL);
 	quit_sa.sa_handler = sigquit_handler;
 	sigemptyset(&quit_sa.sa_mask);
-	quit_sa.sa_flags = 0;
 	sigaction(SIGQUIT, &quit_sa, NULL);
 }
 
 // Handle the SIGINT signal (ctrl-C)
+//dnt forget to send  130 error to parents process
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	ft_printf("\n%s", PROMPT_NAME);
-	write(STDOUT_FILENO, "", 1);
+	rl_clear_history();
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 // Handle the EOF signal (ctrl-D)
@@ -71,5 +72,5 @@ void	eof_handler(int sig)
 void	sigquit_handler(int sig)
 {
 	(void)sig;
-	exit(EXIT_SUCCESS);
+	//exit(EXIT_SUCCESS);
 }

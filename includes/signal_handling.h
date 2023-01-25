@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 23:36:30 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 19:05:53 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # ifndef EXIT_SUCCESS
 #  define EXIT_SUCCESS 0

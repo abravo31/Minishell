@@ -7,6 +7,7 @@
 		"get_next_line.h": "c",
 		"history.h": "c",
 		"unistd.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"readline.h": "c"
 	}
 }
