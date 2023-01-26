@@ -46,6 +46,8 @@ typedef enum e_operator{
 	SIMPLE_COMMAND,
 	ARGUMENT,
 	REDIRECTION,
+	SIMPLE_BUILTIN,
+	COMPLEXE_BUILTIN,
 }	t_op;
 
 typedef union id{

@@ -39,15 +39,18 @@ cdm_redir        : '<' cmd_word
 t_ast	*cmd_name(t_list **head, int *i)
 {
 	t_cmd	*cmd;
+	int		builtin;
 
 	if ((*head) == NULL)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
+	builtin = 0;
 	if (cmd->id == WORD)
 	{
+		builtin = builtin_cmd(head);
 		(*i)++;
 		(*head) = (*head)->next;
-		if (builtin_cmd(head))
+		if (builtin)
 			return (create_terminal_builtin(cmd, NULL, NULL));
 		return (create_ast_terminal(cmd, NULL, NULL));
 	}
@@ -114,7 +117,7 @@ int	builtin_cmd(t_list **head)
 	i = 0;
 	while (i < nbr_builtins)
 	{
-		if (ft_strcmp(cmd->cmd, builtins[i]) == 0)
+		if (ft_strcmp(cmd->cmd, builtins[i]) == 1)
 			return (1);
 		i++;
 	}
