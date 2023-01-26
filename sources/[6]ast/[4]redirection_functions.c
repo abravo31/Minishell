@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:56:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 22:24:15 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/27 00:13:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,41 @@ t_ast	*redirection_double_left(t_list **head, int *i)
 
 	left = NULL;
 	right = NULL;
+	here_doc(right, i);
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
+
+/*function that will handle the heredoc redirection
+** It will create a temporary file with the help of the delimeter and the index i
+** and with the help of the readline function we will capture the input and write it inthe tmp file
+** then we will return the name of the tmp file as a cmd_name node
+*/
+void	here_doc(t_ast *right, int *i)
+{
+	char		*delimiter;
+	char		*line;
+	int			tmp;
+	char const	*tmp_name = ft_strjoin("tmp", ft_itoa(*i));
+
+	if (!tmp_name)
+		return ;
+	delimiter = right->data;
+	tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (tmp == -1)
+		return ;
+	while (1)
+	{
+		if (ft_strcmp(line, delimiter) == 1)
+			break ;
+		line = readline("heredoc> ");
+		write(tmp, line, ft_strlen(line));
+		free(line);
+	}
+
+}	
+
 
 /*
 Creates a redirection AST node with a cmd_redir node as 
