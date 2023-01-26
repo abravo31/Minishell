@@ -96,7 +96,7 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 		(*i)++;
 		right = pipe_sequence(head, i);
 	}
-	if (left->id->op != COMPLEXE_COMMAND)
+	if (left->id->op != COMPLEXE_COMMAND && right == NULL)
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
