@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/26 22:57:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/26 23:13:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ void		execution_terminal(t_minishell *msh, t_ast *root);
 void		redirect_output(t_minishell *msh, t_ast *root);
 void		redirect_input(t_minishell *msh, t_ast *root);
 void		redirect_append(t_minishell *msh, t_ast *root);
+void		redirect_heredoc(t_minishell *msh, t_ast *root);
 
 #endif
