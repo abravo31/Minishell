@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/23 22:38:27 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/26 17:49:13 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef enum e_operator{
 	ARGUMENT,
 	REDIRECTION,
 	SIMPLE_BUILTIN,
-	COMPLEXE_BUILTIN,
+	CMPLX_BUILT,
 }	t_op;
 
 typedef union id{
