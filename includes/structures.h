@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/26 17:49:13 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/26 22:30:09 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_minishell
 	t_list	*cmd;
 	t_list	*env;
 	t_ast	*root;
+	t_list	*fd;
 }	t_minishell;
 
 #endif

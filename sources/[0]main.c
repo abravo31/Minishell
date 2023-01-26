@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 20:08:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/26 18:33:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	main(int argc, char **argv, char **envp)
 			msh.root = pipe_sequence(&msh.cmd, &i);
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
+			main_execution(&msh, msh.root);
 			free_ast(msh.root);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
