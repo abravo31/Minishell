@@ -16,6 +16,13 @@
 # include "libft.h"
 # include "structures.h"
 
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
 /*############################################################################*/
 /*                              AST FUNCTIONS                                 */
 /*############################################################################*/
@@ -41,6 +48,7 @@ t_ast		*redirection_left(t_list **head, int *i);
 t_ast		*redirection_right(t_list **head, int *i);
 t_ast		*redirection_double_left(t_list **head, int *i);
 t_ast		*redirection_double_right(t_list **head, int *i);
+void		here_doc(t_cmd *cmd, int *i);
 
 /*############################################################################*/
 /*							TERMINAL FUNCTIONS                              */
