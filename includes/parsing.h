@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/27 23:25:59 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 19:06:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@
 /*############################################################################*/
 void	here_doc(t_cmd *cmd, int *i);
 int		singleton_heredoc(int i);
+char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp);
 
 #endif

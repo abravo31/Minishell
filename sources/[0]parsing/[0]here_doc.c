@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 18:21:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 19:07:11 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,11 @@ void	here_doc(t_cmd *cmd, int *i)
 	char		*delimiter;
 	char		*line;
 	int			tmp;
-	char const	*tmp_name = ft_strjoin(".tmp", ft_itoa(*i));
+	char		*tmp_name;
 
-	if (!tmp_name || singleton_heredoc(0) >= 1)
+	tmp_name = heredoc_init(cmd, i, &delimiter, &tmp);
+	if (singleton_heredoc(0) >= 1 || !tmp_name)
 		return ;
-	delimiter = ft_strjoin(cmd->cmd, "\n");
-	tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (tmp == -1)
-		return ;
-	heredoc_signal_handlers();
 	ft_putstr_fd("heredoc> ", 1);
 	line = get_next_line(0);
 	while (line != NULL && ft_strncmp(line, delimiter, ft_strlen(delimiter))
@@ -61,4 +57,25 @@ int	singleton_heredoc(int i)
 
 	heredoc = heredoc + i;
 	return (heredoc);
+}
+
+/* Init the delimeter with \n, and the tmp file with .tmp
+** as well as tmp index with itoa and free it
+*/
+char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
+{
+	char	*tmp_name;
+	char	*nbr_tmp;
+
+	nbr_tmp = ft_itoa(*i);
+	tmp_name = ft_strjoin(".tmp", nbr_tmp);
+	free(nbr_tmp);
+	if (!tmp_name)
+		return (NULL);
+	*delimiter = ft_strjoin(cmd->cmd, "\n");
+	*tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (*tmp == -1)
+		return (free(tmp_name), free(*delimiter), NULL);
+	heredoc_signal_handlers();
+	return (tmp_name);
 }
