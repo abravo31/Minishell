@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:10:47 by motero            #+#    #+#             */
-/*   Updated: 2022/11/26 21:37:52 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 18:33:55 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*get_next_line(int fd)
 	int			line_len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || (read(fd, 0, 0) < 0))
-		return (free(save), NULL);
+		return (free(save), save = NULL, NULL);
 	save = ft_read_file(fd, save);
 	if (!save)
 		return (NULL);
