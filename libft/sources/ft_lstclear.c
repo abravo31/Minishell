@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 01:42:12 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 21:23:44 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 23:28:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (*lst && lst)
 	{
 		temp = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		if (del)
+			ft_lstdelone(*lst, del);
+		else
+			ft_lstdelone(*lst, NULL);
 		*lst = temp;
 	}
 }
