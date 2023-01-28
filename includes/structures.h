@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 00:09:41 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/29 00:15:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,15 @@ typedef enum e_memory_type
 	CMD,
 }	t_memory_type;
 
+typedef struct s_mem_block
+{
+	void			*ptr;
+	t_memory_type	type;
+}	t_mem_block;
+
 typedef struct s_garbage_collector
 {
 	t_list			*ptr;
-	t_memory_type	type;
 }	t_garbage_collector;
 
 typedef enum e_token
