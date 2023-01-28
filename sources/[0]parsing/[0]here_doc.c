@@ -27,10 +27,10 @@ void	here_doc(t_cmd *cmd, int *i)
 	int			tmp;
 	char const	*tmp_name = ft_strjoin(".tmp", ft_itoa(*i));
 
-	if (!tmp_name || singleton_heredoc(0) > 1)
+	if (!tmp_name || singleton_heredoc(0) >= 1)
 		return ;
-	delimiter = cmd->cmd;
-	printf("delimiter : %s\n", delimiter);
+	delimiter = ft_strjoin(cmd->cmd, "\n");
+	//test after strjoin for null
 	tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (tmp == -1)
 		return ;
@@ -45,10 +45,11 @@ void	here_doc(t_cmd *cmd, int *i)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 	}
-	printf(">>%s", line);
 	cmd->cmd = ft_strdup(tmp_name);
 	free(line);
+	get_next_line(-1);
 	free((void *)tmp_name);
+	free(delimiter);
 	close(tmp);
 }
 

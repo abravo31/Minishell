@@ -50,4 +50,6 @@ void		eof_handler(int sig);
 void		sigquit_handler(int sig);
 
 void		heredoc_signal_handlers(void);
+void		sigquit_heredoc(int sig);
+
 #endif
