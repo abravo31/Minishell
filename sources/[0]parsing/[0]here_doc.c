@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 01:17:02 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 18:21:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	here_doc(t_cmd *cmd, int *i)
 	if (!tmp_name || singleton_heredoc(0) >= 1)
 		return ;
 	delimiter = ft_strjoin(cmd->cmd, "\n");
-	//test after strjoin for null
 	tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (tmp == -1)
 		return ;
@@ -45,7 +44,10 @@ void	here_doc(t_cmd *cmd, int *i)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 	}
-	cmd->cmd = ft_strdup(tmp_name);
+	if (singleton_heredoc(0) == 1)
+		unlink(tmp_name);
+	else
+		cmd->cmd = ft_strdup(tmp_name);
 	free(line);
 	get_next_line(-1);
 	free((void *)tmp_name);
