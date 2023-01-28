@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 22:12:29 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 23:32:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 23:36:20 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,18 @@ void	add_to_garbage_collector(void *ptr)
 		if (!new)
 			return ;
 		new->content = ptr;
-		ft_lstadd_front(gc->ptr, new);
+		ft_lstadd_front(&gc->ptr, new);
 	}
 }
 
 void	free_garbage_collector(void)
 {
 	t_garbage_collector	*gc;
-	t_list				*temp;
 
 	gc = singleton_garbage_collector();
 	if (gc)
 	{
-		ft_lstclear(gc->ptr, free);
+		ft_lstclear(&gc->ptr, free);
 		gc->ptr = NULL;
 	}
 }
