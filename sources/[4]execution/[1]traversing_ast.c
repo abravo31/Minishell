@@ -82,6 +82,7 @@ void	redirection_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
+	(void) right;
 	printf("Start of a REDIRECTION\n");
 	if (ft_strcmp(">", left->data) == 1)
 		redirect_output(msh, root);

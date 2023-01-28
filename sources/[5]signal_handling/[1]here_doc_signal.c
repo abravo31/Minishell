@@ -21,7 +21,7 @@ static void	signint_heredoc(int sig, siginfo_t *info, void *ucontext)
 	(void)ucontext;
 	(void)sig;
 	singleton_heredoc(1);
-	//printf("\n");
+	ft_putstr_fd("\n", 1);
 }
 
 void	heredoc_signal_handlers(void)

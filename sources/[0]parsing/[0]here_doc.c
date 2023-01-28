@@ -37,10 +37,9 @@ void	here_doc(t_cmd *cmd, int *i)
 	heredoc_signal_handlers();
 	ft_putstr_fd("heredoc> ", 1);
 	line = get_next_line(0);
-	while (line != NULL && ft_strncmp(line, delimiter, ft_strlen(line) - 1)
+	while (line != NULL && ft_strncmp(line, delimiter, ft_strlen(delimiter))
 		&& singleton_heredoc(0) == 0)
 	{
-		//printf("%s", line);
 		write(tmp, line, ft_strlen(line));
 		free(line);
 		ft_putstr_fd("heredoc> ", 1);

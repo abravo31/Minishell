@@ -9,6 +9,7 @@
 		"unistd.h": "c",
 		"libft.h": "c",
 		"readline.h": "c",
-		"signal_handling.h": "c"
+		"signal_handling.h": "c",
+		"*.tcc": "c"
 	}
 }

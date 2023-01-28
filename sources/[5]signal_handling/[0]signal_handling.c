@@ -57,7 +57,6 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 }
-
 // Handle the SIGQUIT signal (ctrl-\)
 void	sigquit_handler(int sig)
 {
