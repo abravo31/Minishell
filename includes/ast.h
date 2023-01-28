@@ -15,6 +15,8 @@
 
 # include "libft.h"
 # include "structures.h"
+# include "signal_handling.h"
+# include "parsing.h"
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -48,8 +50,6 @@ t_ast		*redirection_left(t_list **head, int *i);
 t_ast		*redirection_right(t_list **head, int *i);
 t_ast		*redirection_double_left(t_list **head, int *i);
 t_ast		*redirection_double_right(t_list **head, int *i);
-void		here_doc(t_cmd *cmd, int *i);
-
 /*############################################################################*/
 /*							TERMINAL FUNCTIONS                              */
 /*############################################################################*/

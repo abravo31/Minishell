@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 19:05:53 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/27 23:05:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "parsing.h"
 
 # ifndef EXIT_SUCCESS
 #  define EXIT_SUCCESS 0
@@ -37,15 +38,16 @@
 /*############################################################################*/
 
 // Set up the signal handlers
-void	setup_signal_handlers(void);
+void		setup_signal_handlers(void);
 
 // Handle the SIGINT signal (ctrl-C)
-void	sigint_handler(int sig);
+void		sigint_handler(int sig);
 
 // Handle the EOF signal (ctrl-D)
-void	eof_handler(int sig);
+void		eof_handler(int sig);
 
 // Handle the SIGQUIT signal (ctrl-\)
-void	sigquit_handler(int sig);
+void		sigquit_handler(int sig);
 
+void		heredoc_signal_handlers(void);
 #endif
