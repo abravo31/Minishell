@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 22:44:29 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/29 00:09:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,20 @@
 /*                              STRUCTURES                                    */
 /*############################################################################*/
 
+typedef enum e_memory_type
+{
+	INT,
+	D_INT,
+	ENV,
+	LST,
+	AST,
+	CMD,
+}	t_memory_type;
+
 typedef struct s_garbage_collector
 {
-	t_list	*ptr;
+	t_list			*ptr;
+	t_memory_type	type;
 }	t_garbage_collector;
 
 typedef enum e_token
