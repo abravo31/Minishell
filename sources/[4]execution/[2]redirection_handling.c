@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 20:04:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 21:21:35 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root)
 		printf("Error: %s\n", strerror(errno));
 		return ;
 	}
-	ft_lstadd_front(&msh->fd, ft_lstnew(&fd));
+	ft_lstadd_front(&msh->fd, ft_lstnew(fd));
 }
