@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/01/29 18:59:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:59:32 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	get_char(char c, char **cmd)
 		return ;
 	}
 	tmp = ft_strjoin(*cmd, "?");
+	free(*cmd);
 	tmp[ft_strlen(tmp) - 1] = c;
 	*cmd = tmp;
 }

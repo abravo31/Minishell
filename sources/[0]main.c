@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 20:41:45 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/29 20:56:54 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	free_cmd(void *content)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)content;
+	printf("cmd to erase %s\n", cmd->cmd);
 	free(cmd->cmd);
 	free(cmd);
 }
@@ -114,7 +115,6 @@ int	main(int argc, char **argv, char **envp)
 			if (get_cmd(&msh))
 				printf("My line is: %s\n", msh.prompt);
 			head = msh.cmd;
-			ft_expansion(&msh);
 			msh.root = pipe_sequence(&msh.cmd, &i);
 			msh.cmd = head;
 			//print_cmd(msh.cmd);
