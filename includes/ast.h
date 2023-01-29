@@ -17,6 +17,7 @@
 # include "structures.h"
 # include "signal_handling.h"
 # include "parsing.h"
+# include "garbage_collector.h"
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -30,7 +31,6 @@
 /*############################################################################*/
 
 t_ast		*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right);
-void		free_ast(t_ast *root);
 
 /*############################################################################*/
 /*							NOTERMINAL FUNCTIONS                              */

@@ -32,4 +32,6 @@ void				init_garbage_collector(void);
 void				add_to_garbage_collector(void *ptr, t_memory_type type);
 void				free_garbage_collector(void);
 
+void	            free_cmd(void *content);
+void		        free_ast(t_ast *root);
 #endif

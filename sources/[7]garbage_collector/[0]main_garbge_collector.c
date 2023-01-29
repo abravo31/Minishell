@@ -58,14 +58,35 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 	}
 }
 
+
 void	free_garbage_collector(void)
 {
 	t_garbage_collector	*gc;
+	t_list				*tmp;
+	t_mem_block			*block;
 
 	gc = singleton_garbage_collector();
-	if (gc)
+	if (!gc)
+		return ;
+	tmp = gc->ptr;
+	while (tmp)
 	{
-		ft_lstclear(&gc->ptr, free);
-		gc->ptr = NULL;
+		block = (t_mem_block *)tmp->content;
+		if (block->type == INT)
+			free(block->ptr);
+		else if (block->type == D_INT)
+			free(block->ptr);
+		else if (block->type == ENV)
+			free(block->ptr);
+		else if (block->type == LST)
+			ft_lstclear(block->ptr, free);
+		else if (block->type == AST)
+			free_ast((t_ast *)block->ptr);
+		else if (block->type == CMD)
+			free_cmd((t_cmd *)block->ptr);
+		free(block);
+		tmp = tmp->next;
 	}
+	ft_lstclear(&gc->ptr, free);
+	gc->ptr = NULL;
 }
