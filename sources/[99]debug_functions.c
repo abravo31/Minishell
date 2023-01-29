@@ -257,6 +257,7 @@ void	print_cmd(t_list *head)
 	t_cmd	*cmd;
 	char	*id[]={"UNASSIGNED", "R_REDIR", "R_DREDIR","L_REDIR","L_DREDIR","PIPE","BUILTIN","D_QUOTE","S_QUOTE","CMD_NAME","CMD_WORD"};
 
+	printf("===================\nprinting cmd linked list\n===================\n");
 	while (current)
 	{
 		cmd = (t_cmd *)current->content;

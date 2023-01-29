@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 22:12:29 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 00:21:52 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/29 18:12:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_garbage_collector	*singleton_garbage_collector(void)
 	return (head_gc);
 }
 
-void	init_garbage_collector(t_memory_type type)
+void	init_garbage_collector(void)
 {
 	t_garbage_collector	*gc;
 
@@ -40,7 +40,7 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 
 	gc = singleton_garbage_collector();
 	if (!gc)
-		init_garbage_collector(type);
+		init_garbage_collector();
 	if (gc)
 	{
 		new = (t_list *)malloc(sizeof(t_list));
