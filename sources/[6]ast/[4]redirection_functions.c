@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:56:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 22:24:15 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/27 22:28:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_ast	*redirection_double_left(t_list **head, int *i)
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
+	here_doc((t_cmd *)(*head)->content, i);
 	right = cmd_name(head, i);
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }

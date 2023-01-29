@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 23:37:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 18:24:34 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,40 +36,34 @@
 void	setup_signal_handlers(void)
 {
 	struct sigaction	sa;
-	struct sigaction	eof_sa;
 	struct sigaction	quit_sa;
 
 	sa.sa_handler = sigint_handler;
-	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
-	eof_sa.sa_handler = eof_handler;
-	sigemptyset(&eof_sa.sa_mask);
-	eof_sa.sa_flags = 0;
-	sigaction(EOF, &eof_sa, NULL);
-	quit_sa.sa_handler = sigquit_handler;
-	sigemptyset(&quit_sa.sa_mask);
+	quit_sa.sa_handler = SIG_IGN;
 	quit_sa.sa_flags = 0;
+	sigemptyset(&quit_sa.sa_mask);
 	sigaction(SIGQUIT, &quit_sa, NULL);
 }
 
 // Handle the SIGINT signal (ctrl-C)
+//dnt forget to send  130 error to parents process
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	ft_printf("\n%s", PROMPT_NAME);
-	write(STDOUT_FILENO, "", 1);
-}
-
-// Handle the EOF signal (ctrl-D)
-void	eof_handler(int sig)
-{
-	(void)sig;
+	rl_clear_history();
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 // Handle the SIGQUIT signal (ctrl-\)
 void	sigquit_handler(int sig)
 {
 	(void)sig;
-	exit(EXIT_SUCCESS);
+	rl_replace_line("", 0);
+	rl_redisplay();
 }

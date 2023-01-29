@@ -15,6 +15,15 @@
 
 # include "libft.h"
 # include "structures.h"
+# include "signal_handling.h"
+# include "parsing.h"
+
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 /*############################################################################*/
 /*                              AST FUNCTIONS                                 */
@@ -41,13 +50,13 @@ t_ast		*redirection_left(t_list **head, int *i);
 t_ast		*redirection_right(t_list **head, int *i);
 t_ast		*redirection_double_left(t_list **head, int *i);
 t_ast		*redirection_double_right(t_list **head, int *i);
-
 /*############################################################################*/
 /*							TERMINAL FUNCTIONS                              */
 /*############################################################################*/
 t_ast		*cmd_name(t_list **head, int *i);
 t_ast		*cmd_word(t_list **head, int *i);
 t_ast		*cmd_redir(t_list **head, int *i);
+int			builtin_cmd(t_list **head);
 
 /*############################################################################*/
 /*							AUXILIARY FUNCTIONS                              */
@@ -56,5 +65,6 @@ size_t		ft_lstlen(t_list *lst);
 int			is_redirection(t_cmd *cmd);
 t_ast		*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right);
 t_ast		*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right);
+t_ast		*create_terminal_builtin(t_cmd *cmd, t_ast *left, t_ast *right);
 
 #endif

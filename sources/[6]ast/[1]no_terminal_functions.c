@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/17 19:40:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/26 17:49:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ the following are the no-terminalf functions of are grammar table
 pipe_sequence 	:complexe_command
 				| complexe_command '|' pipe_sequence
 				;
-complexe_command : complexe_command redirection
+complexe_command : redirection complexe_command
 				 | simple_command 
-				 | simple_command redirection
+				 | redirection simple_command 
 				 ;
 simple_command	: cmd_name
 				| cmd_name argument
@@ -96,7 +96,7 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 		(*i)++;
 		right = pipe_sequence(head, i);
 	}
-	if (!(*head) && !right)
+	if (left->id->op != COMPLEXE_COMMAND && right == NULL)
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
@@ -138,15 +138,18 @@ t_ast	*complexe_command(t_list **head, int *i)
 		left = redirection(head, i);
 		right = complexe_command(head, i);
 	}
-	if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+	if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 	{
-		left = simple_command(head, i);
-		right = complexe_command(head, i);
+		right = simple_command(head, i);
+		left = complexe_command(head, i);
 	}
 	if (right == NULL)
 		return (left);
 	if (left == NULL)
 		return (right);
+	if (left->id->op == SIMPLE_BUILTIN || right->id->op == SIMPLE_BUILTIN
+		|| left->id->op == CMPLX_BUILT || right->id->op == CMPLX_BUILT)
+		return (create_ast_no_terminal(CMPLX_BUILT, left, right));
 	return (create_ast_no_terminal(COMPLEXE_COMMAND, left, right));
 }
 
@@ -170,12 +173,14 @@ t_ast	*simple_command(t_list **head, int *i)
 		return (NULL);
 	left = NULL;
 	right = NULL;
-	if (((t_cmd *)(*head)->content)->id == UNASSIGNED)
+	if (((t_cmd *)(*head)->content)->id == WORD)
 	{
 		left = cmd_name(head, i);
-		if ((*head) && ((t_cmd *)(*head)->content)->id == UNASSIGNED)
+		if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 			right = argument(head, i);
 	}
+	if (left->id->token == BUILTIN)
+		return (create_ast_no_terminal(SIMPLE_BUILTIN, left, right));
 	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));
 }
 
@@ -202,7 +207,7 @@ t_ast	*argument(t_list **head, int *i)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
-	if (cmd->id == UNASSIGNED)
+	if (cmd->id == WORD)
 		left = cmd_word(head, i);
 	right = NULL;
 	if (left == NULL)

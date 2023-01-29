@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/23 23:12:54 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 20:21:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ void	init_minishell(t_minishell *msh)
 	msh->prompt = NULL;
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->fd = NULL;
 }
 
 void	reset_and_free(t_minishell *msh)
 {
 	msh->cmd = NULL;
 	msh->parsing_error = NULL;
+	ft_lstclear(&msh->fd, &free);
 }
 
 void	clean_exit(t_minishell *msh)
@@ -95,17 +97,28 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&msh);
 	while (msh.status)
 	{
+		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
-		if (get_cmd(&msh))
-			printf("My line is: %s\n", msh.prompt);
-		msh.root = pipe_sequence(&msh.cmd, &i);
-		ft_printf("\nAST:\n");
-		print2DUtil(msh.root, 0);
-		free_ast(msh.root);
-		if (msh.parsing_error)
-			printf("%s\n", msh.parsing_error);
+		if (msh.prompt == NULL)
+		{
+			printf("prompt : %s\n", msh.prompt);
+			break ;
+		}
+		if (msh.prompt != NULL)
+		{
+			if (get_cmd(&msh))
+				printf("My line is: %s\n", msh.prompt);
+			msh.root = pipe_sequence(&msh.cmd, &i);
+			ft_printf("\nAST:\n");
+			print2DUtil(msh.root, 0);
+			main_execution(&msh, msh.root);
+			free_ast(msh.root);
+			if (msh.parsing_error)
+				printf("%s\n", msh.parsing_error);
+		}
 		reset_and_free(&msh);
 	}
+	printf("exit\n");
 	clean_exit(&msh);
 	return (0);
 }

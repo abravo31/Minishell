@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 21:29:13 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/25 23:46:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ cdm_redir        : '<' cmd_word
 t_ast	*cmd_name(t_list **head, int *i)
 {
 	t_cmd	*cmd;
+	int		builtin;
 
 	if ((*head) == NULL)
 		return (NULL);
 	cmd = (t_cmd *)(*head)->content;
-	if (cmd->id == UNASSIGNED)
+	builtin = 0;
+	if (cmd->id == WORD)
 	{
+		builtin = builtin_cmd(head);
 		(*i)++;
 		(*head) = (*head)->next;
+		if (builtin)
+			return (create_terminal_builtin(cmd, NULL, NULL));
 		return (create_ast_terminal(cmd, NULL, NULL));
 	}
 	return (NULL);
@@ -66,7 +71,7 @@ t_ast	*cmd_word(t_list **head, int *i)
 		return (NULL);
 	first_word = (t_cmd *)(*head)->content;
 	cmd = (t_cmd *)(*head)->content;
-	while ((*head) && cmd->id == UNASSIGNED)
+	while ((*head) && cmd->id == WORD)
 	{
 		(*i)++;
 		(*head) = (*head)->next;
@@ -96,4 +101,25 @@ t_ast	*cmd_redir(t_list **head, int *i)
 		return (create_ast_terminal(cmd, NULL, NULL));
 	}
 	return (NULL);
+}
+
+int	builtin_cmd(t_list **head)
+{
+	t_cmd		*cmd;
+	int			i;
+	char const	*builtins[7]
+		= {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	int const	nbr_builtins = sizeof(builtins) / sizeof(char const *);
+
+	if ((*head) == NULL)
+		return (0);
+	cmd = (t_cmd *)(*head)->content;
+	i = 0;
+	while (i < nbr_builtins)
+	{
+		if (ft_strcmp(cmd->cmd, builtins[i]) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
 }

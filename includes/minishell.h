@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/23 21:36:09 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/28 23:34:49 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "signal_handling.h"
 # include "structures.h"
 # include "ast.h"
+# include "garbage_collector.h"
 
 /*############################################################################*/
 /*                              DEBUG FUNCTIONS                               */

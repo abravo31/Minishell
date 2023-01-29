@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:33:27 by motero            #+#    #+#             */
-/*   Updated: 2023/01/14 19:16:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/26 17:47:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,30 @@ t_ast	*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right)
 	{
 		node->terminal = 1;
 		node->id->token = cmd->id;
+		node->data = cmd->cmd;
+		node->left = left;
+		node->right = right;
+	}
+	return (node);
+}
+
+/*
+creates a terminal but this time it is a builtin
+*/
+t_ast	*create_terminal_builtin(t_cmd *cmd, t_ast *left, t_ast *right)
+{
+	t_ast	*node;
+
+	node = ft_calloc(1, sizeof(t_ast));
+	if (node == NULL)
+		return (NULL);
+	node->id = malloc(sizeof(t_id));
+	if (node->id == NULL)
+		return (free(node), NULL);
+	if (cmd)
+	{
+		node->terminal = 1;
+		node->id->token = BUILTIN;
 		node->data = cmd->cmd;
 		node->left = left;
 		node->right = right;

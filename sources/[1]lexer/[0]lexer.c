@@ -1,5 +1,61 @@
 #include "lexer.h"
 
+// Function to parse cmd from user input
+int	get_cmd(t_minishell *msh)
+{
+	int		i;
+	char	*str;	
+
+	i = 0;
+	str = NULL;
+	while (msh->prompt[i] && !msh->parsing_error)
+	{
+		//__debug_parsing(msh);
+		if (msh->prompt[i] == ' ')
+			delimitor(&str, msh);
+		else if (msh->prompt[i] != ' ' && (msh->prompt[i] != '\'' && msh->prompt[i] != '\"'))
+		{
+			 //printf("%c\n", msh->prompt[i]);
+			if ((is_token(msh->prompt[i]) && str && !is_token(str[0]))
+				|| (!is_token(msh->prompt[i]) && str && is_token(str[0])))
+			{
+				//printf("msh : %c\n prev : %c\n", msh->prompt[i], str[0]);
+				delimitor(&str, msh);
+			}
+			if ((msh->prompt[i] == '>' || msh->prompt[i] == '<') && str && str[0] == '|')
+			{
+				//printf("str[0] : %c\n", str[0]);
+				delimitor(&str, msh);
+			}
+			get_char(msh->prompt[i], &str);
+			printf("%s\n", str);
+		}
+		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
+		{
+			if (i > 0 && !is_token(msh->prompt[i - 1]) && msh->prompt[i - 1] != ' ')
+				delimitor(&str, msh);
+			i = is_quote(msh, i, &msh->prompt);
+		}
+		i++;
+	}
+	delimitor(&str, msh);
+	//check_parsing_errors(msh, 0);
+	__debug_parsing(msh);
+	check_parsing_errors(msh, 1);
+	return (!msh->parsing_error);
+}
+
+// Function to handle space delimitor case
+// will create and pus a new node with cmd and it's token
+void	delimitor(char **cmd, t_minishell *msh)
+{
+	if (!*cmd || msh->parsing_error)
+		return ;
+	ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd))));
+	check_parsing_errors(msh, 0);
+	*cmd = NULL;
+}
+
 // Function that returns 1 or 0 weither c is a token or not
 int	is_token(char c)
 {
@@ -164,17 +220,6 @@ int	is_quote(t_minishell *msh, int pos, char **cmd)
 	return (pos - 1);
 }
 
-// Function to handle space delimitor case
-// will create and pus a new node with cmd and it's token
-void	delimitor(char **cmd, t_minishell *msh)
-{
-	if (!*cmd || msh->parsing_error)
-		return ;
-	ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd))));
-	check_parsing_errors(msh, 0);
-	*cmd = NULL;
-}
-
 void	__debug_parsing(t_minishell *msh)
 {
 	t_list	*iter;
@@ -188,49 +233,4 @@ void	__debug_parsing(t_minishell *msh)
 		printf("{%d}[%s]\n", current->id, current->cmd);
 		iter = iter->next;
 	}
-}
-
-// Function to parse cmd from user input
-int	get_cmd(t_minishell *msh)
-{
-	int		i;
-	char	*str;	
-
-	i = 0;
-	str = NULL;
-	while (msh->prompt[i] && !msh->parsing_error)
-	{
-		//__debug_parsing(msh);
-		if (msh->prompt[i] == ' ')
-			delimitor(&str, msh);
-		else if (msh->prompt[i] != ' ' && (msh->prompt[i] != '\'' && msh->prompt[i] != '\"'))
-		{
-			 //printf("%c\n", msh->prompt[i]);
-			if ((is_token(msh->prompt[i]) && str && !is_token(str[0]))
-				|| (!is_token(msh->prompt[i]) && str && is_token(str[0])))
-			{
-				//printf("msh : %c\n prev : %c\n", msh->prompt[i], str[0]);
-				delimitor(&str, msh);
-			}
-			if ((msh->prompt[i] == '>' || msh->prompt[i] == '<') && str && str[0] == '|')
-			{
-				//printf("str[0] : %c\n", str[0]);
-				delimitor(&str, msh);
-			}
-			get_char(msh->prompt[i], &str);
-			printf("%s\n", str);
-		}
-		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
-		{
-			if (i > 0 && !is_token(msh->prompt[i - 1]) && msh->prompt[i - 1] != ' ')
-				delimitor(&str, msh);
-			i = is_quote(msh, i, &msh->prompt);
-		}
-		i++;
-	}
-	delimitor(&str, msh);
-	//check_parsing_errors(msh, 0);
-	__debug_parsing(msh);
-	check_parsing_errors(msh, 1);
-	return (!msh->parsing_error);
 }

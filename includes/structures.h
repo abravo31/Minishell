@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/23 22:38:27 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/29 00:15:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,27 @@
 /*############################################################################*/
 /*                              STRUCTURES                                    */
 /*############################################################################*/
+
+typedef enum e_memory_type
+{
+	INT,
+	D_INT,
+	ENV,
+	LST,
+	AST,
+	CMD,
+}	t_memory_type;
+
+typedef struct s_mem_block
+{
+	void			*ptr;
+	t_memory_type	type;
+}	t_mem_block;
+
+typedef struct s_garbage_collector
+{
+	t_list			*ptr;
+}	t_garbage_collector;
 
 typedef enum e_token
 {
@@ -46,6 +67,8 @@ typedef enum e_operator{
 	SIMPLE_COMMAND,
 	ARGUMENT,
 	REDIRECTION,
+	SIMPLE_BUILTIN,
+	CMPLX_BUILT,
 }	t_op;
 
 typedef union id{
@@ -71,6 +94,7 @@ typedef struct s_minishell
 	t_list	*cmd;
 	t_list	*env;
 	t_ast	*root;
+	t_list	*fd;
 }	t_minishell;
 
 #endif
