@@ -38,6 +38,7 @@ int	get_cmd(t_minishell *msh)
 		}
 		i++;
 	}
+	printf("str  after the while loop has finished %s\n", str);
 	delimitor(&str, msh);
 	//check_parsing_errors(msh, 0);
 	__debug_parsing(msh);
