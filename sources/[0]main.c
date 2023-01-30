@@ -41,15 +41,7 @@ void	free_list(t_list *lst, void (*free_content)(void *));
 // 	free(line);
 // }
 
-void	free_cmd(void *content)
-{
-	t_cmd	*cmd;
 
-	cmd = (t_cmd *)content;
-	printf("cmd to erase %s\n", cmd->cmd);
-	free(cmd->cmd);
-	free(cmd);
-}
 
 void	free_list(t_list *lst, void (*free_content)(void *))
 {
@@ -77,13 +69,11 @@ void	init_minishell(t_minishell *msh)
 
 void	reset_and_free(t_minishell *msh)
 {
-	//msh->cmd = NULL;
-	printf("\nreset_and_free\n");
-	print_cmd(msh->cmd);
-	ft_lstclear(&msh->cmd, &free_cmd);
-	msh->parsing_error = NULL;
-	//free(msh->prompt);
+	free_garbage_collector();
+	//free_ast(msh->root);
 	ft_lstclear(&msh->fd, &free);
+	//msh->parsing_error = NULL;
+	msh->cmd = NULL;
 }
 
 void	clean_exit(t_minishell *msh)
@@ -116,13 +106,14 @@ int	main(int argc, char **argv, char **envp)
 				printf("My line is: %s\n", msh.prompt);
 			head = msh.cmd;
 			msh.root = pipe_sequence(&msh.cmd, &i);
+			if (!msh.root)
+				free_garbage_collector();
+			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd = head;
-			//print_cmd(msh.cmd);
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
-			if (singleton_heredoc(0) == 0)
+			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root);
-			free_ast(msh.root);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}

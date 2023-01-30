@@ -63,18 +63,3 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 	return (node);
 }
 
-/*
-This function takes the root of the AST as its parameter. 
-It checks if the root is NULL, if it is, it returns.
-Else it recursively frees the left and right subtrees of the root,
-then it frees the id field and finally the root itself.
-*/
-void	free_ast(t_ast *root)
-{
-	if (root == NULL)
-		return ;
-	free_ast(root->left);
-	free_ast(root->right);
-	free(root->id);
-	free(root);
-}

@@ -11,6 +11,7 @@
 		"readline.h": "c",
 		"signal_handling.h": "c",
 		"*.tcc": "c",
-		"lexer.h": "c"
+		"lexer.h": "c",
+		"types.h": "c"
 	}
 }

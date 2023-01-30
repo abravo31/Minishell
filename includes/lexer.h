@@ -15,6 +15,7 @@
 
 # include "structures.h"
 # include "libft.h"
+# include "garbage_collector.h"
 
 # include <stdio.h>
 # include <string.h>

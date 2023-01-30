@@ -38,7 +38,6 @@ int	get_cmd(t_minishell *msh)
 		}
 		i++;
 	}
-	printf("str  after the while loop has finished %s\n", str);
 	delimitor(&str, msh);
 	//check_parsing_errors(msh, 0);
 	__debug_parsing(msh);
@@ -50,9 +49,28 @@ int	get_cmd(t_minishell *msh)
 // will create and pus a new node with cmd and it's token
 void	delimitor(char **cmd, t_minishell *msh)
 {
+	t_list	*new;
+
 	if (!*cmd || msh->parsing_error)
 		return ;
-	ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd))));
+	if (msh->cmd == NULL)
+	{
+		msh->cmd = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd)));
+		if (!msh->cmd)
+			printf("error while adding a delimitor, but you forgot to free!\n");
+		add_to_garbage_collector((void *)&msh->cmd, CMD);
+	}
+	else
+	{
+		new = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd)));
+		if (!new)
+		{
+			free_garbage_collector();
+			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
+			return ;
+		}
+		ft_lstadd_back(&msh->cmd, new);
+	}
 	check_parsing_errors(msh, 0);
 	*cmd = NULL;
 }
@@ -122,9 +140,26 @@ char	*syntax_error(char where)
 	char	*ret;
 
 	if (where == '\n')
-		return (ft_strdup("syntax error near unexpected token \'newline\'"));
+	{
+		ret = ft_strdup("syntax error near unexpected token \'newline\'");
+		if (!ret)
+		{
+			free_garbage_collector();
+			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
+			exit(2);
+		}
+		add_to_garbage_collector((void *)&ret, INT);
+		return (ret);
+	}
 	ret = ft_strdup("syntax error near unexpected token \'?\'");
+	if (!ret)
+	{
+		free_garbage_collector();
+		printf("error while adding a delimitor, still not error or way toe xit this function!\n");
+		exit(2);
+	}
 	ret[ft_strlen(ret) - 2] = where;
+	add_to_garbage_collector((void *)ret, INT);
 	return (ret);
 }
 

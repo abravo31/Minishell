@@ -25,6 +25,7 @@ void	redirect_output(t_minishell *msh, t_ast *root)
 	if (*fd == -1)
 	{
 		printf("Error: %s\n", strerror(errno));
+		ft_lstadd_front(&msh->fd, ft_lstnew(fd));
 		return ;
 	}
 	ft_lstadd_front(&msh->fd, ft_lstnew(fd));
@@ -43,6 +44,7 @@ void	redirect_input(t_minishell *msh, t_ast *root)
 	if (*fd == -1)
 	{
 		printf("Error: %s\n", strerror(errno));
+		ft_lstadd_front(&msh->fd, ft_lstnew(fd));
 		return ;
 	}
 	ft_lstadd_front(&msh->fd, ft_lstnew(fd));
@@ -61,6 +63,7 @@ void	redirect_append(t_minishell *msh, t_ast *root)
 	if (*fd == -1)
 	{
 		printf("Error: %s\n", strerror(errno));
+		ft_lstadd_front(&msh->fd, ft_lstnew(fd));
 		return ;
 	}
 	ft_lstadd_front(&msh->fd, ft_lstnew(fd));
@@ -79,6 +82,7 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root)
 	if (*fd == -1)
 	{
 		printf("Error: %s\n", strerror(errno));
+		ft_lstadd_front(&msh->fd, ft_lstnew(fd));
 		return ;
 	}
 	ft_lstadd_front(&msh->fd, ft_lstnew(fd));
