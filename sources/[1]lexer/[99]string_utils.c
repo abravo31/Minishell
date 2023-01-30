@@ -63,27 +63,27 @@ int	is_identical(char *s1, char *s2)
 // 	return (dest);
 // }
 
-char	*ft_strdup(const char *s)
-{
-	char	*s1;
-	size_t	size;
-	size_t	i;
+// char	*ft_strdup(const char *s)
+// {
+// 	char	*s1;
+// 	size_t	size;
+// 	size_t	i;
 
-	if (!s)
-		return (0);
-	i = 0;
-	size = ft_strlen(s);
-	s1 = malloc(sizeof(char) * size + 1);
-	if (!s1)
-		return (0);
-	while (s[i])
-	{
-		s1[i] = s[i];
-		i++;
-	}
-	s1[i] = '\0';
-	return (s1);
-}
+// 	if (!s)
+// 		return (0);
+// 	i = 0;
+// 	size = ft_strlen(s);
+// 	s1 = malloc(sizeof(char) * size + 1);
+// 	if (!s1)
+// 		return (0);
+// 	while (s[i])
+// 	{
+// 		s1[i] = s[i];
+// 		i++;
+// 	}
+// 	s1[i] = '\0';
+// 	return (s1);
+// }
 
 void	get_char(char c, char **cmd)
 {

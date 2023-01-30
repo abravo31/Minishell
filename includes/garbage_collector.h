@@ -29,7 +29,7 @@
 
 t_garbage_collector	**singleton_garbage_collector(void);
 void				init_garbage_collector(void);
-void				add_to_garbage_collector(void **ptr, t_memory_type type);
+void				add_to_garbage_collector(void *ptr, t_memory_type type);
 void				free_garbage_collector(void);
 
 void	            free_cmd(void *content);

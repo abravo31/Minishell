@@ -29,12 +29,11 @@ void	init_garbage_collector(void)
 		*gc = malloc(sizeof(t_garbage_collector));
 		if (!gc)
 			return ;
-		printf("At creation gc adress: %p\n", *gc);
 		(*gc)->ptr = NULL;
 	}
 }
 
-void	add_to_garbage_collector(void **ptr, t_memory_type type)
+void	add_to_garbage_collector(void *ptr, t_memory_type type)
 {
 	t_garbage_collector	**gc;
 	t_list				*new;
@@ -44,14 +43,15 @@ void	add_to_garbage_collector(void **ptr, t_memory_type type)
 		init_garbage_collector();
 	if (*gc)
 	{
-		printf("addinga memory block at  gc adress: %p\n", *gc);
+		if (type == INT)
+			printf("text passed %s\n", (char *)ptr);
 		new = (t_list *)malloc(sizeof(t_list));
 		if (!new)
 			return ;
 		new->content = (t_mem_block *)malloc(sizeof(t_mem_block));
 		if (!new->content)
 		{
-			free(new->content);
+			free(new);
 			return ;
 		}
 		((t_mem_block *)new->content)->ptr = ptr;
@@ -71,14 +71,17 @@ void	free_garbage_collector(void)
 	gc = singleton_garbage_collector();
 	if (!*gc)
 		return ;
-	printf("When erasing *gc adress: %p\n", *gc);
 	tmp = (*gc)->ptr;
 	while (tmp)
 	{
+		printf("erasing something\n");
 		next = tmp->next;
 		block = (t_mem_block *)tmp->content;
 		if (block->type == INT)
+		{	
+			//printf("text passed %s\n", (char *)block->ptr);
 			free(block->ptr);
+		}
 		else if (block->type == D_INT)
 			free(block->ptr);
 		else if (block->type == ENV)
@@ -94,5 +97,5 @@ void	free_garbage_collector(void)
 		tmp = next;
 	}
 	free(*gc);
-	gc = NULL;
+	*gc = NULL;
 }

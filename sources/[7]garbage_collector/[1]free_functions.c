@@ -17,7 +17,6 @@ void	free_cmd(void *content)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)content;
-	printf("cmd to erase %s\n", cmd->cmd);
 	free(cmd->cmd);
 	free(cmd);
 }

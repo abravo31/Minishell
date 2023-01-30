@@ -71,9 +71,8 @@ void	reset_and_free(t_minishell *msh)
 {
 	free_garbage_collector();
 	free_ast(msh->root);
-	//ft_lstclear(&msh->cmd, &free_cmd);
 	ft_lstclear(&msh->fd, &free);
-	msh->parsing_error = NULL;
+	//msh->parsing_error = NULL;
 	msh->cmd = NULL;
 }
 
