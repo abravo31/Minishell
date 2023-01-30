@@ -52,7 +52,15 @@ void	delimitor(char **cmd, t_minishell *msh)
 {
 	if (!*cmd || msh->parsing_error)
 		return ;
-	ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd))));
+	if (msh->cmd == NULL)
+	{
+		msh->cmd = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd)));
+		if (!msh->cmd)
+			printf("error while adding a delimitor, but you forgot to free!\n");
+		add_to_garbage_collector((void *)&msh->cmd, CMD);
+	}
+	else
+		ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd))));
 	check_parsing_errors(msh, 0);
 	*cmd = NULL;
 }

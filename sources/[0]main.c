@@ -69,8 +69,9 @@ void	init_minishell(t_minishell *msh)
 
 void	reset_and_free(t_minishell *msh)
 {
+	free_garbage_collector();
 	free_ast(msh->root);
-	ft_lstclear(&msh->cmd, &free_cmd);
+	//ft_lstclear(&msh->cmd, &free_cmd);
 	ft_lstclear(&msh->fd, &free);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
@@ -107,7 +108,6 @@ int	main(int argc, char **argv, char **envp)
 			head = msh.cmd;
 			msh.root = pipe_sequence(&msh.cmd, &i);
 			msh.cmd = head;
-
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
 			if (singleton_heredoc(0) == 0)

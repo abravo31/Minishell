@@ -12,37 +12,39 @@
 
 #include "garbage_collector.h"
 
-t_garbage_collector	*singleton_garbage_collector(void)
+t_garbage_collector	**singleton_garbage_collector(void)
 {
 	static t_garbage_collector	*head_gc = NULL;
 
-	return (head_gc);
+	return (&head_gc);
 }
 
 void	init_garbage_collector(void)
 {
-	t_garbage_collector	*gc;
+	t_garbage_collector	**gc;
 
 	gc = singleton_garbage_collector();
-	if (!gc)
+	if (!*gc)
 	{
-		gc = malloc(sizeof(t_garbage_collector));
+		*gc = malloc(sizeof(t_garbage_collector));
 		if (!gc)
 			return ;
-		gc->ptr = NULL;
+		printf("At creation gc adress: %p\n", *gc);
+		(*gc)->ptr = NULL;
 	}
 }
 
-void	add_to_garbage_collector(void *ptr, t_memory_type type)
+void	add_to_garbage_collector(void **ptr, t_memory_type type)
 {
-	t_garbage_collector	*gc;
+	t_garbage_collector	**gc;
 	t_list				*new;
 
 	gc = singleton_garbage_collector();
-	if (!gc)
+	if (!*gc)
 		init_garbage_collector();
-	if (gc)
+	if (*gc)
 	{
+		printf("addinga memory block at  gc adress: %p\n", *gc);
 		new = (t_list *)malloc(sizeof(t_list));
 		if (!new)
 			return ;
@@ -54,21 +56,22 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 		}
 		((t_mem_block *)new->content)->ptr = ptr;
 		((t_mem_block *)new->content)->type = type;
-		ft_lstadd_front(&gc->ptr, new);
+		ft_lstadd_front(&(*gc)->ptr, new);
 	}
 }
 
 
 void	free_garbage_collector(void)
 {
-	t_garbage_collector	*gc;
+	t_garbage_collector	**gc;
 	t_list				*tmp;
 	t_mem_block			*block;
 
 	gc = singleton_garbage_collector();
-	if (!gc)
+	if (!*gc)
 		return ;
-	tmp = gc->ptr;
+	printf("When erasing *gc adress: %p\n", *gc);
+	tmp = (*gc)->ptr;
 	while (tmp)
 	{
 		block = (t_mem_block *)tmp->content;
@@ -83,10 +86,11 @@ void	free_garbage_collector(void)
 		else if (block->type == AST)
 			free_ast((t_ast *)block->ptr);
 		else if (block->type == CMD)
-			free_cmd((t_cmd *)block->ptr);
+			ft_lstclear(block->ptr, &free_cmd);
 		free(block);
 		tmp = tmp->next;
 	}
-	ft_lstclear(&gc->ptr, free);
-	gc->ptr = NULL;
+	ft_lstclear(&(*gc)->ptr, free);
+	free(*gc);
+	gc = NULL;
 }
