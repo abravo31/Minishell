@@ -96,6 +96,8 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 		(*i)++;
 		right = pipe_sequence(head, i);
 	}
+	if (left == NULL && right == NULL)
+		return (NULL);
 	if (left->id->op != COMPLEXE_COMMAND && right == NULL)
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
@@ -179,6 +181,8 @@ t_ast	*simple_command(t_list **head, int *i)
 		if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 			right = argument(head, i);
 	}
+	if (!left && !right)
+		return (NULL);
 	if (left->id->token == BUILTIN)
 		return (create_ast_no_terminal(SIMPLE_BUILTIN, left, right));
 	return (create_ast_no_terminal(SIMPLE_COMMAND, left, right));

@@ -106,8 +106,9 @@ int	main(int argc, char **argv, char **envp)
 				printf("My line is: %s\n", msh.prompt);
 			head = msh.cmd;
 			msh.root = pipe_sequence(&msh.cmd, &i);
-			if (msh.root)
-				add_to_garbage_collector((void *)msh.root, AST);
+			if (!msh.root)
+				free_garbage_collector();
+			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd = head;
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
