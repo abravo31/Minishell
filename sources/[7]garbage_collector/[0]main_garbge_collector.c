@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 22:12:29 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 18:12:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:52:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 		init_garbage_collector();
 	if (*gc)
 	{
-		if (type == INT)
-			printf("text passed %s\n", (char *)ptr);
 		new = (t_list *)malloc(sizeof(t_list));
 		if (!new)
 			return ;
@@ -60,7 +58,6 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 	}
 }
 
-
 void	free_garbage_collector(void)
 {
 	t_garbage_collector	**gc;
@@ -74,7 +71,6 @@ void	free_garbage_collector(void)
 	tmp = (*gc)->ptr;
 	while (tmp)
 	{
-		printf("erasing something\n");
 		next = tmp->next;
 		block = (t_mem_block *)tmp->content;
 		if (block->type == INT)
