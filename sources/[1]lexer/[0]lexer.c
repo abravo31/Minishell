@@ -142,10 +142,22 @@ char	*syntax_error(char where)
 	if (where == '\n')
 	{
 		ret = ft_strdup("syntax error near unexpected token \'newline\'");
+		if (!ret)
+		{
+			free_garbage_collector();
+			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
+			exit(2);
+		}
 		add_to_garbage_collector((void *)&ret, INT);
 		return (ret);
 	}
 	ret = ft_strdup("syntax error near unexpected token \'?\'");
+	if (!ret)
+	{
+		free_garbage_collector();
+		printf("error while adding a delimitor, still not error or way toe xit this function!\n");
+		exit(2);
+	}
 	ret[ft_strlen(ret) - 2] = where;
 	add_to_garbage_collector((void *)ret, INT);
 	return (ret);
