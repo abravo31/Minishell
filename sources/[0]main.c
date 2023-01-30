@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 16:57:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 17:11:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			break ;
 		}
+		add_to_garbage_collector((void *)msh.prompt, INT);
 		if (msh.prompt != NULL)
 		{
 			if (get_cmd(&msh))
