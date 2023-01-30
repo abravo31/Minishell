@@ -212,7 +212,7 @@ void	check_parsing_errors(t_minishell *msh, int end)
 		//printf("%d\n", current->id);
 		//printf("%d\n", end);
 		//printf("%d\n", ((t_cmd *)(iter->next->content))->id);
-		else if (current->id >= 1 && current->id <= 4 && end && (((t_cmd *)(iter->next->content))->id < 7 || !iter->next))
+		else if (current->id >= 1 && current->id <= 4 && end && (((t_cmd *)(iter->next->content))->id < 6 || !iter->next))
 		    msh->parsing_error = syntax_error(current->cmd[0]);
 		iter = iter->next;
 	}

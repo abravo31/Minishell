@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 16:49:25 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 16:57:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	free_list(t_list *lst, void (*free_content)(void *));
 // 	free(line);
 // }
 
-
-
 void	free_list(t_list *lst, void (*free_content)(void *))
 {
 	t_list	*current;
@@ -66,7 +64,6 @@ void	init_minishell(t_minishell *msh)
 	msh->fd = NULL;
 }
 
-
 void	reset_and_free(t_minishell *msh)
 {
 	free_garbage_collector();
@@ -78,7 +75,9 @@ void	reset_and_free(t_minishell *msh)
 
 void	clean_exit(t_minishell *msh)
 {
-	(void)msh;
+	printf("\n=======\nCLEAN EXIT\n=======\n");
+	printf("propmt before freeing it's memory: %s\n", msh->prompt);
+	free(msh->prompt);
 }
 
 int	main(int argc, char **argv, char **envp)

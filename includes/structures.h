@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 00:15:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 17:00:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ typedef enum e_token
 	L_REDIR,
 	L_DREDIR,
 	PIPE,
-	WORD,
-	BUILTIN,
 	D_QUOTE,
 	S_QUOTE,
+	WORD,
+	BUILTIN,
 }	t_token;
 
 typedef struct s_cmd
