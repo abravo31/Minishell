@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/26 22:28:01 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 18:49:13 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,46 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 {
 	t_ast	*left;
 	t_ast	*right;
+	int		left_fd[2];
+	int		right_fd[2];
+	t_list	*new;
+	pid_t	pid;
 
 	if (root == NULL)
 		return ;
 	left = root->left;
+	if (!left)
+		error_safe_exit("AST EXECUTION ERROR, Impossible structure\n");
+	if (pipe(left_fd) == -1)
+		error_safe_exit("PIPE ERROR\n");
+	pid = fork();
+	//probably have to inlcude the fd in the garbage collector
+	if (pid < 0)
+		error_safe_exit("FORK ERROR\n");
+	if (pid == 0)
+	{
+		main_execution(msh, left);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		if (msh->pid == NULL)
+		{
+			new = ft_lstnew(&pid);
+			if (!new)
+				error_safe_exit("LIST ERROR\n");
+			msh->pid = new;
+		}
+		else
+		{
+			new = ft_lstnew(&pid);
+			if (!new)
+				error_safe_exit("LIST ERROR\n");
+			ft_lstadd_back(&msh->pid, new);
+		}
+	}
 	right = root->right;
-	main_execution(msh, left);
+	(void)(right_fd);
 	main_execution(msh, right);
 	printf("Start of a PIPE_SEQUENCE\n");
 }

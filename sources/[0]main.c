@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 17:11:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 17:47:31 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_minishell(t_minishell *msh)
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
 	msh->fd = NULL;
+	msh->pid = NULL;
 }
 
 void	reset_and_free(t_minishell *msh)

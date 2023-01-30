@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 17:00:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 18:57:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define STRUCTURES_H
 
 # include <stdlib.h>
+# include <sys/types.h>
+# include <unistd.h>
 # include "libft.h"
 
 /*############################################################################*/
-/*                              STRUCTURES                                    */
+/*                              GARBAGE COLLECTOR                             */
 /*############################################################################*/
 
 typedef enum e_memory_type
@@ -41,6 +43,10 @@ typedef struct s_garbage_collector
 	t_list			*ptr;
 }	t_garbage_collector;
 
+/*############################################################################*/
+/*                              LEXER			                              */
+/*############################################################################*/
+
 typedef enum e_token
 {
 	UNASSIGNED,
@@ -60,6 +66,10 @@ typedef struct s_cmd
 	char	*cmd;
 	t_token	id;
 }	t_cmd;
+
+/*############################################################################*/
+/*                                    AST                                     */
+/*############################################################################*/
 
 typedef enum e_operator{
 	PIPE_SEQUENCE ,
@@ -86,6 +96,10 @@ typedef struct s_ast_node
 	struct s_ast_node	*right;
 }						t_ast;
 
+/*############################################################################*/
+/*                             MAIN STRUCTURE                                 */
+/*############################################################################*/
+
 typedef struct s_minishell
 {
 	char	*prompt;
@@ -94,7 +108,9 @@ typedef struct s_minishell
 	t_list	*cmd;
 	t_list	*env;
 	t_ast	*root;
-	t_list	*fd;
+	int		*fd_out;
+	int		*fd_in;
+	t_list	*pid;
 }	t_minishell;
 
 #endif
