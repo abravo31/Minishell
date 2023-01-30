@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 23:10:36 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:52:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 	if (pid == 0)
 	{
 		main_execution(msh, left);
+		free_garbage_collector();
 		exit(EXIT_SUCCESS);
 	}
 	else
