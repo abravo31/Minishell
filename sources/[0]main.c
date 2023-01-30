@@ -70,7 +70,7 @@ void	init_minishell(t_minishell *msh)
 void	reset_and_free(t_minishell *msh)
 {
 	free_garbage_collector();
-	free_ast(msh->root);
+	//free_ast(msh->root);
 	ft_lstclear(&msh->fd, &free);
 	//msh->parsing_error = NULL;
 	msh->cmd = NULL;
@@ -106,10 +106,12 @@ int	main(int argc, char **argv, char **envp)
 				printf("My line is: %s\n", msh.prompt);
 			head = msh.cmd;
 			msh.root = pipe_sequence(&msh.cmd, &i);
+			if (msh.root)
+				add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd = head;
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
-			if (singleton_heredoc(0) == 0)
+			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);

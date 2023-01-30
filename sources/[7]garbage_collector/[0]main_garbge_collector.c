@@ -78,10 +78,7 @@ void	free_garbage_collector(void)
 		next = tmp->next;
 		block = (t_mem_block *)tmp->content;
 		if (block->type == INT)
-		{	
-			//printf("text passed %s\n", (char *)block->ptr);
 			free(block->ptr);
-		}
 		else if (block->type == D_INT)
 			free(block->ptr);
 		else if (block->type == ENV)
