@@ -65,6 +65,7 @@ void	free_garbage_collector(void)
 {
 	t_garbage_collector	**gc;
 	t_list				*tmp;
+	t_list				*next;
 	t_mem_block			*block;
 
 	gc = singleton_garbage_collector();
@@ -74,6 +75,7 @@ void	free_garbage_collector(void)
 	tmp = (*gc)->ptr;
 	while (tmp)
 	{
+		next = tmp->next;
 		block = (t_mem_block *)tmp->content;
 		if (block->type == INT)
 			free(block->ptr);
@@ -88,9 +90,9 @@ void	free_garbage_collector(void)
 		else if (block->type == CMD)
 			ft_lstclear(block->ptr, &free_cmd);
 		free(block);
-		tmp = tmp->next;
+		free(tmp);
+		tmp = next;
 	}
-	ft_lstclear(&(*gc)->ptr, free);
 	free(*gc);
 	gc = NULL;
 }
