@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 18:49:13 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:10:36 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 		error_safe_exit("AST EXECUTION ERROR, Impossible structure\n");
 	if (pipe(left_fd) == -1)
 		error_safe_exit("PIPE ERROR\n");
+	add_to_garbage_collector((void *)&left_fd[0], FD);
+	add_to_garbage_collector((void *)&left_fd[1], FD);
 	pid = fork();
 	//probably have to inlcude the fd in the garbage collector
 	if (pid < 0)
@@ -56,8 +58,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 		}
 	}
 	right = root->right;
-	(void)(right_fd);
 	main_execution(msh, right);
+	(void)(right_fd);
 	printf("Start of a PIPE_SEQUENCE\n");
 }
 

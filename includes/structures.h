@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 18:57:30 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:02:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,18 @@ typedef enum e_memory_type
 	LST,
 	AST,
 	CMD,
+	FD,
 }	t_memory_type;
+
+typedef union u_ptr_int
+{
+	void	*ptr;
+	int		val;
+}	t_ptr_int;
 
 typedef struct s_mem_block
 {
-	void			*ptr;
+	t_ptr_int		ptr_int;
 	t_memory_type	type;
 }	t_mem_block;
 
@@ -108,8 +115,8 @@ typedef struct s_minishell
 	t_list	*cmd;
 	t_list	*env;
 	t_ast	*root;
-	int		*fd_out;
-	int		*fd_in;
+	int		fd_out;
+	int		fd_in;
 	t_list	*pid;
 }	t_minishell;
 

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 17:47:31 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 22:24:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	init_minishell(t_minishell *msh)
 	msh->prompt = NULL;
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
-	msh->fd = NULL;
+	msh->fd_in = 0;
+	msh->fd_out = 0;
 	msh->pid = NULL;
 }
 
@@ -69,7 +70,7 @@ void	reset_and_free(t_minishell *msh)
 {
 	free_garbage_collector();
 	//free_ast(msh->root);
-	ft_lstclear(&msh->fd, &free);
+	//ft_lstclear(&msh->fd, &free);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:52:02 by motero            #+#    #+#             */
-/*   Updated: 2023/01/26 21:56:55 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/30 23:26:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,17 @@ void	execution_terminal(t_minishell *msh, t_ast *root)
 	if (root == NULL)
 		return ;
 	printf("%s  ", root->data);
+}
+
+//wait for each child process to finish
+void	wait_for_children(t_minishell *msh)
+{
+	int	i;
+
+	i = 0;
+	while (i < msh->nb_child)
+	{
+		waitpid(msh->child_pid[i], NULL, 0);
+		i++;
+	}
 }
