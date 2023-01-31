@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 17:00:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 21:05:30 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef enum e_token
 typedef struct s_cmd
 {
 	char	*cmd;
+	int		space;
 	t_token	id;
 }	t_cmd;
 
@@ -92,6 +93,7 @@ typedef struct s_minishell
 	char	*parsing_error;
 	int		status;
 	t_list	*cmd;
+	t_list	*cmd_expand;
 	t_list	*env;
 	t_ast	*root;
 	t_list	*fd;

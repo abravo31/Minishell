@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/24 18:03:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 20:49:42 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@
 /*                              LEXER  FUNCTIONS						  */
 /*############################################################################*/
 
-void	delimitor(char **cmd, t_minishell *msh);
+void	delimitor(char **cmd, t_minishell *msh, int space);
 int		is_token(char c);
 t_token	eval_token(char *cmd);
-t_cmd	*new_cmd(char *cmd, t_token id);
+t_cmd	*new_cmd(char *cmd, t_token id, int space);
 char	*syntax_error(char where);
 int		handle_first_node_error(t_minishell *msh);
 void	check_parsing_errors(t_minishell *msh, int end);
