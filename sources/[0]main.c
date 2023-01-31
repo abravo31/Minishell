@@ -73,6 +73,10 @@ void	reset_and_free(t_minishell *msh)
 	//ft_lstclear(&msh->fd, &free);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->root = NULL;
+	msh->fd_in = 0;
+	msh->fd_out = 0;
+	msh->pid = NULL;
 }
 
 void	clean_exit(t_minishell *msh)
@@ -116,7 +120,8 @@ int	main(int argc, char **argv, char **envp)
 			print2DUtil(msh.root, 0);
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root);
-			// wait_for_children(&msh);
+			wait_for_children(&msh);
+			printf("pid after waitinf the children: %d\n", *(pid_t *)msh.pid->content);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}

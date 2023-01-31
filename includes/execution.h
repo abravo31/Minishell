@@ -56,4 +56,9 @@ void		redirect_input(t_minishell *msh, t_ast *root);
 void		redirect_append(t_minishell *msh, t_ast *root);
 void		redirect_heredoc(t_minishell *msh, t_ast *root);
 
+/*############################################################################*/
+/*                              add to utility	      						  */
+/*############################################################################*/
+
+t_list		*allocate_and_store_node(pid_t pid);
 #endif

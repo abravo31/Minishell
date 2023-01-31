@@ -52,7 +52,7 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 			free(new);
 			return ;
 		}
-		if (type == FD)
+		if (type == FD || type == PID)
 			((t_mem_block *)new->content)->ptr_int.val = *(int *)ptr;
 		else
 			((t_mem_block *)new->content)->ptr_int.ptr = ptr;
@@ -84,7 +84,7 @@ void	free_garbage_collector(void)
 		else if (block->type == ENV)
 			free(block->ptr_int.ptr);
 		else if (block->type == LST)
-			ft_lstclear(block->ptr_int.ptr, free);
+			ft_lstclear(block->ptr_int.ptr, &free);
 		else if (block->type == AST)
 			free_ast((t_ast *)block->ptr_int.ptr);
 		else if (block->type == CMD)
@@ -96,7 +96,7 @@ void	free_garbage_collector(void)
 			{
 				close((int)block->ptr_int.val);
 			}
-		}
+		}	
 		free(block);
 		free(tmp);
 		tmp = next;

@@ -31,6 +31,7 @@ typedef enum e_memory_type
 	AST,
 	CMD,
 	FD,
+	PID,
 }	t_memory_type;
 
 typedef union u_ptr_int

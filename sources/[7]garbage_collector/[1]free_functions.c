@@ -36,3 +36,11 @@ void	free_ast(t_ast *root)
 	free(root->id);
 	free(root);
 }
+
+void	free_pid_t_content(void *content)
+{
+	pid_t	*pid;
+
+	pid = (pid_t *)content;
+	free (pid);
+}

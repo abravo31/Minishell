@@ -45,14 +45,15 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 	{
 		if (msh->pid == NULL)
 		{
-			new = ft_lstnew(&pid);
+			new = allocate_and_store_node(pid);
 			if (!new)
 				error_safe_exit("LIST ERROR\n");
 			msh->pid = new;
+			add_to_garbage_collector((void *)&msh->pid, LST);
 		}
 		else
 		{
-			new = ft_lstnew(&pid);
+			new = allocate_and_store_node(pid);
 			if (!new)
 				error_safe_exit("LIST ERROR\n");
 			ft_lstadd_back(&msh->pid, new);

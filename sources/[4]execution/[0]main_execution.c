@@ -43,13 +43,29 @@ void	execution_terminal(t_minishell *msh, t_ast *root)
 //wait for each child process to finish
 void	wait_for_children(t_minishell *msh)
 {
-	int		i;
+	int		status;
 	t_list	*current;
 
-	i = 0;
+	status = 0;
 	current = msh->pid;
 	while (current)
 	{
+		waitpid(*(pid_t *)current->content, &status, 0);
 		current = current->next;
 	}
+}
+
+t_list	*allocate_and_store_node(pid_t pid)
+{
+	t_list	*new;
+	pid_t	*content;
+
+	content = malloc(sizeof(pid_t));
+	if (content == NULL)
+		return (NULL);
+	content[0] = pid;
+	new = ft_lstnew(content);
+	if (new == NULL)
+		return (free(content), NULL);
+	return (new);
 }
