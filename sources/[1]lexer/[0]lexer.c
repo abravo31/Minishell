@@ -63,6 +63,25 @@ void	ft_join_quote(t_minishell *msh)
 	}
 }
 
+void	ft_remove_empty(t_minishell *msh)
+{
+	t_list	*list;
+	t_list	*head;
+	t_cmd	*cmd;
+	t_cmd	*cmd_next;
+
+	list = msh->cmd;
+	head = list;
+	while (list && list->next)
+	{
+		cmd = (t_cmd *)list->content;
+		cmd_next = (t_cmd *)list->next->content;
+		if (cmd_next->cmd == NULL && (cmd->space == 0 || cmd_next->space == 0))
+			ft_pop_list(&head, list->next);
+		list = list->next;
+	}
+}
+
 // Function to parse cmd from user input
 int	get_cmd(t_minishell *msh)
 {
@@ -108,7 +127,11 @@ int	get_cmd(t_minishell *msh)
 	delimitor(&str, msh, 0);
 	//check_parsing_errors(msh, 0);
 	// ft_expand(msh);
+	// __debug_parsing(msh);
+	__debug_parsing(msh);
+	ft_remove_empty(msh);
 	ft_join_quote(msh);
+	printf("\n\n");
 	__debug_parsing(msh);
 	check_parsing_errors(msh, 1);
 	return (!msh->parsing_error);
@@ -255,9 +278,9 @@ int	handle_first_node_error(t_minishell *msh)
 	};
 
 	i = 0;
-	first_node = (t_cmd *) msh->cmd->content;
 	if (!msh->cmd)
 		return (0);
+	first_node = (t_cmd *)msh->cmd->content;
 	while (forbidden_tokens[i])
 	{
 		if (is_identical((char *) forbidden_tokens[i], first_node->cmd))
