@@ -18,6 +18,7 @@
 # include "signal_handling.h"
 # include "parsing.h"
 # include "garbage_collector.h"
+# include "error_management.h"
 
 # include <sys/types.h>
 # include <sys/stat.h>

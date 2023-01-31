@@ -93,6 +93,7 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 {
 	t_cmd	*word;
 	t_list	*cmd_args;
+	t_list	*current;
 	char	*tmp;
 	char	**arg;
 
@@ -100,6 +101,8 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 		return (NULL);
 	tmp = ft_strdup(cmd->data);
 	cmd_args = ft_lstnew(tmp);
+	if (!cmd_args)
+		error_safe_exit("Malloc failed in cmd_arg");
 	word = (t_cmd *)(*head)->content;
 	while ((*head) && word->id == WORD)
 	{
@@ -113,14 +116,20 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	}
 	int	j;
 	j = 0;
-	//transform list cmd_args to char **arg
-	//add it to the garbage collector
-	arg = malloc(sizeof(char *) * (ft_lstsize(cmd_args) + 1));
+	arg = ft_calloc(sizeof(char *), (ft_lstsize(cmd_args) + 1));
+	if (!arg)
+		error_safe_exit("Malloc failed in cmd_arg");
 	add_to_garbage_collector(arg, D_INT);
-	while (cmd_args)
+	current = cmd_args;
+	while (current)
 	{
-		arg[j] = ft_strdup(cmd_args->content);
-		cmd_args = cmd_args->next;
+		arg[j] = ft_strdup(current->content);
+		if (!arg[j])
+		{
+			ft_lstclear(&cmd_args, free);
+			error_safe_exit("Malloc failed in cmd_arg");
+		}
+		current = current->next;
 		j++;
 	}
 	arg[j] = NULL;
