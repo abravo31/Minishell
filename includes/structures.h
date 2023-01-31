@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 23:02:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 18:59:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ typedef struct s_cmd
 	t_token	id;
 }	t_cmd;
 
+typedef struct s_arg
+{
+	char	**arg;
+	t_token	id;
+}	t_arg;
+
 /*############################################################################*/
 /*                                    AST                                     */
 /*############################################################################*/
@@ -97,6 +103,7 @@ typedef union id{
 typedef struct s_ast_node
 {
 	char				*data;
+	char				**arg;
 	int					terminal;	
 	t_id				*id;
 	struct s_ast_node	*parent;
@@ -119,6 +126,8 @@ typedef struct s_minishell
 	int		fd_out;
 	int		fd_in;
 	t_list	*pid;
+	char	**env;
+	char	**path;
 }	t_minishell;
 
 #endif

@@ -38,7 +38,7 @@ t_ast		*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right);
 t_ast		*pipe_sequence(t_list **head, int *i);
 t_ast		*complexe_command(t_list **head, int *i);
 t_ast		*simple_command(t_list **head, int *i);
-t_ast		*argument(t_list **head, int *i);
+t_ast		*argument(t_list **head, int *i, t_ast *cmd);
 
 /*############################################################################*/
 /*							REDIRECTION FUNCTIONS                             */
@@ -57,6 +57,7 @@ t_ast		*cmd_name(t_list **head, int *i);
 t_ast		*cmd_word(t_list **head, int *i);
 t_ast		*cmd_redir(t_list **head, int *i);
 int			builtin_cmd(t_list **head);
+t_ast		*cmd_arg(t_list **head, int *i, t_ast *cmd);
 
 /*############################################################################*/
 /*							AUXILIARY FUNCTIONS                              */

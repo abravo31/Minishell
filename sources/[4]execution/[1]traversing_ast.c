@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 16:24:07 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 17:31:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,23 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 	add_to_garbage_collector((void *)&left_fd[0], FD);
 	add_to_garbage_collector((void *)&left_fd[1], FD);
 	pid = fork();
-	//probably have to inlcude the fd in the garbage collector
 	if (pid < 0)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
 	{
+		dup2(left_fd[1], STDOUT_FILENO);
+		dup2(msh->fd_in, STDIN_FILENO);
+		// close(left_fd[0]);
+		// close(left_fd[1]);
 		main_execution(msh, left);
 		free_garbage_collector();
 		exit(EXIT_SUCCESS);
 	}
 	else
 		add_pid_to_list(msh, pid);
+	dup2(left_fd[0], STDIN_FILENO);
+	// close(left_fd[0]);
+	// close(left_fd[1]);
 	right = root->right;
 	main_execution(msh, right);
 	(void)(right_fd);
@@ -58,9 +64,9 @@ void	complex_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
+	printf("Start of a COMPLEXE_COMMAND\n");
 	main_execution(msh, left);
 	main_execution(msh, right);
-	printf("Start of a COMPLEXE_COMMAND\n");
 }
 
 //ast root a simple command
@@ -68,14 +74,22 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 {
 	t_ast	*left;
 	t_ast	*right;
+	char	*file;
+	char	**args;
 
 	if (root == NULL)
 		return ;
-	left = root->left;
-	right = root->right;
-	main_execution(msh, left);
-	main_execution(msh, right);
+	if (msh->fd_out < 0 || msh->fd_in < 0)
+		error_safe_exit("FD ERROR\n");
 	printf("Start of a SIMPLE_COMMAND\n");
+	left = root->left;
+	if (!left)
+		error_safe_exit("AST EXECUTION ERROR, no command\n");
+	right = root->right;
+	file = ft_check_acces(msh, left);
+	args = list_to_tab(msh, right);
+	execve(file, args, msh->env);
+	free_garbage_collector();
 }
 
 //ast root an argument
@@ -88,9 +102,9 @@ void	argument_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
+	printf("Start of a ARGUMENT\n");
 	main_execution(msh, left);
 	main_execution(msh, right);
-	printf("Start of a ARGUMENT\n");
 }
 
 //ast root a redirection

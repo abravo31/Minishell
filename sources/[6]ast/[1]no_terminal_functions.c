@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 20:38:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:07:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ t_ast	*simple_command(t_list **head, int *i)
 	{
 		left = cmd_name(head, i);
 		if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
-			right = argument(head, i);
+			right = argument(head, i, left);
 	}
 	if (!left && !right)
 		return (NULL);
@@ -201,7 +201,7 @@ cmd_word and the right node is set to NULL.
 -The AST node is created with the type ARGUMENT and left and right
 nodes as arguments. The function then returns this node.
 */
-t_ast	*argument(t_list **head, int *i)
+t_ast	*argument(t_list **head, int *i, t_ast *cmd)
 {
 	t_ast			*left;
 	t_ast			*right;
@@ -212,12 +212,13 @@ t_ast	*argument(t_list **head, int *i)
 	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
 	if (cmd->id == WORD)
-		left = cmd_word(head, i);
+		left = cmd_arg(head, i, cmd);
 	right = NULL;
 	if (left == NULL)
 		return (NULL);
 	return (create_ast_no_terminal(ARGUMENT, left, right));
 }
+//left = cmd_word(head, i);
 
 /*
 The function redirection is responsible for handling different

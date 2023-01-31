@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 16:23:27 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 17:47:49 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,7 @@ void		add_pid_to_list(t_minishell *msh, pid_t pid);
 /*                              add to utility	      						  */
 /*############################################################################*/
 t_list		*allocate_and_store_node(pid_t pid);
+char		*ft_check_access(t_minishell *msh, t_ast *root);
+char		**ft_parse_path(char **env);
+
 #endif

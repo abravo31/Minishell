@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 23:46:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:10:35 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,49 @@ t_ast	*cmd_word(t_list **head, int *i)
 		cmd = (t_cmd *)(*head)->content;
 	}
 	return (create_ast_terminal(first_word, NULL, NULL));
+}
+
+/* Function that will create a terminal node , but this time it will
+** be a t_arg structure instead of a t_cmd structure. This is used
+** in the execve function to pass the arguments to the program in 
+** the form of a char **arg.
+** args: is the name of the command comming fom thr t_ast *cmd
+** As long as we find a word we will add it to the  char **arg
+*/
+t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
+{
+	t_cmd	*word;
+	t_list	*cmd_args;
+	char	*tmp;
+	char	**arg;
+
+	if ((*head) == NULL)
+		return (NULL);
+	tmp = ft_strdup(cmd->data);
+	cmd_args = ft_lstnew(tmp);
+	word = (t_cmd *)(*head)->content;
+	while ((*head) && word->id == WORD)
+	{
+		tmp = ft_strdup(word->cmd);
+		ft_lstadd_back(&cmd_args, ft_lstnew(tmp));
+		(*i)++;
+		(*head) = (*head)->next;
+		if ((*head) == NULL)
+			break ;
+		word = (t_cmd *)(*head)->content;
+	}
+	int	j;
+	j = 0;
+	//transform list cmd_args to char **arg
+	arg = malloc(sizeof(char *) * (ft_lstsize(cmd_args) + 1));
+	while (cmd_args)
+	{
+		arg[j] = ft_strdup(cmd_args->content);
+		cmd_args = cmd_args->next;
+		j++;
+	}
+	arg[j] = NULL;
+	ft_lstclear(&cmd_args, free);
 }
 
 /*

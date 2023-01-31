@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:33:27 by motero            #+#    #+#             */
-/*   Updated: 2023/01/26 17:47:40 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 18:59:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_ast	*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right)
 		node->data = cmd->cmd;
 		node->left = left;
 		node->right = right;
+		node->arg = NULL;
 	}
 	return (node);
 }

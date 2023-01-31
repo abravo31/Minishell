@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 23:49:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 17:48:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	reset_and_free(t_minishell *msh)
 	msh->fd_in = 0;
 	msh->fd_out = 0;
 	msh->pid = NULL;
+	msh->env = NULL;
+	msh->path = NULL;
 }
 
 void	clean_exit(t_minishell *msh)
@@ -95,8 +97,8 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	init_minishell(&msh);
+	msh.env = envp;
 	while (msh.status)
 	{
 		setup_signal_handlers();
@@ -121,7 +123,6 @@ int	main(int argc, char **argv, char **envp)
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root);
 			wait_for_children(&msh);
-			printf("pid after waitinf the children: %d\n", *(pid_t *)msh.pid->content);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}
