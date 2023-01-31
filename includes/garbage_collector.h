@@ -35,4 +35,5 @@ void				free_garbage_collector(void);
 void				free_cmd(void *content);
 void				free_ast(t_ast *root);
 void				free_pid_t_content(void *content);
+void	            free_double_pointer(void **ptr);
 #endif

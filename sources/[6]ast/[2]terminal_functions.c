@@ -116,6 +116,7 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	//transform list cmd_args to char **arg
 	//add it to the garbage collector
 	arg = malloc(sizeof(char *) * (ft_lstsize(cmd_args) + 1));
+	add_to_garbage_collector(arg, D_INT);
 	while (cmd_args)
 	{
 		arg[j] = ft_strdup(cmd_args->content);

@@ -80,7 +80,7 @@ void	free_garbage_collector(void)
 		if (block->type == INT)
 			free(block->ptr_int.ptr);
 		else if (block->type == D_INT)
-			free(block->ptr_int.ptr);
+			free_double_pointer(block->ptr_int.ptr);
 		else if (block->type == ENV)
 			free(block->ptr_int.ptr);
 		else if (block->type == LST)

@@ -44,3 +44,16 @@ void	free_pid_t_content(void *content)
 	pid = (pid_t *)content;
 	free (pid);
 }
+
+void	free_double_pointer(void **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
+}
