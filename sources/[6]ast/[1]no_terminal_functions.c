@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 20:00:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 21:09:32 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	}
 	if (left == NULL && right == NULL)
 		return (NULL);
-	if (right == NULL
-		&& (left->id->op != 1 && left->id->op != 2))
+	if (right == NULL && (left->id->op != COMPLEXE_COMMAND && left->id->op != SIMPLE_COMMAND))
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }

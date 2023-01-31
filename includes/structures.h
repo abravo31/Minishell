@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 19:12:43 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 20:51:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_arg
 /*############################################################################*/
 
 typedef enum e_operator{
-	PIPE_SEQUENCE ,
+	PIPE_SEQUENCE,
 	COMPLEXE_COMMAND,
 	SIMPLE_COMMAND,
 	ARGUMENT,

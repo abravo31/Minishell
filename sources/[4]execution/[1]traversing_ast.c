@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 19:22:19 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 22:07:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 	if (pid == 0)
 	{
 		dup2(left_fd[1], STDOUT_FILENO);
-		dup2(msh->fd_in, STDIN_FILENO);
-		// close(left_fd[0]);
+		//dup2(msh->fd_in, STDIN_FILENO);
+		close(left_fd[0]);
 		// close(left_fd[1]);
 		main_execution(msh, left);
 		free_garbage_collector();
@@ -45,7 +45,7 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 	}
 	else
 		add_pid_to_list(msh, pid);
-	dup2(left_fd[0], STDIN_FILENO);
+	//dup2(left_fd[0], STDIN_FILENO);
 	// close(left_fd[0]);
 	// close(left_fd[1]);
 	right = root->right;
@@ -64,7 +64,7 @@ void	complex_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
-	printf("Start of a COMPLEXE_COMMAND\n");
+	//printf("Start of a COMPLEXE_COMMAND\n");
 	main_execution(msh, left);
 	main_execution(msh, right);
 }
@@ -81,15 +81,20 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	if (msh->fd_out < 0 || msh->fd_in < 0)
 		error_safe_exit("FD ERROR\n");
-	printf("Start of a SIMPLE_COMMAND\n");
+	//printf("Start of a SIMPLE_COMMAND\n");
 	left = root->left;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, no command\n");
 	right = root->right;
-	file = ft_check_access(msh, left);
-	args = right->left->arg;
-	execve(file, args, msh->envp);
-	free_garbage_collector();
+	(void)file;
+	(void)args;
+	// file = ft_check_access(msh, left);
+	// ft_putstr_fd(file, 2);
+	// args = ft_split(file, ' ');
+	// if (right)
+	// 	args = right->left->arg;
+	// execve(file, args, msh->envp);
+	//free_garbage_collector();
 }
 
 //ast root an argument
@@ -102,7 +107,7 @@ void	argument_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
-	printf("Start of a ARGUMENT\n");
+	//printf("Start of a ARGUMENT\n");
 	main_execution(msh, left);
 	main_execution(msh, right);
 }

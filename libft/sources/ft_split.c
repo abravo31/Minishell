@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 11:16:12 by motero            #+#    #+#             */
-/*   Updated: 2022/11/23 01:27:45 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 21:42:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t	ft_nbr_words(char const *s, char c)
 			s++;
 		else
 		{
-			while (*s != c && *s)
+			while (*s && *s != c)
 				s++;
 			nbr_words++;
 		}
