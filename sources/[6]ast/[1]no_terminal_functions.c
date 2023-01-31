@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 19:07:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 20:00:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	}
 	if (left == NULL && right == NULL)
 		return (NULL);
-	if (left->id->op != COMPLEXE_COMMAND && right == NULL)
+	if (right == NULL
+		&& (left->id->op != 1 && left->id->op != 2))
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
@@ -148,7 +149,7 @@ t_ast	*complexe_command(t_list **head, int *i)
 	if (right == NULL)
 		return (left);
 	if (left == NULL)
-		return (right);
+	 	return (right);
 	if (left->id->op == SIMPLE_BUILTIN || right->id->op == SIMPLE_BUILTIN
 		|| left->id->op == CMPLX_BUILT || right->id->op == CMPLX_BUILT)
 		return (create_ast_no_terminal(CMPLX_BUILT, left, right));
@@ -201,7 +202,7 @@ cmd_word and the right node is set to NULL.
 -The AST node is created with the type ARGUMENT and left and right
 nodes as arguments. The function then returns this node.
 */
-t_ast	*argument(t_list **head, int *i, t_ast *cmd)
+t_ast	*argument(t_list **head, int *i, t_ast *command)
 {
 	t_ast			*left;
 	t_ast			*right;
@@ -212,7 +213,7 @@ t_ast	*argument(t_list **head, int *i, t_ast *cmd)
 	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
 	if (cmd->id == WORD)
-		left = cmd_arg(head, i, cmd);
+		left = cmd_arg(head, i, command);
 	right = NULL;
 	if (left == NULL)
 		return (NULL);

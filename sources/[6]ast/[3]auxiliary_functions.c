@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:33:27 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 18:59:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:21:18 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 calculates and returns the number of elements in a linked list
+** CHANGE BY LST_SIZE from libft
 */
 size_t	ft_lstlen(t_list *lst)
 {
@@ -107,6 +108,28 @@ t_ast	*create_terminal_builtin(t_cmd *cmd, t_ast *left, t_ast *right)
 		node->data = cmd->cmd;
 		node->left = left;
 		node->right = right;
+	}
+	return (node);
+}
+
+t_ast	*create_ast_terminal_w_args(char **args, t_ast *left, t_ast *right)
+{
+	t_ast	*node;
+
+	node = ft_calloc(1, sizeof(t_ast));
+	if (node == NULL)
+		return (NULL);
+	node->id = malloc(sizeof(t_id));
+	if (node->id == NULL)
+		return (free(node), NULL);
+	if (args)
+	{
+		node->terminal = 1;
+		node->id->token = WORD;
+		node->data = args[0];
+		node->left = left;
+		node->right = right;
+		node->arg = args;
 	}
 	return (node);
 }

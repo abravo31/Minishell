@@ -67,5 +67,7 @@ int			is_redirection(t_cmd *cmd);
 t_ast		*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right);
 t_ast		*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right);
 t_ast		*create_terminal_builtin(t_cmd *cmd, t_ast *left, t_ast *right);
+t_ast		*create_ast_terminal_w_args(char **args, t_ast *left, t_ast *right);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 17:31:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:22:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, no command\n");
 	right = root->right;
-	file = ft_check_acces(msh, left);
-	args = list_to_tab(msh, right);
-	execve(file, args, msh->env);
+	file = ft_check_access(msh, left);
+	args = right->left->arg;
+	execve(file, args, msh->envp);
 	free_garbage_collector();
 }
 

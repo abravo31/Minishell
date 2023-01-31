@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:30:10 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 17:52:23 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:23:55 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 	size_t	i;
 
 	cmd = root->data;
-	msh->path = ft_parse_path(msh->env);
+	msh->path = ft_parse_path(msh->envp);
 	if (!msh->path)
 		error_safe_exit("error at checkin access\n");
 	add_to_garbage_collector(&msh->path, D_INT);
@@ -40,7 +40,7 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 		i = 0;
 		while (msh->path[i])
 		{
-			path = ft_strjoin(msh->path[i++], args[0]);
+			path = ft_strjoin(msh->path[i++], cmd);
 			if (!path)
 				error_safe_exit("error at checkin access\n");
 			add_to_garbage_collector(path, INT);

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 18:59:29 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:12:43 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct s_minishell
 	int		fd_out;
 	int		fd_in;
 	t_list	*pid;
-	char	**env;
+	char	**envp;
 	char	**path;
 }	t_minishell;
 

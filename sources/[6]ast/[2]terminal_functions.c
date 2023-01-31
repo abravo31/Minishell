@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 19:10:35 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 19:24:55 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	int	j;
 	j = 0;
 	//transform list cmd_args to char **arg
+	//add it to the garbage collector
 	arg = malloc(sizeof(char *) * (ft_lstsize(cmd_args) + 1));
 	while (cmd_args)
 	{
@@ -123,7 +124,9 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	}
 	arg[j] = NULL;
 	ft_lstclear(&cmd_args, free);
+	return (create_ast_terminal_w_args(arg, NULL, NULL));
 }
+
 
 /*
 This function is used to extract the redirection operator from the
