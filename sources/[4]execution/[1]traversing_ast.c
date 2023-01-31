@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 22:07:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 22:37:49 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,11 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 	right = root->right;
 	(void)file;
 	(void)args;
-	// file = ft_check_access(msh, left);
-	// ft_putstr_fd(file, 2);
-	// args = ft_split(file, ' ');
-	// if (right)
-	// 	args = right->left->arg;
-	// execve(file, args, msh->envp);
-	//free_garbage_collector();
+	file = ft_check_access(msh, left);
+	args = ft_split(file, ' ');
+	if (right)
+		args = right->left->arg;
+	execve(file, args, msh->envp);
 }
 
 //ast root an argument
