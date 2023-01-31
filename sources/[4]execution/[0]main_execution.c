@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:52:02 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 23:51:41 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 16:26:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_list	*allocate_and_store_node(pid_t pid)
 	content = malloc(sizeof(pid_t));
 	if (content == NULL)
 		return (NULL);
-	content[0] = pid;
+	*content = pid;
 	new = ft_lstnew(content);
 	if (new == NULL)
 		return (free(content), NULL);

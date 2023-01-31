@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 23:52:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/01/31 16:24:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 	t_ast	*right;
 	int		left_fd[2];
 	int		right_fd[2];
-	t_list	*new;
 	pid_t	pid;
 
 	if (root == NULL)
@@ -42,23 +41,7 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{
-		if (msh->pid == NULL)
-		{
-			new = allocate_and_store_node(pid);
-			if (!new)
-				error_safe_exit("LIST ERROR\n");
-			msh->pid = new;
-			add_to_garbage_collector((void *)&msh->pid, LST);
-		}
-		else
-		{
-			new = allocate_and_store_node(pid);
-			if (!new)
-				error_safe_exit("LIST ERROR\n");
-			ft_lstadd_back(&msh->pid, new);
-		}
-	}
+		add_pid_to_list(msh, pid);
 	right = root->right;
 	main_execution(msh, right);
 	(void)(right_fd);
