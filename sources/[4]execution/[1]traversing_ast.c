@@ -35,9 +35,9 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
 	{
-		dup2(left_fd[1], STDOUT_FILENO);
+		// dup2(left_fd[1], STDOUT_FILENO);
 		//dup2(msh->fd_in, STDIN_FILENO);
-		close(left_fd[0]);
+		// close(left_fd[0]);
 		// close(left_fd[1]);
 		main_execution(msh, left);
 		free_garbage_collector();
