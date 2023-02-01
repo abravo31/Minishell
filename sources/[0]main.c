@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 21:11:07 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:02:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	init_minishell(t_minishell *msh)
 	msh->prompt = NULL;
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
-	msh->fd_in = 0;
-	msh->fd_out = 1;
+	msh->fd_in = -2;
+	msh->fd_out = -2;
 	msh->pid = NULL;
 }
 

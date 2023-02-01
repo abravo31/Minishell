@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 23:54:44 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:04:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	redirect_output(t_minishell *msh, t_ast *root)
 	t_ast	*right;
 
 	right = root->right;
-	if (msh->fd_out < 0)
+	if (msh->fd_out == -1)
 		error_safe_exit("FD ERROR\n");
 	if (msh->fd_out > 2)
 		close(msh->fd_out);
@@ -38,7 +38,7 @@ void	redirect_input(t_minishell *msh, t_ast *root)
 	t_ast	*right;
 
 	right = root->right;
-	if (msh->fd_in < 0)
+	if (msh->fd_in == -1)
 		error_safe_exit("FD ERROR\n");
 	if (msh->fd_in > 1)
 		close(msh->fd_out);
@@ -58,7 +58,7 @@ void	redirect_append(t_minishell *msh, t_ast *root)
 	t_ast	*right;
 
 	right = root->right;
-	if (msh->fd_out < 0)
+	if (msh->fd_out== -1)
 		error_safe_exit("FD ERROR\n");
 	if (msh->fd_out > 1)
 		close(msh->fd_out);
@@ -78,7 +78,7 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root)
 	t_ast	*right;
 
 	right = root->right;
-	if (msh->fd_in < 0)
+	if (msh->fd_in == -1)
 		error_safe_exit("FD ERROR\n");
 	if (msh->fd_in != 1)
 		close(msh->fd_out);
