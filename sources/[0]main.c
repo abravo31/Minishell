@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 16:57:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 00:18:46 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_minishell(t_minishell *msh)
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
 	msh->fd = NULL;
+	msh->env = NULL;
 }
 
 void	reset_and_free(t_minishell *msh)
@@ -80,6 +81,57 @@ void	clean_exit(t_minishell *msh)
 	free(msh->prompt);
 }
 
+t_env	*new_env(char *key, char *value)
+{
+	t_env	*elem;
+
+	elem = malloc(sizeof(t_env)); //IMPORTANT check malloc failed
+	elem->key = key;
+	elem->value = value;
+	return (elem);
+}
+
+char	*str_from_range(char *env, int start, int end)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	if (!(str = malloc(sizeof(char) * end - start)))
+		return NULL;
+	while (start + i < end)
+	{
+		str[i] = env[start + i];
+		i++;
+	}
+	return (str);
+}
+
+void	get_env(char **env, t_minishell *msh)
+{
+	int	i;
+	int	j;
+	int k;
+	char	*key;
+	char	*value;
+
+	i = -1;
+	while (env[++i])
+	{
+		j = 0;
+		while (env[i][j] != '=')
+			j++;
+		if (!(key = str_from_range(env[i], 0, j)))//malloc(sizeof(char *) * j)))
+			return ;
+		k = 0;
+		while (env[i][j + k])
+			k++;
+		if (!(value = str_from_range(env[i], j, k)))//malloc(sizeof(char *) * (j + 1))))
+			return ;
+		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	msh;
@@ -89,8 +141,9 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	(void)argc;
 	(void)argv;
-	(void)envp;
+	
 	init_minishell(&msh);
+	get_env(envp, &msh);
 	while (msh.status)
 	{
 		setup_signal_handlers();

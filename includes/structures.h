@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 21:05:30 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/01 23:29:03 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ typedef struct s_cmd
 	int		space;
 	t_token	id;
 }	t_cmd;
+
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
 
 typedef enum e_operator{
 	PIPE_SEQUENCE ,

@@ -92,33 +92,21 @@ int	get_cmd(t_minishell *msh)
 	str = NULL;
 	while (msh->prompt[i] && !msh->parsing_error)
 	{
-		//__debug_parsing(msh);
 		if (msh->prompt[i] == ' ')
 			delimitor(&str, msh, 1);
 		else if (msh->prompt[i] != ' ' && (msh->prompt[i] != '\'' && msh->prompt[i] != '\"'))
 		{
-			 //printf("%c\n", msh->prompt[i]);
 			if ((is_token(msh->prompt[i]) && str && !is_token(str[0]))
 				|| (!is_token(msh->prompt[i]) && str && is_token(str[0])))
-			{
-				//printf("msh : %c\n prev : %c\n", msh->prompt[i], str[0]);
 				delimitor(&str, msh, 0);
-			}
 			if ((msh->prompt[i] == '>' || msh->prompt[i] == '<') && str && str[0] == '|')
-			{
-				//printf("str[0] : %c\n", str[0]);
 				delimitor(&str, msh, 0);
-			}
 			get_char(msh->prompt[i], &str);
-			printf("%s\n", str);
 		}
 		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
 		{
 			if (i > 0 && !is_token(msh->prompt[i - 1]) && msh->prompt[i - 1] != ' ')
-			{
-				// printf("str: %s\n", str);
 				delimitor(&str, msh, 0);
-			}
 			printf("quote: %s\n", msh->prompt + i);
 			i = is_quote(msh, i, &msh->prompt);
 		}
@@ -127,7 +115,6 @@ int	get_cmd(t_minishell *msh)
 	delimitor(&str, msh, 0);
 	//check_parsing_errors(msh, 0);
 	// ft_expand(msh);
-	// __debug_parsing(msh);
 	__debug_parsing(msh);
 	ft_remove_empty(msh);
 	ft_join_quote(msh);
@@ -139,44 +126,43 @@ int	get_cmd(t_minishell *msh)
 
 // Function to handle space delimitor case
 // will create and pus a new node with cmd and it's token
-// void	delimitor(char **cmd, t_minishell *msh)
-// {
-// 	t_list	*new;
-
-// 	if (!*cmd || msh->parsing_error)
-// 		return ;
-// 	if (msh->cmd == NULL)
-// 	{
-// 		msh->cmd = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd)));
-// 		printf("cmd: %s\n", *cmd);
-// 		if (!msh->cmd)
-// 			printf("error while adding a delimitor, but you forgot to free!\n");
-// 		add_to_garbage_collector((void *)&msh->cmd, CMD);
-// 	}
-// 	else
-// 	{
-// 		new = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd)));
-// 		if (!new)
-// 		{
-// 			free_garbage_collector();
-// 			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
-// 			return ;
-// 		}
-// 		ft_lstadd_back(&msh->cmd, new);
-// 	}
-// 	check_parsing_errors(msh, 0);
-// 	*cmd = NULL;
-// }
-
-void    delimitor(char **cmd, t_minishell *msh, int space)
+void	delimitor(char **cmd, t_minishell *msh, int space)
 {
-    if (!*cmd || msh->parsing_error)
-        return ;
-    ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd), space)));
-	printf("command: %s -> %d\n", *cmd, space);
+	t_list	*new;
+
+	if (!*cmd || msh->parsing_error)
+		return ;
+	if (msh->cmd == NULL)
+	{
+		msh->cmd = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd), space));
+		printf("cmd: %s\n", *cmd);
+		if (!msh->cmd)
+			printf("error while adding a delimitor, but you forgot to free!\n");
+		add_to_garbage_collector((void *)&msh->cmd, CMD);
+	}
+	else
+	{
+		new = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd), space));
+		if (!new)
+		{
+			free_garbage_collector();
+			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
+			return ;
+		}
+		ft_lstadd_back(&msh->cmd, new);
+	}
 	check_parsing_errors(msh, 0);
-    *cmd = NULL;
+	*cmd = NULL;
 }
+
+// void    delimitor(char **cmd, t_minishell *msh, int space)
+// {
+//     if (!*cmd || msh->parsing_error)
+//         return ;
+//     ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd), space)));
+// 	check_parsing_errors(msh, 0);
+//     *cmd = NULL;
+// }
 
 // Function that returns 1 or 0 weither c is a token or not
 int	is_token(char c)
@@ -288,7 +274,6 @@ int	handle_first_node_error(t_minishell *msh)
 			msh->parsing_error = syntax_error(first_node->cmd[0]);
 			return (1);
 		}
-		//printf("sdfd%c\n", first_node->cmd[0]);
 		i++;
 	}
 	return (0);
@@ -313,9 +298,6 @@ void	check_parsing_errors(t_minishell *msh, int end)
 		}
 		if (current->cmd && !iter->next && end && is_token(current->cmd[0])) // checks if last node id is an operator
 			msh->parsing_error = syntax_error('\n');
-		//printf("%d\n", current->id);
-		//printf("%d\n", end);
-		//printf("%d\n", ((t_cmd *)(iter->next->content))->id);
 		else if (current->id >= 1 && current->id <= 4 && end && (((t_cmd *)(iter->next->content))->id < 6 || !iter->next))
 		    msh->parsing_error = syntax_error(current->cmd[0]);
 		iter = iter->next;
@@ -375,7 +357,6 @@ int	is_quote(t_minishell *msh, int pos, char **cmd)
 		syntax_error('\n');
 	if (str[pos] && str[pos] == ' ')
 		space = 1;
-	// printf("pos %c\n", str[pos + 1]);
 	if (ret)
 		ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(remove_quote(ret), eval_token(ret), space)));
 	return (pos - 1);
