@@ -82,6 +82,7 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 	if (msh->fd_out < 0 || msh->fd_in < 0)
 		error_safe_exit("FD ERROR\n");
 	dup2(msh->fd_out, STDOUT_FILENO);
+	dup2(msh->fd_in, STDIN_FILENO);
 	//printf("Start of a SIMPLE_COMMAND\n");
 	left = root->left;
 	if (!left)

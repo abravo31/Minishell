@@ -40,7 +40,7 @@ void	redirect_input(t_minishell *msh, t_ast *root)
 	right = root->right;
 	if (msh->fd_in < 0)
 		error_safe_exit("FD ERROR\n");
-	if (msh->fd_in != 1)
+	if (msh->fd_in > 1)
 		close(msh->fd_out);
 	fd = open(right->data, O_RDONLY, 0644);
 	if (fd == -1)
@@ -60,7 +60,7 @@ void	redirect_append(t_minishell *msh, t_ast *root)
 	right = root->right;
 	if (msh->fd_out < 0)
 		error_safe_exit("FD ERROR\n");
-	if (msh->fd_out != 1)
+	if (msh->fd_out > 1)
 		close(msh->fd_out);
 	fd = open(right->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)

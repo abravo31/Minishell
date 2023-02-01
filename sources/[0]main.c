@@ -62,7 +62,7 @@ void	init_minishell(t_minishell *msh)
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
 	msh->fd_in = 0;
-	msh->fd_out = 0;
+	msh->fd_out = 1;
 	msh->pid = NULL;
 }
 
