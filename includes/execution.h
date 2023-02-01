@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 17:47:49 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:25:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,33 @@
 /*                              main decision                                 */
 /*############################################################################*/
 
-void		main_execution(t_minishell *msh, t_ast *ast);
+void		main_execution(t_minishell *msh, t_ast *ast, int *i);
 void		wait_for_children(t_minishell *msh);
 
 /*############################################################################*/
 /*                              no-terminal traveersing						  */
 /*############################################################################*/
-void		pipe_sequence_traverse(t_minishell *msh, t_ast *root);
-void		complex_command_traverse(t_minishell *msh, t_ast *root);
-void		simple_command_traverse(t_minishell *msh, t_ast *root);
-void		argument_traverse(t_minishell *msh, t_ast *root);
-void		redirection_traverse(t_minishell *msh, t_ast *root);
-void		simple_builtin_traverse(t_minishell *msh, t_ast *root);
-void		complex_builtin_traverse(t_minishell *msh, t_ast *root);
+void		pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i);
+void		complex_command_traverse(t_minishell *msh, t_ast *root, int *i);
+void		simple_command_traverse(t_minishell *msh, t_ast *root, int *i);
+void		argument_traverse(t_minishell *msh, t_ast *root, int *i);
+void		redirection_traverse(t_minishell *msh, t_ast *root, int *i);
+void		simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i);
+void		complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i);
 
 /*############################################################################*/
 /*                              no-terminal traveersing						  */
 /*############################################################################*/
-void		execution_terminal(t_minishell *msh, t_ast *root);	
+void		execution_terminal(t_minishell *msh, t_ast *root, int *i);	
 
 /*############################################################################*/
 /*                              redirections	      						  */
 /*############################################################################*/
 
-void		redirect_output(t_minishell *msh, t_ast *root);
-void		redirect_input(t_minishell *msh, t_ast *root);
-void		redirect_append(t_minishell *msh, t_ast *root);
-void		redirect_heredoc(t_minishell *msh, t_ast *root);
+void		redirect_output(t_minishell *msh, t_ast *root, int *i);
+void		redirect_input(t_minishell *msh, t_ast *root, int *i);
+void		redirect_append(t_minishell *msh, t_ast *root, int *i);
+void		redirect_heredoc(t_minishell *msh, t_ast *root, int *i);
 
 /*############################################################################*/
 /*                              pid management      						  */

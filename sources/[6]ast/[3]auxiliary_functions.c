@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:33:27 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 22:46:16 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:14:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ t_ast	*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right)
 	node->data = NULL;
 	node->left = left;
 	node->right = right;
+	node->pipe_fd[0] = -2;
+	node->pipe_fd[1] = -2;
 	return (node);
 }
 
@@ -84,6 +86,8 @@ t_ast	*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right)
 		node->left = left;
 		node->right = right;
 		node->arg = NULL;
+		node->pipe_fd[0] = -2;
+		node->pipe_fd[1] = -2;
 	}
 	return (node);
 }
@@ -108,6 +112,8 @@ t_ast	*create_terminal_builtin(t_cmd *cmd, t_ast *left, t_ast *right)
 		node->data = cmd->cmd;
 		node->left = left;
 		node->right = right;
+		node->pipe_fd[0] = -2;
+		node->pipe_fd[1] = -2;
 	}
 	return (node);
 }
@@ -130,6 +136,8 @@ t_ast	*create_ast_terminal_w_args(char **args, t_ast *left, t_ast *right)
 		node->left = left;
 		node->right = right;
 		node->arg = args;
+		node->pipe_fd[0] = -2;
+		node->pipe_fd[1] = -2;
 	}
 	return (node);
 }

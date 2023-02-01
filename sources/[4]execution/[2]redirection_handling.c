@@ -6,13 +6,13 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:04:07 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:31:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	redirect_output(t_minishell *msh, t_ast *root)
+void	redirect_output(t_minishell *msh, t_ast *root, int *i)
 {
 	int		fd;
 	t_ast	*right;
@@ -30,9 +30,10 @@ void	redirect_output(t_minishell *msh, t_ast *root)
 	}
 	msh->fd_out = fd;
 	add_to_garbage_collector(&fd, FD);
+	(void)i;
 }
 
-void	redirect_input(t_minishell *msh, t_ast *root)
+void	redirect_input(t_minishell *msh, t_ast *root, int *i)
 {
 	int		fd;
 	t_ast	*right;
@@ -50,9 +51,10 @@ void	redirect_input(t_minishell *msh, t_ast *root)
 	}
 	msh->fd_in = fd;
 	add_to_garbage_collector((void *)&fd, FD);
+	(void)i;
 }
 
-void	redirect_append(t_minishell *msh, t_ast *root)
+void	redirect_append(t_minishell *msh, t_ast *root, int *i)
 {
 	int		fd;
 	t_ast	*right;
@@ -70,9 +72,10 @@ void	redirect_append(t_minishell *msh, t_ast *root)
 	}
 	msh->fd_out = fd;
 	add_to_garbage_collector((void *)&fd, FD);
+	(void)i;
 }
 
-void	redirect_heredoc(t_minishell *msh, t_ast *root)
+void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 {
 	int		fd;
 	t_ast	*right;
@@ -90,4 +93,5 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root)
 	}
 	msh->fd_in = fd;
 	add_to_garbage_collector((void *)&fd, FD);
+	(void)i;
 }

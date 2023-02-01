@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:02:40 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:24:25 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,9 @@ int	main(int argc, char **argv, char **envp)
 			msh.cmd = head;
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
+			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
-				main_execution(&msh, msh.root);
+				main_execution(&msh, msh.root, &i);
 			wait_for_children(&msh);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);

@@ -6,19 +6,20 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:05:07 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:31:16 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
 //Ast root is apipe sequence
-void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
+void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
 	pid_t	pid;
 
+	*i = *i + 1;
 	if (root == NULL)
 		return ;
 	left = root->left;
@@ -34,18 +35,18 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
 	{
-		main_execution(msh, left);
+		main_execution(msh, left, i);
 		free_garbage_collector();
 		exit(EXIT_SUCCESS);
 	}
 	else
 		add_pid_to_list(msh, pid);
-	main_execution(msh, right);
+	main_execution(msh, right, i);
 	printf("Start of a PIPE_SEQUENCE\n");
 }
 
 //ast root a complex command
-void	complex_command_traverse(t_minishell *msh, t_ast *root)
+void	complex_command_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
@@ -59,12 +60,13 @@ void	complex_command_traverse(t_minishell *msh, t_ast *root)
 	right->pipe_fd[0] = root->pipe_fd[0];
 	right->pipe_fd[1] = root->pipe_fd[1];
 	//printf("Start of a COMPLEXE_COMMAND\n");
-	main_execution(msh, left);
-	main_execution(msh, right);
+	main_execution(msh, left, i);
+	main_execution(msh, right, i);
+	(void)i;
 }
 
 //ast root a simple command
-void	simple_command_traverse(t_minishell *msh, t_ast *root)
+void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
@@ -101,10 +103,11 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 		args = get_char_double_ptr(left->data);
 	execve(file, args, msh->envp);
 	free_double_pointer((void **)args);
+	(void)i;
 }
 
 //ast root an argument
-void	argument_traverse(t_minishell *msh, t_ast *root)
+void	argument_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
@@ -114,12 +117,13 @@ void	argument_traverse(t_minishell *msh, t_ast *root)
 	left = root->left;
 	right = root->right;
 	//printf("Start of a ARGUMENT\n");
-	main_execution(msh, left);
-	main_execution(msh, right);
+	main_execution(msh, left, i);
+	main_execution(msh, right, i);
+	(void)i;
 }
 
 //ast root a redirection
-void	redirection_traverse(t_minishell *msh, t_ast *root)
+void	redirection_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
@@ -131,18 +135,19 @@ void	redirection_traverse(t_minishell *msh, t_ast *root)
 	(void) right;
 	printf("Start of a REDIRECTION\n");
 	if (ft_strcmp(">", left->data) == 1)
-		redirect_output(msh, root);
+		redirect_output(msh, root, i);
 	else if (ft_strcmp("<", left->data) == 1)
-		redirect_input(msh, root);
+		redirect_input(msh, root, i);
 	else if (ft_strcmp(">>", left->data) == 1)
-		redirect_append(msh, root);
+		redirect_append(msh, root, i);
 	else if (ft_strcmp("<<", left->data) == 1)
-		redirect_heredoc(msh, root);
+		redirect_heredoc(msh, root, i);
 	printf("\n");
+	(void)i;
 }
 
 //ast root a simple builtin
-void	simple_builtin_traverse(t_minishell *msh, t_ast *root)
+void	simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
@@ -151,15 +156,16 @@ void	simple_builtin_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
-	main_execution(msh, left);
-	main_execution(msh, right);
+	main_execution(msh, left, i);
+	main_execution(msh, right, i);
 	printf("Start of a SIMPLE_BUILTIN\n");
 	printf("Command: %s", left->data);
 	printf("Args: %s\n\n", right->data);
+	(void)i;
 }
 
 //ast root a complex builtin
-void	complex_builtin_traverse(t_minishell *msh, t_ast *root)
+void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
@@ -168,7 +174,8 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
-	main_execution(msh, left);
-	main_execution(msh, right);
+	main_execution(msh, left, i);
+	main_execution(msh, right, i);
 	printf("Start of a CMPLX_BUILT\n");
+	(void)i;
 }
