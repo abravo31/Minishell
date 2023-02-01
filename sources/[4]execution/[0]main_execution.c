@@ -69,3 +69,20 @@ t_list	*allocate_and_store_node(pid_t pid)
 		return (free(content), NULL);
 	return (new);
 }
+
+char	**get_char_double_ptr(char *str)
+{
+	char	**new;
+
+	new = (char **)malloc(sizeof(char *) * 2);
+	if (!new)
+		error_safe_exit("Allocation error before execve\n");
+	new[0] = ft_strdup(str);
+	if (!new[0])
+	{
+		free(new);
+		error_safe_exit("Allocation error before execve\n");
+	}
+	new[1] = NULL;
+	return (new);
+}

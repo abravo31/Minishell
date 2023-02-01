@@ -89,10 +89,14 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 	(void)file;
 	(void)args;
 	file = ft_check_access(msh, left);
-	args = ft_split(file, ' ');
+	if (!file)
+		file = left->data;
 	if (right)
 		args = right->left->arg;
+	else
+		args = get_char_double_ptr(left->data);
 	execve(file, args, msh->envp);
+	free_double_pointer((void **)args);
 }
 
 //ast root an argument

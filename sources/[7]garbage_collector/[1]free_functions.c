@@ -55,5 +55,6 @@ void	free_double_pointer(void **ptr)
 		free(ptr[i]);
 		i++;
 	}
+	free(ptr[i]);
 	free(ptr);
 }

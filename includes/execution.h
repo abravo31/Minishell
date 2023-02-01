@@ -65,6 +65,7 @@ void		add_pid_to_list(t_minishell *msh, pid_t pid);
 /*                              add to utility	      						  */
 /*############################################################################*/
 t_list		*allocate_and_store_node(pid_t pid);
+char	    **get_char_double_ptr(char *str);
 char		*ft_check_access(t_minishell *msh, t_ast *root);
 char		**ft_parse_path(char **env);
 

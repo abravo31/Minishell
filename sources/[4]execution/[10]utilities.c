@@ -28,7 +28,7 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 	msh->path = ft_parse_path(msh->envp);
 	if (!msh->path)
 		error_safe_exit("error at checkin access\n");
-	add_to_garbage_collector(&msh->path, D_INT);
+	add_to_garbage_collector(msh->path, D_INT);
 	if (cmd[0] == '/' || cmd[0] == '.' || cmd[0] == '~')
 	{
 		path = cmd;
