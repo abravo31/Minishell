@@ -35,7 +35,7 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
 	{
-		// dup2(left_fd[1], STDOUT_FILENO);
+		//dup2(left_fd[1], STDOUT_FILENO);
 		//dup2(msh->fd_in, STDIN_FILENO);
 		// close(left_fd[0]);
 		// close(left_fd[1]);
@@ -81,13 +81,12 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	if (msh->fd_out < 0 || msh->fd_in < 0)
 		error_safe_exit("FD ERROR\n");
+	dup2(msh->fd_out, STDOUT_FILENO);
 	//printf("Start of a SIMPLE_COMMAND\n");
 	left = root->left;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, no command\n");
 	right = root->right;
-	(void)file;
-	(void)args;
 	file = ft_check_access(msh, left);
 	if (!file)
 		file = left->data;
