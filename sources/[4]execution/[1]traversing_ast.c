@@ -82,12 +82,12 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	if (msh->fd_out < 0 || msh->fd_in < 0)
 		error_safe_exit("FD ERROR\n");
-
+	close(root->pipe_fd[0]);
+	close(root->pipe_fd[1]);
 	dup2(msh->fd_out, STDOUT_FILENO);
 	close(msh->fd_out);
 	dup2(msh->fd_in, STDIN_FILENO);
 	close(msh->fd_in);
-	//printf("Start of a SIMPLE_COMMAND\n");
 	left = root->left;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, no command\n");
