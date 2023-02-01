@@ -106,6 +106,7 @@ typedef struct s_ast_node
 	char				**arg;
 	int					terminal;	
 	t_id				*id;
+	int					pipe_fd[2];
 	struct s_ast_node	*parent;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;

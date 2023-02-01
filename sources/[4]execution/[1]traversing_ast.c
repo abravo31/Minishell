@@ -17,40 +17,37 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root)
 {
 	t_ast	*left;
 	t_ast	*right;
-	int		left_fd[2];
-	int		right_fd[2];
 	pid_t	pid;
 
 	if (root == NULL)
 		return ;
 	left = root->left;
+	right = root->right;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, Impossible structure\n");
-	if (pipe(left_fd) == -1)
+	if (pipe(left->pipe_fd) == -1)
 		error_safe_exit("PIPE ERROR\n");
-	add_to_garbage_collector((void *)&left_fd[0], FD);
-	add_to_garbage_collector((void *)&left_fd[1], FD);
+	add_to_garbage_collector((void *)&left->pipe_fd[0], FD);
+	add_to_garbage_collector((void *)&left->pipe_fd[1], FD);
+	// if (right)
+	// {
+	// 	if (pipe(right_fd) == -1)
+	// 		error_safe_exit("PIPE ERROR\n");
+	// 	add_to_garbage_collector((void *)&right_fd[0], FD);
+	// 	add_to_garbage_collector((void *)&right_fd[1], FD);
+	// }
 	pid = fork();
 	if (pid < 0)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
 	{
-		//dup2(left_fd[1], STDOUT_FILENO);
-		//dup2(msh->fd_in, STDIN_FILENO);
-		// close(left_fd[0]);
-		// close(left_fd[1]);
 		main_execution(msh, left);
 		free_garbage_collector();
 		exit(EXIT_SUCCESS);
 	}
 	else
 		add_pid_to_list(msh, pid);
-	//dup2(left_fd[0], STDIN_FILENO);
-	// close(left_fd[0]);
-	// close(left_fd[1]);
-	right = root->right;
 	main_execution(msh, right);
-	(void)(right_fd);
 	printf("Start of a PIPE_SEQUENCE\n");
 }
 
@@ -64,6 +61,10 @@ void	complex_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	left = root->left;
 	right = root->right;
+	left->pipe_fd[0] = root->pipe_fd[0];
+	left->pipe_fd[1] = root->pipe_fd[1];
+	right->pipe_fd[0] = root->pipe_fd[0];
+	right->pipe_fd[1] = root->pipe_fd[1];
 	//printf("Start of a COMPLEXE_COMMAND\n");
 	main_execution(msh, left);
 	main_execution(msh, right);
@@ -81,8 +82,11 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root)
 		return ;
 	if (msh->fd_out < 0 || msh->fd_in < 0)
 		error_safe_exit("FD ERROR\n");
+
 	dup2(msh->fd_out, STDOUT_FILENO);
+	close(msh->fd_out);
 	dup2(msh->fd_in, STDIN_FILENO);
+	close(msh->fd_in);
 	//printf("Start of a SIMPLE_COMMAND\n");
 	left = root->left;
 	if (!left)
