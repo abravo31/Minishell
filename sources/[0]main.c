@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:24:25 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 22:41:09 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,15 @@ int	main(int argc, char **argv, char **envp)
 	t_minishell	msh;
 	int			i;
 	t_list		*head;
+	int			tmp_fd[2];
 
 	i = 0;
 	(void)argc;
 	(void)argv;
 	init_minishell(&msh);
 	msh.envp = envp;
+	tmp_fd[0] = dup(STDIN_FILENO);
+	tmp_fd[1] = dup(STDOUT_FILENO);
 	while (msh.status)
 	{
 		setup_signal_handlers();
@@ -124,12 +127,14 @@ int	main(int argc, char **argv, char **envp)
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
 			wait_for_children(&msh);
+			dup2(tmp_fd[0], STDIN_FILENO);
+			dup2(tmp_fd[1], STDOUT_FILENO);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}
 		reset_and_free(&msh);
 	}
-	printf("exit\n");
+	printf("asadadaexit\n");
 	clean_exit(&msh);
 	return (0);
 }

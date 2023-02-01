@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:31:16 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 22:35:22 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	right = root->right;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, Impossible structure\n");
+	if (!right)
+		*i = -99;
 	if (pipe(left->pipe_fd) == -1)
 		error_safe_exit("PIPE ERROR\n");
 	add_to_garbage_collector((void *)&left->pipe_fd[0], FD);
@@ -35,13 +37,22 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
 	{
+		close(left->pipe_fd[0]);
 		main_execution(msh, left, i);
 		free_garbage_collector();
 		exit(EXIT_SUCCESS);
 	}
 	else
 		add_pid_to_list(msh, pid);
+	close(left->pipe_fd[1]);
+	dup2(left->pipe_fd[0], STDIN_FILENO);
 	main_execution(msh, right, i);
+	if (!right)
+	{
+		printf("Last command of a PIPE_SEQUENCE\n");
+		close(left->pipe_fd[0]);
+		close(left->pipe_fd[1]);
+	}
 	printf("Start of a PIPE_SEQUENCE\n");
 }
 
@@ -77,15 +88,19 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		return ;
 	if (msh->fd_out == -1 || msh->fd_in == -1)
 		error_safe_exit("FD ERROR\n");
-	// close(root->pipe_fd[0]);
-	// close(root->pipe_fd[1]);
-	// dup2(root->pipe_fd[1], STDOUT_FILENO);
 	if (msh->fd_out > 0)
 	{
 		dup2(msh->fd_out, STDOUT_FILENO);
-		close(msh->fd_out);
 	}
 	if (msh->fd_in > 0)
+	{
+		dup2(msh->fd_in, STDIN_FILENO);
+	}
+	if (*i > 0)
+	{
+		dup2(root->pipe_fd[1], STDOUT_FILENO);
+	}
+	if (msh->fd_in > 0 && *i > 0)
 	{
 		dup2(msh->fd_in, STDIN_FILENO);
 		close(msh->fd_in);

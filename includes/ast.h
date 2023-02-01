@@ -19,6 +19,7 @@
 # include "parsing.h"
 # include "garbage_collector.h"
 # include "error_management.h"
+# include "../gnl/get_next_line.h"
 
 # include <sys/types.h>
 # include <sys/stat.h>
