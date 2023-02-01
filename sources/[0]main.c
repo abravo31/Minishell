@@ -134,6 +134,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		reset_and_free(&msh);
 	}
+	close(tmp_fd[0]);
+	close(tmp_fd[1]);
 	printf("exit\n");
 	clean_exit(&msh);
 	return (0);

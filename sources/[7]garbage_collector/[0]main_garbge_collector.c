@@ -91,8 +91,7 @@ void	free_garbage_collector(void)
 			ft_lstclear(block->ptr_int.ptr, &free_cmd);
 		else if (block->type == FD)
 		{
-			fstat(((int)(block->ptr_int.val)), &buf);
-			if (buf.st_nlink > 0)
+			if (!fstat(((int)(block->ptr_int.val)), &buf) && buf.st_nlink > 0)
 			{
 				close((int)block->ptr_int.val);
 			}
