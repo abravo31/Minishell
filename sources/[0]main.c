@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 22:41:09 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 23:06:14 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		reset_and_free(&msh);
 	}
-	printf("asadadaexit\n");
+	printf("exit\n");
 	clean_exit(&msh);
 	return (0);
 }
