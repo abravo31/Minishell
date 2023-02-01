@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 22:35:22 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 22:57:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,15 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		return ;
 	if (msh->fd_out == -1 || msh->fd_in == -1)
 		error_safe_exit("FD ERROR\n");
-	if (msh->fd_out > 0)
-	{
-		dup2(msh->fd_out, STDOUT_FILENO);
-	}
 	if (msh->fd_in > 0)
 	{
 		dup2(msh->fd_in, STDIN_FILENO);
 	}
-	if (*i > 0)
+	if (msh->fd_out > 0)
+	{
+		dup2(msh->fd_out, STDOUT_FILENO);
+	}
+	else if (*i > 0)
 	{
 		dup2(root->pipe_fd[1], STDOUT_FILENO);
 	}
