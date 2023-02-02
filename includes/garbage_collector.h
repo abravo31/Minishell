@@ -31,7 +31,20 @@
 t_garbage_collector	**singleton_garbage_collector(void);
 void				init_garbage_collector(void);
 void				add_to_garbage_collector(void *ptr, t_memory_type type);
+
+/*############################################################################*/
+/*                            GARBAGE COLLECTOR FREE BLOCKS                   */
+/*############################################################################*/
+
 void				free_garbage_collector(void);
+void				free_all_blocks(t_garbage_collector *gc);
+void				free_block(t_mem_block *block);
+void				close_fd(t_mem_block *block);
+
+/*############################################################################*/
+/*                            SPECIALIZED FREE FUNCTIONS                      */
+/*############################################################################*/
+
 void				free_cmd(void *content);
 void				free_ast(t_ast *root);
 void				free_pid_t_content(void *content);
