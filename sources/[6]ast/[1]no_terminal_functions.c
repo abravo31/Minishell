@@ -6,67 +6,69 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 21:09:32 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 22:41:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 
 /*
--An Abstract Syntax Tree (AST) is a data structure used to represent the
-structure of a program's source code. It is commonly used in compilers and 
-interpreters to simplify and speed up the process of analyzing and interpreting
-source code.
-
-A grammar-free table is a table that describes the structure of the grammar for
-a programming language, but does not specify the exact syntax. It is used as a
-guide for constructing an AST.
-
-To build an AST, the source code is first tokenized into a list of tokens.
-The tokens are then parsed according to the grammar-free table to create a
-tree-like structure that represents the structure of the code. The tree is
-built recursively, starting with the root node and expanding to include child
-nodes for each element in the source code.
-
-The table below describes the structure of the grammar for a shell-like language 
-The left-hand side of the table shows the non-terminal symbols, & the right-hand
-side shows the possible expansions of each symbol. The symbols on the right-hand
-side can be either terminal symbols (such as "WORD" and "<") or non-terminal
-symbols (such as "cmd_name" and "pipe_sequence").
-
-During the parsing process, the parser traverses the input stream of tokens
-according to the grammar-free table, creating nodes in the AST for each
-non-terminal symbol encountered. The process is recursive, meaning that the
-parser will continue to expand the tree by recursively calling the appropriate
-production rule for each non-terminal symbol until reaches the end of the input
-stream.
-
-In our implementation, the functions like pipe_sequence, complexe_command, 
-simple_command, argument, redirection, and init_redirection_function are used
-to build the AST according to the grammar-free table. The functions take the
-token list and the current position in the list as input, and return an AST node
-representing the corresponding non-terminal symbol.
-
-the following are the no-terminalf functions of are grammar table
-pipe_sequence 	:complexe_command
-				| complexe_command '|' pipe_sequence
-				;
-complexe_command : redirection complexe_command
-				 | simple_command 
-				 | redirection simple_command 
-				 ;
-simple_command	: cmd_name
-				| cmd_name argument
-				;
-argument		: cmd_word
-				| cmd_word cmd_word
-                ;
-redirection 	: '<' cmd_word
-				|  cmd_word '>' 
-				| '<<' cmd_word
-				|  cmd_word '>>' 
-				;                 
-*/
+**-An Abstract Syntax Tree (AST) is a data structure used to represent the
+**structure of a program's source code. It is commonly used in compilers and 
+**interpreters to simplify and speed up the process of analyzing and
+**interpreting source code.
+**
+**A grammar-free table is a table that describes the structure of the
+** grammar for a programming language, but does not specify the exact syntax.
+**It is used as a guide for constructing an AST.
+**
+**To build an AST, the source code is first tokenized into a list of tokens.
+**The tokens are then parsed according to the grammar-free table to create a
+**tree-like structure that represents the structure of the code. The tree is
+**built recursively, starting with the root node and expanding to include child
+**nodes for each element in the source code.
+**
+**The table below describes the structure of the grammar for a shell-like
+** language 
+** The left-hand side of the table shows the non-terminal symbols,
+**& the right-hand side shows the possible expansions of each symbol.
+**The symbols on the right-hand side can be either terminal symbols
+**(such as "WORD" and "<") or non-terminal symbols
+**(such as "cmd_name" and "pipe_sequence").
+**
+**During the parsing process, the parser traverses the input stream of tokens
+**according to the grammar-free table, creating nodes in the AST for each
+**non-terminal symbol encountered. The process is recursive, meaning that the
+**parser will continue to expand the tree by recursively calling the appropriate
+**production rule for each non-terminal symbol until reaches the end of
+**the input stream.
+**
+**In our implementation, the functions like pipe_sequence, complexe_command, 
+**simple_command, argument, redirection, and init_redirection_function are used
+**to build the AST according to the grammar-free table. The functions take the
+**token list and the current position in the list as input, and return an
+** AST node representing the corresponding non-terminal symbol.
+**
+**the following are the no-terminalf functions of are grammar table
+**pipe_sequence 	:complexe_command
+**				| complexe_command '|' pipe_sequence
+**				;
+**complexe_command : redirection complexe_command
+**				 | simple_command 
+**				 | redirection simple_command 
+**				 ;
+**simple_command	: cmd_name
+**				| cmd_name argument
+**				;
+**argument		: cmd_word
+**				| cmd_word cmd_word
+**                ;
+**redirection 	: '<' cmd_word
+**				|  cmd_word '>' 
+**				| '<<' cmd_word
+**				|  cmd_word '>>' 
+**				;                 
+***/
 
 /*
 pipe_sequence - function that creates an AST node for a pipe sequence.
@@ -98,7 +100,8 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	}
 	if (left == NULL && right == NULL)
 		return (NULL);
-	if (right == NULL && (left->id->op != COMPLEXE_COMMAND && left->id->op != SIMPLE_COMMAND))
+	if (right == NULL && (left->id->op != COMPLEXE_COMMAND
+			&& left->id->op != SIMPLE_COMMAND))
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }
@@ -148,7 +151,7 @@ t_ast	*complexe_command(t_list **head, int *i)
 	if (right == NULL)
 		return (left);
 	if (left == NULL)
-	 	return (right);
+		return (right);
 	if (left->id->op == SIMPLE_BUILTIN || right->id->op == SIMPLE_BUILTIN
 		|| left->id->op == CMPLX_BUILT || right->id->op == CMPLX_BUILT)
 		return (create_ast_no_terminal(CMPLX_BUILT, left, right));
