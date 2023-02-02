@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 21:14:50 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 21:51:36 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		close(msh->fd_out);
 	}
 	else if (*i > 0)
-	{
 		dup2(root->pipe_fd[1], STDOUT_FILENO);
-	}
 	close(root->pipe_fd[1]);
 	if (msh->fd_in > 0 && *i > 0)
 	{
@@ -76,7 +74,8 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 	else
 		args = get_char_double_ptr(left->data);
 	execve(file, args, msh->envp);
-	free_double_pointer((void **)args);
+	if (!right)
+		free_double_pointer((void **)args);
 	(void)i;
 }
 
