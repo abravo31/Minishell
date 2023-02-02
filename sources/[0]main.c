@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 16:51:39 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 18:46:18 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	init_minishell(t_minishell *msh)
 	msh->fd_in = -2;
 	msh->fd_out = -2;
 	msh->pid = NULL;
+	msh->fd = NULL;
+	msh->env = NULL;
 }
 
 void	reset_and_free(t_minishell *msh)
@@ -99,8 +101,10 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	(void)argc;
 	(void)argv;
+
 	init_minishell(&msh);
-	msh.envp = envp;
+  msh.envp = envp;
+	get_env(envp, &msh);
 	while (msh.status)
 	{
 		tmp_fd[0] = dup(STDIN_FILENO);

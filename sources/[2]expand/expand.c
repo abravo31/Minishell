@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 16:46:24 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 20:04:33 by abravo           ###   ########.fr       */
+/*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
+/*   Updated: 2023/02/02 21:19:05 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-size_t	ft_strlen(const char *s)
+//verifier les inputs si $ pour l'expansion
+
+void   check_dolars(t_minishell msh)
 {
-	int	len;
-
-	if (!s || !s[0])
-		return (0);
-	len = 0;
-	while (*s++)
-		len++;
-	return (len);
+    
 }
