@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [1]here_doc_signal copy.c                          :+:      :+:    :+:   */
+/*   [1]here_doc_signal.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:35:40 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 15:48:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:44:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	heredoc_signal_handlers(void)
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, 0);
 	quit_sa.sa_handler = SIG_IGN;
-	quit_sa.sa_flags =  0;
+	quit_sa.sa_flags = 0;
 	sigemptyset(&quit_sa.sa_mask);
 	sigaction(SIGQUIT, &quit_sa, NULL);
 }
-

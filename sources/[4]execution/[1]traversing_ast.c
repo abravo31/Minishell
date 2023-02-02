@@ -6,11 +6,13 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 16:15:25 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 21:04:18 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+void	child_sequence_traverse(t_minishell *msh, t_ast *root, int *i);
 
 //Ast root is apipe sequence
 void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
@@ -36,16 +38,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	if (pid < 0)
 		error_safe_exit("FORK ERROR\n");
 	if (pid == 0)
-	{
-		close(left->pipe_fd[0]);
-		close(msh->fd_dup[0]);
-		close(msh->fd_dup[1]);
-		main_execution(msh, left, i);
-		free_garbage_collector();
-		exit(EXIT_SUCCESS);
-	}
-	else
-		add_pid_to_list(msh, pid);
+		child_sequence_traverse(msh, root, i);
+	add_pid_to_list(msh, pid);
 	sig_ignore_all();
 	close(left->pipe_fd[1]);
 	dup2(left->pipe_fd[0], STDIN_FILENO);
@@ -53,11 +47,22 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	main_execution(msh, right, i);
 	if (!right)
 	{
-		printf("Last command of a PIPE_SEQUENCE\n");
 		close(left->pipe_fd[0]);
 		close(left->pipe_fd[1]);
 	}
-	printf("Start of a PIPE_SEQUENCE\n");
+}
+
+void	child_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
+{
+	t_ast	*left;
+
+	left = root->left;
+	close(left->pipe_fd[0]);
+	close(msh->fd_dup[0]);
+	close(msh->fd_dup[1]);
+	main_execution(msh, left, i);
+	free_garbage_collector();
+	exit(EXIT_SUCCESS);
 }
 
 //ast root a complex command
@@ -74,7 +79,6 @@ void	complex_command_traverse(t_minishell *msh, t_ast *root, int *i)
 	left->pipe_fd[1] = root->pipe_fd[1];
 	right->pipe_fd[0] = root->pipe_fd[0];
 	right->pipe_fd[1] = root->pipe_fd[1];
-	//printf("Start of a COMPLEXE_COMMAND\n");
 	main_execution(msh, left, i);
 	main_execution(msh, right, i);
 	(void)i;
