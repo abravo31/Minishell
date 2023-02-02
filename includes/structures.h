@@ -126,6 +126,7 @@ typedef struct s_minishell
 	t_ast	*root;
 	int		fd_out;
 	int		fd_in;
+	int		fd_dup[2];
 	t_list	*pid;
 	char	**envp;
 	char	**path;

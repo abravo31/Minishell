@@ -100,10 +100,15 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_minishell(&msh);
 	msh.envp = envp;
-	tmp_fd[0] = dup(STDIN_FILENO);
-	tmp_fd[1] = dup(STDOUT_FILENO);
+
 	while (msh.status)
 	{
+		tmp_fd[0] = dup(STDIN_FILENO);
+		add_to_garbage_collector((void *)&tmp_fd[0], FD);
+		tmp_fd[1] = dup(STDOUT_FILENO);
+		add_to_garbage_collector((void *)&tmp_fd[1], FD);
+		msh.fd_dup[0] = tmp_fd[0];
+		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
 		if (msh.prompt == NULL)
@@ -134,8 +139,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		reset_and_free(&msh);
 	}
-	close(tmp_fd[0]);
-	close(tmp_fd[1]);
+	free_garbage_collector();
 	printf("exit\n");
 	clean_exit(&msh);
 	return (0);

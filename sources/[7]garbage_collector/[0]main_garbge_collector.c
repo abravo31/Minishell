@@ -91,8 +91,11 @@ void	free_garbage_collector(void)
 			ft_lstclear(block->ptr_int.ptr, &free_cmd);
 		else if (block->type == FD)
 		{
-			if (!fstat(((int)(block->ptr_int.val)), &buf) && buf.st_nlink > 0)
+			int stat = fstat(((int)(block->ptr_int.val)), &buf);
+			//printf("stat %d \n", stat);
+			if (stat == 0 && buf.st_nlink > 0)
 			{
+				//printf("fd %d will beclose \n", (int)block->ptr_int.val);
 				close((int)block->ptr_int.val);
 			}
 		}	

@@ -38,6 +38,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	if (pid == 0)
 	{
 		close(left->pipe_fd[0]);
+		close(msh->fd_dup[0]);
+		close(msh->fd_dup[1]);
 		main_execution(msh, left, i);
 		free_garbage_collector();
 		exit(EXIT_SUCCESS);
@@ -91,15 +93,19 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 	if (msh->fd_in > 0)
 	{
 		dup2(msh->fd_in, STDIN_FILENO);
+		close(msh->fd_in);
 	}
 	if (msh->fd_out > 0)
 	{
 		dup2(msh->fd_out, STDOUT_FILENO);
+		close(msh->fd_out);
 	}
 	else if (*i > 0)
 	{
 		dup2(root->pipe_fd[1], STDOUT_FILENO);
 	}
+	printf("PIPE FD[1] = %d\n", root->pipe_fd[1]);
+	close(root->pipe_fd[1]);
 	if (msh->fd_in > 0 && *i > 0)
 	{
 		dup2(msh->fd_in, STDIN_FILENO);
