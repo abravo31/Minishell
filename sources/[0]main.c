@@ -61,6 +61,9 @@ void	init_minishell(t_minishell *msh)
 	msh->prompt = NULL;
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->fd_in = -2;
+	msh->fd_out = -2;
+	msh->pid = NULL;
 	msh->fd = NULL;
 	msh->env = NULL;
 }
@@ -69,9 +72,16 @@ void	reset_and_free(t_minishell *msh)
 {
 	free_garbage_collector();
 	//free_ast(msh->root);
-	ft_lstclear(&msh->fd, &free);
+	//ft_lstclear(&msh->fd, &free);
+	singleton_heredoc(-1);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->root = NULL;
+	msh->fd_in = 0;
+	msh->fd_out = 0;
+	msh->pid = NULL;
+	msh->env = NULL;
+	msh->path = NULL;
 }
 
 void	clean_exit(t_minishell *msh)
@@ -86,21 +96,30 @@ int	main(int argc, char **argv, char **envp)
 	t_minishell	msh;
 	int			i;
 	t_list		*head;
+	int			tmp_fd[2];
 
 	i = 0;
 	(void)argc;
 	(void)argv;
-	
+
 	init_minishell(&msh);
+  msh.envp = envp;
 	get_env(envp, &msh);
 	while (msh.status)
 	{
+		tmp_fd[0] = dup(STDIN_FILENO);
+		add_to_garbage_collector((void *)&tmp_fd[0], FD);
+		tmp_fd[1] = dup(STDOUT_FILENO);
+		add_to_garbage_collector((void *)&tmp_fd[1], FD);
+		msh.fd_dup[0] = tmp_fd[0];
+		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
 		if (msh.prompt == NULL)
 		{
 			break ;
 		}
+		add_to_garbage_collector((void *)msh.prompt, INT);
 		if (msh.prompt != NULL)
 		{
 			if (get_cmd(&msh))
@@ -113,13 +132,18 @@ int	main(int argc, char **argv, char **envp)
 			msh.cmd = head;
 			ft_printf("\nAST:\n");
 			print2DUtil(msh.root, 0);
+			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
-				main_execution(&msh, msh.root);
+				main_execution(&msh, msh.root, &i);
+			wait_for_children(&msh);
+			dup2(tmp_fd[0], STDIN_FILENO);
+			dup2(tmp_fd[1], STDOUT_FILENO);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}
 		reset_and_free(&msh);
 	}
+	free_garbage_collector();
 	printf("exit\n");
 	clean_exit(&msh);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 19:07:11 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:39:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ void	here_doc(t_cmd *cmd, int *i)
 	char		*tmp_name;
 
 	tmp_name = heredoc_init(cmd, i, &delimiter, &tmp);
+	add_to_garbage_collector((void *)&tmp, FD);
 	if (singleton_heredoc(0) >= 1 || !tmp_name)
-		return ;
+		return (free(tmp_name), free(delimiter));
 	ft_putstr_fd("heredoc> ", 1);
 	line = get_next_line(0);
 	while (line != NULL && ft_strncmp(line, delimiter, ft_strlen(delimiter))
@@ -40,22 +41,30 @@ void	here_doc(t_cmd *cmd, int *i)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 	}
+	unlink_heredoc(tmp_name, cmd);
+	free(line);
+	free((void *)tmp_name);
+	free(delimiter);
+	close(tmp);
+}
+
+void	unlink_heredoc(char *tmp_name, t_cmd *cmd)
+{
 	if (singleton_heredoc(0) == 1)
 		unlink(tmp_name);
 	else
 		cmd->cmd = ft_strdup(tmp_name);
-	free(line);
 	get_next_line(-1);
-	free((void *)tmp_name);
-	free(delimiter);
-	close(tmp);
 }
 
 int	singleton_heredoc(int i)
 {
 	static int	heredoc = 0;
 
-	heredoc = heredoc + i;
+	if (i < 0)
+		heredoc = 0;
+	else if (i > 0)
+		heredoc = heredoc + i;
 	return (heredoc);
 }
 
@@ -68,11 +77,13 @@ char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
 	char	*nbr_tmp;
 
 	nbr_tmp = ft_itoa(*i);
-	tmp_name = ft_strjoin(".tmp", nbr_tmp);
+	tmp_name = ft_strjoin("/tmp/.tmp", nbr_tmp);
 	free(nbr_tmp);
 	if (!tmp_name)
 		return (NULL);
 	*delimiter = ft_strjoin(cmd->cmd, "\n");
+	if (!*delimiter)
+		return (free(tmp_name), NULL);
 	*tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*tmp == -1)
 		return (free(tmp_name), free(*delimiter), NULL);
