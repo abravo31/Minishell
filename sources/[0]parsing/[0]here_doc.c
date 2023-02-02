@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 19:15:41 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:39:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	here_doc(t_cmd *cmd, int *i)
 	char		*tmp_name;
 
 	tmp_name = heredoc_init(cmd, i, &delimiter, &tmp);
+	add_to_garbage_collector((void *)&tmp, FD);
 	if (singleton_heredoc(0) >= 1 || !tmp_name)
 		return (free(tmp_name), free(delimiter));
 	ft_putstr_fd("heredoc> ", 1);

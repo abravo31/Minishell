@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 19:03:16 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:38:38 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "structures.h"
 # include "signal_handling.h"
+# include "garbage_collector.h"
 
 # include <sys/types.h>
 # include <sys/stat.h>
