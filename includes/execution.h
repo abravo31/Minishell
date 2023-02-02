@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 15:47:16 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 21:13:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,17 @@ void		main_execution(t_minishell *msh, t_ast *ast, int *i);
 void		wait_for_children(t_minishell *msh);
 
 /*############################################################################*/
-/*                              no-terminal traveersing						  */
+/*                              pipe traveersing						  	  */
 /*############################################################################*/
 void		pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i);
+void		child_sequence_traverse(t_minishell *msh, t_ast *root, int *i);
+void		parent_seq_traverse(t_minishell *msh, t_ast *root, int *i,
+				pid_t pid);
+
+/*############################################################################*/
+/*                              no-terminal traveersing						  */
+/*############################################################################*/
+
 void		complex_command_traverse(t_minishell *msh, t_ast *root, int *i);
 void		simple_command_traverse(t_minishell *msh, t_ast *root, int *i);
 void		argument_traverse(t_minishell *msh, t_ast *root, int *i);
@@ -67,7 +75,7 @@ void		add_pid_to_list(t_minishell *msh, pid_t pid);
 /*                              add to utility	      						  */
 /*############################################################################*/
 t_list		*allocate_and_store_node(pid_t pid);
-char	    **get_char_double_ptr(char *str);
+char		**get_char_double_ptr(char *str);
 char		*ft_check_access(t_minishell *msh, t_ast *root);
 char		**ft_parse_path(char **env);
 
