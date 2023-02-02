@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 17:39:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 18:08:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	here_doc(t_cmd *cmd, int *i)
 	while (line != NULL && ft_strncmp(line, delimiter, ft_strlen(delimiter))
 		&& singleton_heredoc(0) == 0)
 	{
-		printf("line: %s\n", line);
 		write(tmp, line, ft_strlen(line));
 		free(line);
 		ft_putstr_fd("heredoc> ", 1);
@@ -45,7 +44,6 @@ void	here_doc(t_cmd *cmd, int *i)
 		unlink(tmp_name);
 	else
 		cmd->cmd = ft_strdup(tmp_name);
-	printf("before free gnl\n");
 	get_next_line(-1);
 	free(line);
 	free((void *)tmp_name);
@@ -73,7 +71,7 @@ char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
 	char	*nbr_tmp;
 
 	nbr_tmp = ft_itoa(*i);
-	tmp_name = ft_strjoin(".tmp", nbr_tmp);
+	tmp_name = ft_strjoin("/tmp/.tmp", nbr_tmp);
 	free(nbr_tmp);
 	if (!tmp_name)
 		return (NULL);

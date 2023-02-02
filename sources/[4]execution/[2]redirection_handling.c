@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:31:59 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 18:26:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	redirect_append(t_minishell *msh, t_ast *root, int *i)
 	t_ast	*right;
 
 	right = root->right;
-	if (msh->fd_out== -1)
+	if (msh->fd_out == -1)
 		error_safe_exit("FD ERROR\n");
 	if (msh->fd_out > 1)
 		close(msh->fd_out);
@@ -83,7 +83,7 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 	right = root->right;
 	if (msh->fd_in == -1)
 		error_safe_exit("FD ERROR\n");
-	if (msh->fd_in != 1)
+	if (msh->fd_in > 1)
 		close(msh->fd_out);
 	fd = open(right->data, O_RDONLY, 0644);
 	if (fd == -1)
