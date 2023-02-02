@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 19:12:35 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:15:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
 	if (!tmp_name)
 		return (NULL);
 	*delimiter = ft_strjoin(cmd->cmd, "\n");
+	if (!*delimiter)
+		return (free(tmp_name), NULL);
 	*tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*tmp == -1)
 		return (free(tmp_name), free(*delimiter), NULL);
