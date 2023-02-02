@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 17:00:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:10:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define STRUCTURES_H
 
 # include <stdlib.h>
+# include <sys/types.h>
+# include <unistd.h>
 # include "libft.h"
 
 /*############################################################################*/
-/*                              STRUCTURES                                    */
+/*                              GARBAGE COLLECTOR                             */
 /*############################################################################*/
 
 typedef enum e_memory_type
@@ -28,11 +30,19 @@ typedef enum e_memory_type
 	LST,
 	AST,
 	CMD,
+	FD,
+	PID,
 }	t_memory_type;
+
+typedef union u_ptr_int
+{
+	void	*ptr;
+	int		val;
+}	t_ptr_int;
 
 typedef struct s_mem_block
 {
-	void			*ptr;
+	t_ptr_int		ptr_int;
 	t_memory_type	type;
 }	t_mem_block;
 
@@ -40,6 +50,10 @@ typedef struct s_garbage_collector
 {
 	t_list			*ptr;
 }	t_garbage_collector;
+
+/*############################################################################*/
+/*                              LEXER			                              */
+/*############################################################################*/
 
 typedef enum e_token
 {
@@ -61,8 +75,18 @@ typedef struct s_cmd
 	t_token	id;
 }	t_cmd;
 
+typedef struct s_arg
+{
+	char	**arg;
+	t_token	id;
+}	t_arg;
+
+/*############################################################################*/
+/*                                    AST                                     */
+/*############################################################################*/
+
 typedef enum e_operator{
-	PIPE_SEQUENCE ,
+	PIPE_SEQUENCE,
 	COMPLEXE_COMMAND,
 	SIMPLE_COMMAND,
 	ARGUMENT,
@@ -79,12 +103,18 @@ typedef union id{
 typedef struct s_ast_node
 {
 	char				*data;
+	char				**arg;
 	int					terminal;	
 	t_id				*id;
+	int					pipe_fd[2];
 	struct s_ast_node	*parent;
 	struct s_ast_node	*left;
 	struct s_ast_node	*right;
 }						t_ast;
+
+/*############################################################################*/
+/*                             MAIN STRUCTURE                                 */
+/*############################################################################*/
 
 typedef struct s_minishell
 {
@@ -94,7 +124,12 @@ typedef struct s_minishell
 	t_list	*cmd;
 	t_list	*env;
 	t_ast	*root;
-	t_list	*fd;
+	int		fd_out;
+	int		fd_in;
+	int		fd_dup[2];
+	t_list	*pid;
+	char	**envp;
+	char	**path;
 }	t_minishell;
 
 #endif

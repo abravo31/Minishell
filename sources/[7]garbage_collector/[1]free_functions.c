@@ -36,3 +36,25 @@ void	free_ast(t_ast *root)
 	free(root->id);
 	free(root);
 }
+
+void	free_pid_t_content(void *content)
+{
+	pid_t	*pid;
+
+	pid = (pid_t *)content;
+	free (pid);
+}
+
+void	free_double_pointer(void **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr[i]);
+	free(ptr);
+}

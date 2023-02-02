@@ -12,6 +12,8 @@
 		"signal_handling.h": "c",
 		"*.tcc": "c",
 		"lexer.h": "c",
-		"types.h": "c"
+		"types.h": "c",
+		"execution.h": "c",
+		"error_management.h": "c"
 	}
 }

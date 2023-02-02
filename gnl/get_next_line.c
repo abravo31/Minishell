@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:10:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 18:33:55 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 18:05:47 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*ft_read_file(int fd, char *past_buf)
 	{
 		byte = read(fd, next_buf, BUFFER_SIZE);
 		if (byte == -1)
-			return (NULL);
+			return (free(past_buf), NULL);
 		next_buf[byte] = 0;
 		if (byte == 0)
 			break ;
@@ -112,6 +112,22 @@ char	*get_next_line(int fd)
 	save = ft_free_line(save, line_len);
 	return (line);
 }
+
+// char	*get_next_line(int fd)
+// {
+// 	char	*line;
+// 	char	*copy;
+
+// 	line = malloc(10000);
+// 	copy = line;
+// 	while (read(fd, line, 1) > 0 && *copy++ != '\n');
+// 	if (copy > line)
+// 	{
+// 		*copy = 0;
+// 		return (line);
+// 	}
+// 	return (free(line), NULL);
+// }
 
 /*#include <sys/stat.h>*/
 /*#include <fcntl.h>*/

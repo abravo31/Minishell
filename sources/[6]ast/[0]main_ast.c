@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:31:37 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 19:14:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 14:52:45 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,3 @@ t_ast	*create_ast_node(t_cmd *cmd, t_ast *left, t_ast *right)
 	}
 	return (node);
 }
-

@@ -109,12 +109,7 @@ t_list	*hardcode_cmds(void)
 
 // 	cmd.cmd = "file";
 // 	cmd.id = UNASSIGNED;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
-// 	current = current->next;
-
-// 	cmd.cmd = ">";
-// 	cmd.id = R_DREDIR;
-// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
+// 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));cmd->id;
 // 	current = current->next;
 
 // 	cmd.cmd = "file2";
@@ -269,7 +264,7 @@ void	print_cmd(t_list *head)
 void	print2DUtil(t_ast *root, int space)
 {
 	char const	*operators[] = {"PIPE_SEQUENCE", "COMPLEXE_COMMAND", "SIMPLE_COMMAND", "ARGUMENT", "REDIRECTION","SIMPLE_BUILTIN", "CMPLX_BUILT"};
-	char const	*tokens[] = {"UNASSIGNED", "R_REDIR", "R_DREDIR", "L_REDIR", "L_DREDIR", "PIPE", "WORD", "BUILTIN", "D_QUOTE", "S_QUOTE"};
+	char const	*tokens[] = {"UNASSIGNED", "R_REDIR", "R_DREDIR", "L_REDIR", "L_DREDIR", "PIPE", "D_QUOTE", "S_QUOTE", "WORD", "BUILTIN"};
 
 	if (root == NULL)
 		return ;
