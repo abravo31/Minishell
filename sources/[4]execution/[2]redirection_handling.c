@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 18:26:07 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 18:37:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 	if (msh->fd_in > 1)
 		close(msh->fd_out);
 	fd = open(right->data, O_RDONLY, 0644);
+	unlink(right->data);
 	if (fd == -1)
 	{
 		error_safe_exit(strerror(errno));
