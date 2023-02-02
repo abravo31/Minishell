@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 22:57:02 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:15:25 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	}
 	else
 		add_pid_to_list(msh, pid);
+	sig_ignore_all();
 	close(left->pipe_fd[1]);
 	dup2(left->pipe_fd[0], STDIN_FILENO);
 	close(left->pipe_fd[0]);
@@ -111,6 +112,7 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		dup2(msh->fd_in, STDIN_FILENO);
 		close(msh->fd_in);
 	}
+	setup_sig_child();
 	left = root->left;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, no command\n");

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:51:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 15:47:16 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "structures.h"
 # include "garbage_collector.h"
 # include "error_management.h"
+# include "signal_handling.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
