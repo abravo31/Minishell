@@ -65,7 +65,6 @@ char		**gets_args(t_list *cmd_args);
 /*############################################################################*/
 /*							AUXILIARY FUNCTIONS                              */
 /*############################################################################*/
-size_t		ft_lstlen(t_list *lst);
 int			is_redirection(t_cmd *cmd);
 t_ast		*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right);
 t_ast		*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right);

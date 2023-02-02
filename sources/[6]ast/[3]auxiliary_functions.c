@@ -6,28 +6,11 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:33:27 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:14:44 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 22:36:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
-
-/*
-calculates and returns the number of elements in a linked list
-** CHANGE BY LST_SIZE from libft
-*/
-size_t	ft_lstlen(t_list *lst)
-{
-	size_t	len;
-
-	len = 0;
-	while (lst)
-	{
-		len++;
-		lst = lst->next;
-	}
-	return (len);
-}
 
 /*
 checks if a given command is a redirection operator
