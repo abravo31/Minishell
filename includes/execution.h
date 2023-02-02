@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 21:40:44 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 22:06:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,24 @@ void		parent_seq_traverse(t_minishell *msh, t_ast *root, int *i,
 				pid_t pid);
 
 /*############################################################################*/
-/*                              no-terminal traveersing						  */
+/*                              hangling fds and dups						  */
+/*############################################################################*/
+
+void		fds_handlings(t_minishell *msh, t_ast *root, int *i);
+void		redirection_traverse(t_minishell *msh, t_ast *root, int *i);
+
+/*############################################################################*/
+/*                              no-terminal traversing						  */
 /*############################################################################*/
 
 void		complex_command_traverse(t_minishell *msh, t_ast *root, int *i);
 void		simple_command_traverse(t_minishell *msh, t_ast *root, int *i);
 void		argument_traverse(t_minishell *msh, t_ast *root, int *i);
-void		redirection_traverse(t_minishell *msh, t_ast *root, int *i);
 void		simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i);
 void		complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i);
 
 /*############################################################################*/
-/*                              no-terminal traveersing						  */
+/*                              no-terminal traversing						  */
 /*############################################################################*/
 void		execution_terminal(t_minishell *msh, t_ast *root, int *i);	
 
