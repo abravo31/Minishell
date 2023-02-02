@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 19:07:11 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:50:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ int	singleton_heredoc(int i)
 {
 	static int	heredoc = 0;
 
-	heredoc = heredoc + i;
+	if (i < 0)
+		heredoc = 0;
+	else if (i > 0)
+		heredoc = heredoc + i;
 	return (heredoc);
 }
 

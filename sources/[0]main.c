@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 16:04:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:51:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	reset_and_free(t_minishell *msh)
 	free_garbage_collector();
 	//free_ast(msh->root);
 	//ft_lstclear(&msh->fd, &free);
+	singleton_heredoc(-1);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
 	msh->root = NULL;

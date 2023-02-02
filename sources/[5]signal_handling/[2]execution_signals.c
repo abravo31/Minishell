@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:35:40 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 16:22:13 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 16:34:04 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ void	handle_sigint_child(int sig)
 {
 	if (sig == SIGINT)
 	{
-		//write(0, "\n", 1);
 		printf("\n");
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
-		// rl_redisplay();
 	}
 	if (sig == SIGQUIT)
 	{
