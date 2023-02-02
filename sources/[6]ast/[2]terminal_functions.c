@@ -6,11 +6,12 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 19:24:55 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 22:34:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
+
 /* 
 Terminal operators are the leaf nodes of an Abstract Syntax Tree (AST).
  They represent the smallest units of input in the language being parsed. 
@@ -93,7 +94,6 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 {
 	t_cmd	*word;
 	t_list	*cmd_args;
-	t_list	*current;
 	char	*tmp;
 	char	**arg;
 
@@ -114,7 +114,17 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 			break ;
 		word = (t_cmd *)(*head)->content;
 	}
-	int	j;
+	arg = gets_args(cmd_args);
+	ft_lstclear(&cmd_args, free);
+	return (create_ast_terminal_w_args(arg, NULL, NULL));
+}
+
+char	**gets_args(t_list *cmd_args)
+{
+	int		j;
+	char	**arg;
+	t_list	*current;
+
 	j = 0;
 	arg = ft_calloc(sizeof(char *), (ft_lstsize(cmd_args) + 1));
 	if (!arg)
@@ -133,10 +143,8 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 		j++;
 	}
 	arg[j] = NULL;
-	ft_lstclear(&cmd_args, free);
-	return (create_ast_terminal_w_args(arg, NULL, NULL));
+	return (arg);
 }
-
 
 /*
 This function is used to extract the redirection operator from the
@@ -157,25 +165,4 @@ t_ast	*cmd_redir(t_list **head, int *i)
 		return (create_ast_terminal(cmd, NULL, NULL));
 	}
 	return (NULL);
-}
-
-int	builtin_cmd(t_list **head)
-{
-	t_cmd		*cmd;
-	int			i;
-	char const	*builtins[7]
-		= {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-	int const	nbr_builtins = sizeof(builtins) / sizeof(char const *);
-
-	if ((*head) == NULL)
-		return (0);
-	cmd = (t_cmd *)(*head)->content;
-	i = 0;
-	while (i < nbr_builtins)
-	{
-		if (ft_strcmp(cmd->cmd, builtins[i]) == 1)
-			return (1);
-		i++;
-	}
-	return (0);
 }

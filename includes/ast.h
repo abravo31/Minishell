@@ -60,6 +60,7 @@ t_ast		*cmd_word(t_list **head, int *i);
 t_ast		*cmd_redir(t_list **head, int *i);
 int			builtin_cmd(t_list **head);
 t_ast		*cmd_arg(t_list **head, int *i, t_ast *cmd);
+char		**gets_args(t_list *cmd_args);
 
 /*############################################################################*/
 /*							AUXILIARY FUNCTIONS                              */
@@ -70,6 +71,5 @@ t_ast		*create_ast_no_terminal(t_op operator, t_ast *left, t_ast *right);
 t_ast		*create_ast_terminal(t_cmd *cmd, t_ast *left, t_ast *right);
 t_ast		*create_terminal_builtin(t_cmd *cmd, t_ast *left, t_ast *right);
 t_ast		*create_ast_terminal_w_args(char **args, t_ast *left, t_ast *right);
-
 
 #endif
