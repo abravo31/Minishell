@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 15:10:47 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 18:33:55 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:45:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,9 @@ char	*ft_read_file(int fd, char *past_buf)
 	while (byte > 0)
 	{
 		byte = read(fd, next_buf, BUFFER_SIZE);
+		printf("byte = %i\n", byte);
 		if (byte == -1)
-			return (NULL);
+			return (free(past_buf), NULL);
 		next_buf[byte] = 0;
 		if (byte == 0)
 			break ;
