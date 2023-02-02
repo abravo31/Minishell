@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 18:08:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/02 19:12:35 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	here_doc(t_cmd *cmd, int *i)
 
 	tmp_name = heredoc_init(cmd, i, &delimiter, &tmp);
 	if (singleton_heredoc(0) >= 1 || !tmp_name)
-		return ;
+		return (free(tmp_name), free(delimiter));
 	ft_putstr_fd("heredoc> ", 1);
 	line = get_next_line(0);
 	while (line != NULL && ft_strncmp(line, delimiter, ft_strlen(delimiter))
@@ -40,15 +40,20 @@ void	here_doc(t_cmd *cmd, int *i)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 	}
+	unlink_heredoc(tmp_name, cmd);
+	free(line);
+	free((void *)tmp_name);
+	free(delimiter);
+	close(tmp);
+}
+
+void	unlink_heredoc(char *tmp_name, t_cmd *cmd)
+{
 	if (singleton_heredoc(0) == 1)
 		unlink(tmp_name);
 	else
 		cmd->cmd = ft_strdup(tmp_name);
 	get_next_line(-1);
-	free(line);
-	free((void *)tmp_name);
-	free(delimiter);
-	close(tmp);
 }
 
 int	singleton_heredoc(int i)
