@@ -100,8 +100,8 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	}
 	if (left == NULL && right == NULL)
 		return (NULL);
-	if (right == NULL && (left->id->op != COMPLEXE_COMMAND
-			&& left->id->op != SIMPLE_COMMAND))
+	if (right == NULL && (left->id->op == CMPLX_BUILT
+			|| left->id->op == SIMPLE_BUILTIN))
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }

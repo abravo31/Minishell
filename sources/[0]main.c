@@ -134,7 +134,7 @@ int	main(int argc, char **argv, char **envp)
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd = head;
 			//ft_printf("\nAST:\n");
-			//print2DUtil(msh.root, 0);
+			print2DUtil(msh.root, 0);
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
