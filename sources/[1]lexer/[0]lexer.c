@@ -116,9 +116,12 @@ int	get_cmd(t_minishell *msh)
 	}
 	delimitor(&str, msh, 0);
 	// check_parsing_errors(msh, 0);
-	// ft_expand(msh);
+	// printf
+	//ft_expand(msh, );
 	printf("\nbefore join\n");
 	__debug_parsing(msh);
+	printf("\nbefore exoand\n");
+	__debug_parsing_expand(msh);
 	// ft_remove_empty(msh);
 	check_parsing_errors(msh, 1);
 	ft_join_quote(msh);

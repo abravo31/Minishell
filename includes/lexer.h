@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 01:25:38 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:15:00 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ char	*ft_strjoin_cmd(char *s1, char *s2);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
+
+void __debug_parsing_expand(t_minishell *msh);
 
 #endif

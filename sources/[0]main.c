@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 01:39:39 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/03 18:33:23 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	reset_and_free(t_minishell *msh)
 	msh->fd_in = 0;
 	msh->fd_out = 0;
 	msh->pid = NULL;
-	msh->env = NULL;
 	msh->path = NULL;
 }
 
