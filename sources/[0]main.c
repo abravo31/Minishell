@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 18:46:18 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/03 01:39:39 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,12 @@ int	main(int argc, char **argv, char **envp)
 		add_to_garbage_collector((void *)msh.prompt, INT);
 		if (msh.prompt != NULL)
 		{
-			if (get_cmd(&msh))
-				printf("My line is: %s\n", msh.prompt);
+			if (!get_cmd(&msh))
+			{
+				printf("%s\n", msh.parsing_error);
+				reset_and_free(&msh);
+				continue ;
+			}
 			head = msh.cmd;
 			msh.root = pipe_sequence(&msh.cmd, &i);
 			if (!msh.root)
