@@ -48,7 +48,6 @@ void	redirection_traverse(t_minishell *msh, t_ast *root, int *i)
 	left = root->left;
 	right = root->right;
 	(void) right;
-	printf("Start of a REDIRECTION\n");
 	if (ft_strcmp(">", left->data) == 1)
 		redirect_output(msh, root, i);
 	else if (ft_strcmp("<", left->data) == 1)
@@ -57,6 +56,5 @@ void	redirection_traverse(t_minishell *msh, t_ast *root, int *i)
 		redirect_append(msh, root, i);
 	else if (ft_strcmp("<<", left->data) == 1)
 		redirect_heredoc(msh, root, i);
-	printf("\n");
 	(void)i;
 }

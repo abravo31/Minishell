@@ -14,6 +14,9 @@
 		"lexer.h": "c",
 		"types.h": "c",
 		"execution.h": "c",
-		"error_management.h": "c"
+		"error_management.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c"
 	}
 }

@@ -26,8 +26,9 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	right = root->right;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, Impossible structure\n");
+	(void)right;
 	if (!right)
-		*i = -99;
+		*i = -1;
 	if (pipe(left->pipe_fd) == -1)
 		error_safe_exit("PIPE ERROR\n");
 	add_to_garbage_collector((void *)&left->pipe_fd[0], FD);

@@ -15,6 +15,7 @@
 void	error_safe_exit(char *msg)
 {
 	perror(msg);
+	perror(strerror(errno));
 	free_garbage_collector();
 	exit(EXIT_FAILURE);
 }

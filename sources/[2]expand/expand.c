@@ -14,7 +14,7 @@
 
 //verifier les inputs si $ pour l'expansion
 
-void   check_dolars(t_minishell msh)
-{
+// void   check_dolars(t_minishell msh)
+// {
     
-}
+// }
