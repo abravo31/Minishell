@@ -15,6 +15,8 @@
 //function that handles the fds, dups and closes
 void	fds_handlings(t_minishell *msh, t_ast *root, int *i)
 {
+	struct stat	buf;
+
 	if (msh->fd_out == -1 || msh->fd_in == -1)
 		error_safe_exit("FD ERROR\n");
 	if (msh->fd_in > 0)
@@ -29,7 +31,8 @@ void	fds_handlings(t_minishell *msh, t_ast *root, int *i)
 	}
 	else if (*i > 0)
 		dup2(root->pipe_fd[1], STDOUT_FILENO);
-	close(root->pipe_fd[1]);
+	if (fstat(root->pipe_fd[1], &buf) == 0)
+		close(root->pipe_fd[1]);
 	if (msh->fd_in > 0 && *i > 0)
 	{
 		dup2(msh->fd_in, STDIN_FILENO);

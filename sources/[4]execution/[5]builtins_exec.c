@@ -16,14 +16,13 @@
 void	simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 {
 	t_ast	*left;
-	t_ast	*right;
 
 	if (root == NULL)
 		return ;
 	left = root->left;
-	right = root->right;
-	(void)left;
-	(void)right;
+	left->pipe_fd[0] = root->pipe_fd[0];
+	left->pipe_fd[1] = root->pipe_fd[1];
+	fds_handlings(msh, root, i);
 	execute_builtin(msh, root);
 	(void)i;
 }
@@ -43,6 +42,7 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	right->pipe_fd[0] = root->pipe_fd[0];
 	right->pipe_fd[1] = root->pipe_fd[1];
 	main_execution(msh, left, i);
+	fds_handlings(msh, root, i);
 	simple_builtin_traverse(msh, right, i);
 	(void)i;
 }

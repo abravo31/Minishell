@@ -17,7 +17,8 @@ int	builtin_echo(t_minishell *msh, t_ast *root)
 {
 	(void)msh;
 	(void)root;
-	return (printf("Execute echo\n"));
+	ft_putstr_fd("Execute echo\n", STDOUT_FILENO);
+	return (1);
 }
 
 int	builtin_exit(t_minishell *msh, t_ast *root)
