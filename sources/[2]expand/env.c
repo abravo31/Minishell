@@ -6,26 +6,26 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/03 20:08:23 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/03 21:45:35 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	__debug_env(t_minishell *msh)
-{
-	t_list	*iter;
-	t_env	*current;
+// void	__debug_env(t_minishell *msh)
+// {
+// 	t_list	*iter;
+// 	t_env	*current;
 
-	iter = msh->env;
-	current = NULL;
-	while (iter)
-	{
-		current = (t_env *) iter->content;
-		printf("(%s){%s}\n", current->key, current->value);
-		iter = iter->next;
-	}
-}
+// 	iter = msh->env;
+// 	current = NULL;
+// 	while (iter)
+// 	{
+// 		current = (t_env *) iter->content;
+// 		printf("(%s){%s}\n", current->key, current->value);
+// 		iter = iter->next;
+// 	}
+// }
 
 t_env	*new_env(char *key, char *value)
 {
@@ -81,7 +81,7 @@ int	get_env(char **env, t_minishell *msh)
 		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
         i++;
 	}
-    __debug_env(msh);
+    //__debug_env(msh);
     return(0);
 }
 
@@ -108,7 +108,6 @@ char	*expand(char *str, int *index, int *n, t_minishell *msh)
 
 	if (ft_isdigit(str[0]))
 		return((*index)++, "");
-	printf("str= %s\n", str);
 	if (str[0] == '"') // si le premier charactere du prochain element est un guillement on renvoit rien
 		return ("");
 	if ((!ft_isalnum(str[0]) && str[0] != '_') || str[0] == '$')
@@ -125,6 +124,7 @@ char	*expand(char *str, int *index, int *n, t_minishell *msh)
 	str[i] = c;
 	if (!value)
 		return ("");
+	*n += ft_strlen(value);
 	return (value);
 }
 
@@ -142,7 +142,10 @@ char	*ft_boost(char *s1, char *s2, int size)
 	s2len = ft_strlen(s2);
 	temp = ft_calloc(s1len + s2len + size + 1, 1);
 	if (!temp)
-		return (NULL);
+	{
+		free(s1);
+		return (NULL);	
+	}
 	ft_strcpy(temp, s1);
 	ft_strcpy(temp + s1len, s2);
 	free(s1);
@@ -166,6 +169,8 @@ char	*ft_expand(t_minishell *msh, int id, char *str)
 		{
 			i++;
 			new = ft_boost(new, expand(&str[i], &i, &n, msh), ft_strlen(&str[i]));
+			if (!new)
+				return (NULL);
 		}
 		if (!str[i])
 			break;
@@ -184,8 +189,7 @@ void	__debug_parsing_expand(t_minishell *msh)
 	while (iter)
 	{
 		current = (t_cmd *) iter->content;
-		printf("heree %s\n", current->cmd);
-		printf("(%d){%d}[%s]\n", current->space, current->id, ft_expand(msh, current->id, current->cmd));
+		printf("(%d){%d}[%s]\n", current->space, current->id, ft_expand(msh, current->id, current->cmd));//proteger expand
 		iter = iter->next;
 	}
 }

@@ -115,18 +115,16 @@ int	get_cmd(t_minishell *msh)
 		i++;
 	}
 	delimitor(&str, msh, 0);
-	// check_parsing_errors(msh, 0);
-	// printf
-	//ft_expand(msh, );
-	printf("\nbefore join\n");
-	__debug_parsing(msh);
-	printf("\nbefore exoand\n");
+	check_parsing_errors(msh, 0);
+	//printf("\nbefore join\n");
+	//__debug_parsing(msh);
+	//printf("\nbefore exoand\n");
 	__debug_parsing_expand(msh);
 	// ft_remove_empty(msh);
 	check_parsing_errors(msh, 1);
 	ft_join_quote(msh);
-	printf("\nafter join:\n");
-	__debug_parsing(msh);
+	//printf("\nafter join:\n");
+	//__debug_parsing(msh);
 	// check_parsing_errors(msh, 1);
 	return (!msh->parsing_error);
 }

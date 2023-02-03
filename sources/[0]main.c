@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 18:33:23 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/03 21:53:25 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
+		// msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
 		if (msh.prompt == NULL)
 		{
 			break ;
