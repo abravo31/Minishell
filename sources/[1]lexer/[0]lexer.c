@@ -48,14 +48,14 @@ void	ft_join_quote(t_minishell *msh)
 		{
 			while ((cmd->id >= D_QUOTE && cmd->id <= WORD) && (cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && cmd->space == 0 && cmd_next->space == 0 && list->next)
 			{
-				cmd->cmd = ft_strjoin(cmd->cmd, cmd_next->cmd);
+				cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
 				ft_pop_list(&list, list->next);
 				if (list->next)
 					cmd_next = (t_cmd *)list->next->content;
 			}
-			if (list->next)
+			if ((cmd->id >= D_QUOTE && cmd->id <= WORD) && (cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && list->next)
 			{
-				cmd->cmd = ft_strjoin(cmd->cmd, cmd_next->cmd);
+				cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
 				ft_pop_list(&list, list->next);
 			}
 		}
@@ -63,24 +63,25 @@ void	ft_join_quote(t_minishell *msh)
 	}
 }
 
-void	ft_remove_empty(t_minishell *msh)
-{
-	t_list	*list;
-	t_list	*head;
-	t_cmd	*cmd;
-	t_cmd	*cmd_next;
+// void	ft_remove_empty(t_minishell *msh)
+// {
+// 	t_list	*list;
+// 	t_list	*head;
+// 	t_cmd	*cmd;
+// 	t_cmd	*cmd_next;
 
-	list = msh->cmd;
-	head = list;
-	while (list && list->next)
-	{
-		cmd = (t_cmd *)list->content;
-		cmd_next = (t_cmd *)list->next->content;
-		if (cmd_next->cmd == NULL && (cmd->space == 0 || cmd_next->space == 0))
-			ft_pop_list(&head, list->next);
-		list = list->next;
-	}
-}
+// 	list = msh->cmd;
+// 	head = list;
+// 	if (list && list->next)
+// 	while (list && list->next)
+// 	{
+// 		cmd = (t_cmd *)list->content;
+// 		cmd_next = (t_cmd *)list->next->content;
+// 		if (cmd_next->cmd == NULL && (cmd->space == 0 || cmd_next->space == 0))
+// 			ft_pop_list(&head, list->next);
+// 		list = list->next;
+// 	}
+// }
 
 // Function to parse cmd from user input
 int	get_cmd(t_minishell *msh)
@@ -92,6 +93,7 @@ int	get_cmd(t_minishell *msh)
 	str = NULL;
 	while (msh->prompt[i] && !msh->parsing_error)
 	{
+		// check_parsing_errors(msh, 0);
 		if (msh->prompt[i] == ' ')
 			delimitor(&str, msh, 1);
 		else if (msh->prompt[i] != ' ' && (msh->prompt[i] != '\'' && msh->prompt[i] != '\"'))
@@ -113,14 +115,16 @@ int	get_cmd(t_minishell *msh)
 		i++;
 	}
 	delimitor(&str, msh, 0);
-	//check_parsing_errors(msh, 0);
+	// check_parsing_errors(msh, 0);
 	// ft_expand(msh);
+	printf("\nbefore join\n");
 	__debug_parsing(msh);
-	ft_remove_empty(msh);
-	ft_join_quote(msh);
-	printf("\n\n");
-	__debug_parsing(msh);
+	// ft_remove_empty(msh);
 	check_parsing_errors(msh, 1);
+	ft_join_quote(msh);
+	printf("\nafter join:\n");
+	__debug_parsing(msh);
+	// check_parsing_errors(msh, 1);
 	return (!msh->parsing_error);
 }
 
@@ -172,6 +176,7 @@ int	is_token(char c)
 		">",
 		"<",
 		"|",
+		NULL,
 	};
 
 	i = 0;
@@ -260,7 +265,7 @@ int	handle_first_node_error(t_minishell *msh)
 	t_cmd				*first_node;
 	static const char	*forbidden_tokens[] = {
 		"|",
-		"<<",
+		NULL,
 	};
 
 	i = 0;
@@ -290,7 +295,7 @@ void	check_parsing_errors(t_minishell *msh, int end)
 		return ;
 	while (iter)
 	{
-	current = (t_cmd *) iter->content;
+		current = (t_cmd *) iter->content;
 		if (current->cmd && is_token(current->cmd[0]) && !current->id) // checks if token is unknown
 		{
 			msh->parsing_error = syntax_error(current->cmd[0]);

@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/02 19:37:18 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/03 01:00:36 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ t_env	*new_env(char *key, char *value)
 	return (elem);
 }
 
-char	*str_from_range(char *env, int start, int end)
+char	*str_from_range(char *env, int start, int size)
 {
 	char	*str;
 	int		i;
 
 	i = 0;
-	if (!(str = malloc(sizeof(char) * end + 1)))
-		return NULL;
-	while (i < end)
+	if (!(str = malloc(sizeof(char) * size + 1)))
+		return (NULL);
+	while (i < size)
 	{
 		str[i] = env[start + i];
 		i++;
@@ -81,6 +81,6 @@ int	get_env(char **env, t_minishell *msh)
 		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
         i++;
 	}
-   // __debug_env(msh);
+    // __debug_env(msh);
     return(0);
 }
