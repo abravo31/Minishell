@@ -54,7 +54,14 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		args = right->left->arg;
 	else
 		args = get_char_double_ptr(left->data);
-	execve(file, args, msh->envp);
+	if (execve(file, args, msh->envp) == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		free_garbage_collector();
+		exit(EXIT_FAILURE);
+	}
 	if (!right)
 		free_double_pointer((void **)args);
 	(void)i;

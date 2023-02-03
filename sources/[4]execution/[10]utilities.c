@@ -39,7 +39,7 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 			if (!path)
 				error_safe_exit("error at checkin access\n");
 			add_to_garbage_collector(path, INT);
-			if (!(access(path, (X_OK))))
+			if (!(access(path, (F_OK | X_OK))))
 				return (path);
 		}
 	}
