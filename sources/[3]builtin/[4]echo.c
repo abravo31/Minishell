@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 17:52:18 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/03 20:54:36 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	builtin_echo(t_minishell *msh, t_ast *root)
 	char	**cmd;
 
 	(void)msh;
+	if (root->right == NULL)
+		return (ft_putstr_fd("\n", 1), 1);
 	cmd = root->right->left->arg;
-	if (cmd == NULL || cmd[0] == NULL)
-		return (0);
 	flag = 0;
 	i = 1;
 	while (cmd[i] != NULL && is_flag(cmd[i]))
