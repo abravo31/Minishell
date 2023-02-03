@@ -13,20 +13,23 @@
 #include "builtin.h"
 #include "structures.h"
 
-int	builtin_export(t_cmd *cmd)
+int	builtin_export(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute export\n"));
 }
 
-int	builtin_unset(t_cmd *cmd)
+int	builtin_unset(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute unset\n"));
 }
 
-int	builtin_env(t_cmd *cmd)
+int	builtin_env(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute env\n"));
 }

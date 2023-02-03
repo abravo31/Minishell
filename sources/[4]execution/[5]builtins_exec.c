@@ -22,11 +22,9 @@ void	simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 		return ;
 	left = root->left;
 	right = root->right;
-	main_execution(msh, left, i);
-	main_execution(msh, right, i);
-	printf("Start of a SIMPLE_BUILTIN\n");
-	printf("Command: %s", left->data);
-	printf("Args: %s\n\n", right->data);
+	(void)left;
+	(void)right;
+	execute_builtin(msh, root);
 	(void)i;
 }
 
@@ -40,8 +38,11 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 		return ;
 	left = root->left;
 	right = root->right;
+	left->pipe_fd[0] = root->pipe_fd[0];
+	left->pipe_fd[1] = root->pipe_fd[1];
+	right->pipe_fd[0] = root->pipe_fd[0];
+	right->pipe_fd[1] = root->pipe_fd[1];
 	main_execution(msh, left, i);
-	main_execution(msh, right, i);
-	printf("Start of a CMPLX_BUILT\n");
+	simple_builtin_traverse(msh, right, i);
 	(void)i;
 }

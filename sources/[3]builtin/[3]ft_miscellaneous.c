@@ -13,14 +13,16 @@
 #include "builtin.h"
 #include "structures.h"
 
-int	builtin_echo(t_cmd *cmd)
+int	builtin_echo(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute echo\n"));
 }
 
-int	builtin_exit(t_cmd *cmd)
+int	builtin_exit(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute CD"));
 }

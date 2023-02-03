@@ -17,6 +17,7 @@
 		"error_management.h": "c",
 		"array": "c",
 		"string": "c",
-		"string_view": "c"
+		"string_view": "c",
+		"garbage_collector.h": "c"
 	}
 }

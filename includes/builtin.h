@@ -19,26 +19,29 @@
 
 # include "libft.h"
 # include "structures.h"
+# include "error_management.h"
+# include "garbage_collector.h"
+# include "signal_handling.h"
 
 /*############################################################################*/
 /*                              BUILTIN_FUNCTIONS                             */
 /*############################################################################*/
 
 //Search for builtin ft wher in a table and return the corresponding ptr ft
-int	execute_builtin(t_cmd *cmd);
+int	execute_builtin(t_minishell *msh, t_ast *root);
 //Echo function wth only option-n
-int	builtin_echo(t_cmd *cmd);
+int	builtin_echo(t_minishell *msh, t_ast *root);
 //cd function with only relative orabsolute path
-int	builtin_cd(t_cmd *cmd);
+int	builtin_cd(t_minishell *msh, t_ast *root);
 //pwd with no options
-int	builtin_pwd(t_cmd *cmd);
+int	builtin_pwd(t_minishell *msh, t_ast *root);
 //export with no options
-int	builtin_export(t_cmd *cmd);
+int	builtin_export(t_minishell *msh, t_ast *root);
 //unset with no options
-int	builtin_unset(t_cmd *cmd);
+int	builtin_unset(t_minishell *msh, t_ast *root);
 //env with no options or arg 
-int	builtin_env(t_cmd *cmd);
+int	builtin_env(t_minishell *msh, t_ast *root);
 // exit with no options
-int	builtin_exit(t_cmd *cmd);
+int	builtin_exit(t_minishell *msh, t_ast *root);
 
 #endif

@@ -13,14 +13,16 @@
 #include "builtin.h"
 #include "structures.h"
 
-int	builtin_cd(t_cmd *cmd)
+int	builtin_cd(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute cd\n"));
 }
 
-int	builtin_pwd(t_cmd *cmd)
+int	builtin_pwd(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute pwd\n"));
 }
