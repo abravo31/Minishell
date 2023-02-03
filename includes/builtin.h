@@ -31,6 +31,7 @@
 int	execute_builtin(t_minishell *msh, t_ast *root);
 //Echo function wth only option-n
 int	builtin_echo(t_minishell *msh, t_ast *root);
+int	is_flag(char *str);
 //cd function with only relative orabsolute path
 int	builtin_cd(t_minishell *msh, t_ast *root);
 //pwd with no options
