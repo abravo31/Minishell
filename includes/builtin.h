@@ -23,26 +23,34 @@
 # include "garbage_collector.h"
 # include "signal_handling.h"
 
+# include <limits.h>
+
 /*############################################################################*/
 /*                              BUILTIN_FUNCTIONS                             */
 /*############################################################################*/
 
 //Search for builtin ft wher in a table and return the corresponding ptr ft
-int	execute_builtin(t_minishell *msh, t_ast *root);
+int			execute_builtin(t_minishell *msh, t_ast *root);
 //Echo function wth only option-n
-int	builtin_echo(t_minishell *msh, t_ast *root);
-int	is_flag(char *str);
+int			builtin_echo(t_minishell *msh, t_ast *root);
+int			is_flag(char *str);
 //cd function with only relative orabsolute path
-int	builtin_cd(t_minishell *msh, t_ast *root);
+int			builtin_cd(t_minishell *msh, t_ast *root);
 //pwd with no options
-int	builtin_pwd(t_minishell *msh, t_ast *root);
+int			builtin_pwd(t_minishell *msh, t_ast *root);
 //export with no options
-int	builtin_export(t_minishell *msh, t_ast *root);
+int			builtin_export(t_minishell *msh, t_ast *root);
 //unset with no options
-int	builtin_unset(t_minishell *msh, t_ast *root);
+int			builtin_unset(t_minishell *msh, t_ast *root);
 //env with no options or arg 
-int	builtin_env(t_minishell *msh, t_ast *root);
+int			builtin_env(t_minishell *msh, t_ast *root);
 // exit with no options
-int	builtin_exit(t_minishell *msh, t_ast *root);
+int			builtin_exit(t_minishell *msh, t_ast *root);
 
+/*############################################################################*/
+/*                              BUILTIN_FUNCTIONS                             */
+/*############################################################################*/
+int			is_numeric(char *str);
+long long	ft_atoll(const char *nptr);
+int			is_big_number(long long num, char *str);
 #endif
