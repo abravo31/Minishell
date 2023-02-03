@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 01:39:39 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/03 20:42:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,14 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*head;
 	int			tmp_fd[2];
 
-	i = 0;
 	(void)argc;
 	(void)argv;
-
 	init_minishell(&msh);
 	msh.envp = envp;
 	get_env(envp, &msh);
 	while (msh.status)
 	{
+		i = 0;
 		tmp_fd[0] = dup(STDIN_FILENO);
 		add_to_garbage_collector((void *)&tmp_fd[0], FD);
 		tmp_fd[1] = dup(STDOUT_FILENO);
