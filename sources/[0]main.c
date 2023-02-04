@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/04 23:22:00 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:07:49 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_minishell(&msh);
-	msh.envp = envp;
 	get_env(envp, &msh);
 	while (msh.status)
 	{
+		list_env_to_char_env(&msh);
 		i = 0;
 		tmp_fd[0] = dup(STDIN_FILENO);
 		add_to_garbage_collector((void *)&tmp_fd[0], FD);

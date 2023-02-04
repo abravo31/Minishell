@@ -68,5 +68,6 @@ void		new_path_empty(t_minishell *msh);
 char		*get_env_value(t_list *env, char *key);
 void		modify_env_value(t_list *env, char *key, char *value);
 void		new_path_normal(t_minishell *msh, t_ast *root);
+void		list_env_to_char_env(t_minishell *msh);
 
 #endif

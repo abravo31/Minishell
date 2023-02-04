@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/04 23:37:25 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/04 23:49:16 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,45 +85,6 @@ void	new_path_empty(t_minishell *msh)
 			ft_putstr_fd(path, 1);
 			ft_putstr_fd("\n", 1);
 		}
-	}
-}
-
-char	*get_env_value(t_list *env, char *key)
-{
-	t_env	*env_var;
-	t_list	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		printf("PUTO PUTITO\n");
-		env_var = tmp->content;
-		if (ft_strcmp(env_var->key, key) == 1)
-			return (env_var->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-void	modify_env_value(t_list *env, char *key, char *value)
-{
-	t_env	*env_var;
-	t_list	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		env_var = tmp->content;
-		if (ft_strcmp(env_var->key, key) == 1)
-		{
-			printf("key : %s, value : %s\n", env_var->key, env_var->value);
-			free(env_var->value);
-			env_var->value = ft_strdup(value);
-			if (env_var->value == NULL)
-				error_safe_exit("cd: error: unknown error");
-			return ;
-		}
-		tmp = tmp->next;
 	}
 }
 
