@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/04 23:49:16 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:18:28 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ void	new_path_empty(t_minishell *msh)
 			if (path == NULL)
 				return (error_safe_exit("cd: error: unknown error"));
 			add_to_garbage_collector(path, INT);
-			printf("msh->env before : %p\n", msh->env);
 			modify_env_value(msh->env, "PWD", path);
-			printf("msh->env after : %p\n", msh->env);
 			ft_putstr_fd("new path : ", 1);
 			ft_putstr_fd(path, 1);
 			ft_putstr_fd("\n", 1);

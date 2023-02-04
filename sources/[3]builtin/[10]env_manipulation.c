@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 23:48:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 00:03:09 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:17:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*get_env_value(t_list *env, char *key)
 	tmp = env;
 	while (tmp)
 	{
-		printf("PUTO PUTITO\n");
 		env_var = tmp->content;
 		if (ft_strcmp(env_var->key, key) == 1)
 			return (env_var->value);

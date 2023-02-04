@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/03 01:00:36 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 00:42:06 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@
 
 t_env	*new_env(char *key, char *value)
 {
-	t_env	*elem;
+	t_env		*elem;
 
-	elem = malloc(sizeof(t_env)); //IMPORTANT check malloc failed
+	elem = malloc(sizeof(t_env));
+	if (elem == NULL)
+		error_safe_exit("malloc error");
 	elem->key = key;
 	elem->value = value;
 	return (elem);
@@ -61,10 +63,17 @@ int	get_env(char **env, t_minishell *msh)
 	int k;
 	char	*key;
 	char	*value;
+	t_list	*new;
 
 	i = 0;
 	if (!env)
-		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(NULL, NULL)));
+	{
+		new = ft_lstnew((void *)new_env(NULL, NULL));
+		if (new == NULL)
+			error_safe_exit("malloc error");
+		msh->env = new;
+		add_to_garbage_collector((void *)&msh->env, ENV);
+	}
 	while (env[i])
 	{
 		j = 0;

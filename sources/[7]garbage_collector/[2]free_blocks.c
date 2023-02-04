@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 19:36:16 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 19:36:45 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:34:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	free_block(t_mem_block *block)
 		free(block->ptr_int.ptr);
 	else if (block->type == D_INT)
 		free_double_pointer(block->ptr_int.ptr);
-	else if (block->type == ENV)
-		free(block->ptr_int.ptr);
 	else if (block->type == LST)
 		ft_lstclear(block->ptr_int.ptr, &free);
 	else if (block->type == AST)
 		free_ast((t_ast *)block->ptr_int.ptr);
 	else if (block->type == CMD)
 		ft_lstclear(block->ptr_int.ptr, &free_cmd);
+	else if (block->type == ENV)
+		ft_lstclear(block->ptr_int.ptr, &free_env);
 	else if (block->type == FD)
 		close_fd(block);
 	free(block);
