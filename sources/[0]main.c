@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 23:54:31 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/04 23:22:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	reset_and_free(t_minishell *msh)
 	msh->fd_in = 0;
 	msh->fd_out = 0;
 	msh->pid = NULL;
-	msh->env = NULL;
 	msh->path = NULL;
 }
 
@@ -133,7 +132,7 @@ int	main(int argc, char **argv, char **envp)
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd = head;
 			//ft_printf("\nAST:\n");
-			print2DUtil(msh.root, 0);
+			//print2DUtil(msh.root, 0);
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
@@ -149,6 +148,7 @@ int	main(int argc, char **argv, char **envp)
 		free(msh.prompt);
 	free_garbage_collector();
 	printf("exit\n");
+	// free(msh.prompt);
 	clean_exit(&msh);
 	return (0);
 }

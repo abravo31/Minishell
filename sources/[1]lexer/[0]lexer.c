@@ -243,7 +243,7 @@ char	*syntax_error(char where)
 			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
 			exit(2);
 		}
-		add_to_garbage_collector((void *)&ret, INT);
+		add_to_garbage_collector((void *)ret, INT);
 		return (ret);
 	}
 	ret = ft_strdup("syntax error near unexpected token \'?\'");

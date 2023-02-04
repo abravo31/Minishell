@@ -17,6 +17,10 @@
 #  define EXIT_FAILURE 1
 # endif
 
+# ifndef BUFFER_SIZE_PATH
+#  define BUFFER_SIZE_PATH 1024
+# endif
+
 # include "libft.h"
 # include "structures.h"
 # include "error_management.h"
@@ -24,6 +28,7 @@
 # include "signal_handling.h"
 
 # include <limits.h>
+# include <unistd.h>
 
 /*############################################################################*/
 /*                              BUILTIN_FUNCTIONS                             */
@@ -53,4 +58,15 @@ int			builtin_exit(t_minishell *msh, t_ast *root);
 int			is_numeric(char *str);
 long long	ft_atoll(const char *nptr);
 int			is_big_number(long long num, char *str);
+
+/*############################################################################*/
+/*                              ENV MANIPULATION                              */
+/*############################################################################*/
+
+char		*getcwd_until_path_fits(void);
+void		new_path_empty(t_minishell *msh);
+char		*get_env_value(t_list *env, char *key);
+void		modify_env_value(t_list *env, char *key, char *value);
+void		new_path_normal(t_minishell *msh, t_ast *root);
+
 #endif
