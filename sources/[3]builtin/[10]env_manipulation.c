@@ -6,13 +6,13 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 23:48:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 00:17:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 20:33:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-char	*get_env_value(t_list *env, char *key)
+char	*get_env_value_build(t_list *env, char *key)
 {
 	t_env	*env_var;
 	t_list	*tmp;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   [1]expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 02:35:01 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:33:21 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*expand(char *str, int *index, int *n, t_minishell *msh)
 		i++;
 	c = str[i];
 	str[i] = '\0';
-	value = get_env_value(index, msh, str);
+	value = get_env_value_build(index, msh, str);
 	str[i] = c;
 	if (!value)
 		return ("");
