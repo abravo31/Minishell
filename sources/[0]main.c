@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 00:07:49 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 20:06:11 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	init_minishell(t_minishell *msh)
 	msh->prompt = NULL;
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->cmd_expand = NULL;
 	msh->fd_in = -2;
 	msh->fd_out = -2;
 	msh->pid = NULL;
@@ -73,6 +74,7 @@ void	reset_and_free(t_minishell *msh)
 	singleton_heredoc(-1);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->cmd_expand = NULL;
 	msh->root = NULL;
 	msh->fd_in = -2;
 	msh->fd_out = -2;
@@ -97,7 +99,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_minishell(&msh);
-	get_env(envp, &msh);
+	get_env(envp, &msh, -1, 0);
 	while (msh.status)
 	{
 		tmp_fd[0] = dup(STDIN_FILENO);
@@ -110,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
+		// msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
 		if (msh.prompt == NULL)
 		{
 			break ;
@@ -119,7 +122,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (!get_cmd(&msh))
 			{
-				printf("%s\n", msh.parsing_error);
+				printf("banana %s\n", msh.parsing_error);
 				reset_and_free(&msh);
 				continue ;
 			}

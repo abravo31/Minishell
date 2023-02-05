@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   [0]here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 19:39:39 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 02:28:24 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
 /* function that will handle the heredoc redirection
 ** It will create a temporary file with the help of the delimeter
