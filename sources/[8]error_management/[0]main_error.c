@@ -14,7 +14,15 @@
 
 void	error_safe_exit(char *msg)
 {
-	perror(msg);
-	free_garbage_collector();
+	if (errno == 127)
+	{
+		ft_putstr_fd("\nminishell: ", 2);
+		ft_putstr_fd(msg, 2);
+		ft_putstr_fd(": command not found", 2);
+	}
+	else
+		perror(msg);
+	//perror(strerror(errno));
+	free_garbage_collector(ALL);
 	exit(EXIT_FAILURE);
 }

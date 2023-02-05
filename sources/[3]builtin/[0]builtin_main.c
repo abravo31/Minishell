@@ -13,13 +13,15 @@
 #include "builtin.h"
 #include "structures.h"
 
-int	execute_external(t_cmd *cmd)
+int	execute_external(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
+	(void)msh;
+	(void)root;
 	return (printf("Execute external\n"));
 }
 
-static void	init_builtin_functions(int (**builtin_functions)(t_cmd *))
+static void	init_builtin_functions(int (**builtin_functions)(t_minishell *msh,
+	t_ast *root))
 {
 	builtin_functions[0] = &builtin_echo;
 	builtin_functions[1] = &builtin_cd;
@@ -30,23 +32,25 @@ static void	init_builtin_functions(int (**builtin_functions)(t_cmd *))
 	builtin_functions[6] = &builtin_exit;
 }
 
-int	execute_builtin(t_cmd *cmd)
+int	execute_builtin(t_minishell *msh, t_ast *root)
 {
 	char const	*builtins[7]
 		= {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-	int			(*builtin_functions[7])(t_cmd *);
+	int			(*builtin_functions[7])(t_minishell *, t_ast *);
 	int const	nbr_builtins = sizeof(builtins) / sizeof(char const *);
 	int			i;
+	char		*cmd;
 
-	if (!cmd->cmd[0])
-		return (EXIT_FAILURE);
+	cmd = root->left->data;
+	if (!cmd)
+		error_safe_exit("builtin is NULL\n");
 	init_builtin_functions(builtin_functions);
 	i = 0;
 	while (i < nbr_builtins)
 	{
-		if (ft_strcmp(cmd->cmd, builtins[i]) == 0)
-			return (cmd->id = BUILTIN, (*builtin_functions[i])(cmd));
+		if (ft_strcmp(cmd, builtins[i]) == 1)
+			return ((*builtin_functions[i])(msh, root));
 		i++;
 	}
-	return (execute_external(cmd));
+	return (execute_external(msh, root));
 }

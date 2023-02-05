@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 22:41:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/04 20:29:39 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,13 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 {
 	t_ast			*left;
 	t_ast			*right;
+	static int		pipe_count = 0;
 
 	if (!head || !(*head))
 		return (NULL);
+	if (*i == 0)
+		pipe_count = 0;
+	pipe_count++;
 	left = complexe_command(head, i);
 	right = NULL;
 	while ((*head) && ((t_cmd *)(*head)->content)->id == PIPE)
@@ -100,8 +104,8 @@ t_ast	*pipe_sequence(t_list **head, int *i)
 	}
 	if (left == NULL && right == NULL)
 		return (NULL);
-	if (right == NULL && (left->id->op != COMPLEXE_COMMAND
-			&& left->id->op != SIMPLE_COMMAND))
+	if (right == NULL && pipe_count == 1 && (left->id->op == CMPLX_BUILT
+			|| left->id->op == SIMPLE_BUILTIN))
 		return (left);
 	return (create_ast_no_terminal(PIPE_SEQUENCE, left, right));
 }

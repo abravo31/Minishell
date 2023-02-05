@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/02/01 22:57:01 by motero           ###   ########.fr        #
+#    Updated: 2023/02/04 20:27:23 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -171,6 +171,10 @@ project:
 		@echo "\n == $(bold)$(YELLOW)CHECKING PROJECT$(normal)=="
 		@echo "==============================================="
 
+run:
+	make
+	clear
+	valgrind --suppressions=rl.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes -s ./$(NAME)
 
 $(OBJS_PATH):
 		@mkdir -p $(addprefix $(OBJS_PATH), $(SRCS_NAME_DIRECTORIES))

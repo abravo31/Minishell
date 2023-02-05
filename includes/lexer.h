@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/24 18:03:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 02:08:20 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "structures.h"
 # include "libft.h"
 # include "garbage_collector.h"
+# include "expander.h"
 
 # include <stdio.h>
 # include <string.h>
@@ -31,16 +32,17 @@
 /*                              LEXER  FUNCTIONS						  */
 /*############################################################################*/
 
-void	delimitor(char **cmd, t_minishell *msh);
+void	delimitor(char **cmd, t_minishell *msh, int space);
 int		is_token(char c);
 t_token	eval_token(char *cmd);
-t_cmd	*new_cmd(char *cmd, t_token id);
+t_cmd	*new_cmd(char *cmd, t_token id, int space);
 char	*syntax_error(char where);
 int		handle_first_node_error(t_minishell *msh);
 void	check_parsing_errors(t_minishell *msh, int end);
 int		end_quote(int d_quo, int s_quo);
-int		is_quote(t_minishell *msh, int pos, char **cmd);
-void	__debug_parsing(t_minishell *msh);
+int		is_quote(t_minishell *msh, int pos, char **cmd, int space);
+void	iter_prompt(t_minishell *msh, char **str, int i);
+void	__debug_parsing(t_list *cmd);
 
 /*############################################################################*/
 /*                              LEXER UTILITY FUNCTIONS						  */
@@ -49,6 +51,7 @@ int		get_cmd(t_minishell *msh);
 void	get_char(char c, char **cmd);
 int		is_identical(char *s1, char *s2);
 void	reset_and_free(t_minishell *msh);
+char	*ft_strjoin_cmd(char *s1, char *s2);
 
 /*############################################################################*/
 /*                              LINKED LIST FT                                */

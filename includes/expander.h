@@ -3,18 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/01/26 17:49:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 02:33:45 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+# include "structures.h"
+# include "libft.h"
+# include "garbage_collector.h"
+
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <fcntl.h>
+
 /*############################################################################*/
-/*                              STRUCTURES                                    */
+/*                               ENV FUNCTIONS                                */
 /*############################################################################*/
+
+void		get_env(char **env, t_minishell *msh, int i, int k);
+void		expanded_cmd_list(t_minishell *msh);
+char		*get_env_value(int *index, t_minishell *msh, char *str);
+char		*get_value_from_key(t_minishell *msh, char *key);
+void		ft_dup_list(t_minishell *msh);
+void		ft_join_quote(t_minishell *msh);
+void		__debug_env(t_minishell *msh);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 18:10:39 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:25:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 /*############################################################################*/
 /*                              GARBAGE COLLECTOR                             */
 /*############################################################################*/
+
+typedef enum e_mode
+{
+	ALL,
+	EXCEPT_ENV,
+}	t_mode;
 
 typedef enum e_memory_type
 {
@@ -72,6 +78,7 @@ typedef enum e_token
 typedef struct s_cmd
 {
 	char	*cmd;
+	int		space;
 	t_token	id;
 }	t_cmd;
 
@@ -84,6 +91,12 @@ typedef struct s_arg
 /*############################################################################*/
 /*                                    AST                                     */
 /*############################################################################*/
+
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
 
 typedef enum e_operator{
 	PIPE_SEQUENCE,
@@ -122,6 +135,7 @@ typedef struct s_minishell
 	char	*parsing_error;
 	int		status;
 	t_list	*cmd;
+	t_list	*cmd_expand;
 	t_list	*env;
 	t_ast	*root;
 	int		fd_out;
