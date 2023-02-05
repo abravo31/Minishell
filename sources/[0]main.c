@@ -74,8 +74,8 @@ void	reset_and_free(t_minishell *msh)
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
 	msh->root = NULL;
-	msh->fd_in = 0;
-	msh->fd_out = 0;
+	msh->fd_in = -2;
+	msh->fd_out = -2;
 	msh->pid = NULL;
 	msh->path = NULL;
 }

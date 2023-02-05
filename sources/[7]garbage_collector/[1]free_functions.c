@@ -64,7 +64,9 @@ void	free_env(void *content)
 	t_env	*env;
 
 	env = (t_env *)content;
-	free(env->key);
-	free(env->value);
+	if (env->key)
+		free(env->key);
+	if (env->value)
+		free(env->value);
 	free(env);
 }

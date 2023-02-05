@@ -39,7 +39,6 @@ void	modify_env_value(t_list *env, char *key, char *value)
 		env_var = tmp->content;
 		if (ft_strcmp(env_var->key, key) == 1)
 		{
-			printf("key : %s, value : %s\n", env_var->key, env_var->value);
 			free(env_var->value);
 			env_var->value = ft_strdup(value);
 			if (env_var->value == NULL)
@@ -68,13 +67,22 @@ void	list_env_to_char_env(t_minishell *msh)
 	while (tmp)
 	{
 		env_var = tmp->content;
-		buffer = ft_strjoin(env_var->key, "=");
-		if (buffer == NULL)
-			error_safe_exit("error: unknown error");
-		msh->envp[i] = ft_strjoin(buffer, env_var->value);
-		free(buffer);
-		if (msh->envp[i] == NULL)
-			error_safe_exit("error: unknown error");
+		if (env_var->key != NULL)
+		{
+			buffer = ft_strjoin(env_var->key, "=");
+			if (buffer == NULL)
+				error_safe_exit("error: unknown error");
+			msh->envp[i] = ft_strjoin(buffer, env_var->value);
+			free(buffer);
+			if (msh->envp[i] == NULL)
+				error_safe_exit("error: unknown error");
+		}
+		else
+		{	
+			msh->envp[i] = ft_strdup("");
+			if (msh->envp[i] == NULL)
+				error_safe_exit("error: unknown error");
+		}
 		tmp = tmp->next;
 		i++;
 	}

@@ -58,6 +58,7 @@ int			builtin_exit(t_minishell *msh, t_ast *root);
 int			is_numeric(char *str);
 long long	ft_atoll(const char *nptr);
 int			is_big_number(long long num, char *str);
+long long	transform_exit_code(char *cmd);
 
 /*############################################################################*/
 /*                              ENV MANIPULATION                              */
@@ -69,5 +70,6 @@ char		*get_env_value(t_list *env, char *key);
 void		modify_env_value(t_list *env, char *key, char *value);
 void		new_path_normal(t_minishell *msh, t_ast *root);
 void		list_env_to_char_env(t_minishell *msh);
+void	    unset_env_value(t_list *env, char *key);
 
 #endif

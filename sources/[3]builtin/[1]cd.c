@@ -33,9 +33,6 @@ char	*getcwd_until_path_fits(void)
 	char	*path;
 
 	path = getcwd(NULL, 0);
-	ft_putstr_fd("actual path ", 1);
-	ft_putstr_fd(path, 1);
-	ft_putstr_fd("\n", 1);
 	if (path == NULL)
 	{
 		if (errno == ERANGE)
@@ -79,9 +76,6 @@ void	new_path_empty(t_minishell *msh)
 				return (error_safe_exit("cd: error: unknown error"));
 			add_to_garbage_collector(path, INT);
 			modify_env_value(msh->env, "PWD", path);
-			ft_putstr_fd("new path : ", 1);
-			ft_putstr_fd(path, 1);
-			ft_putstr_fd("\n", 1);
 		}
 	}
 }
@@ -106,8 +100,5 @@ void	new_path_normal(t_minishell *msh, t_ast *root)
 			return (error_safe_exit("cd: error: unknown error"));
 		add_to_garbage_collector(path, INT);
 		modify_env_value(msh->env, "PWD", path);
-		ft_putstr_fd("new path : ", 1);
-		ft_putstr_fd(path, 1);
-		ft_putstr_fd("\n", 1);
 	}
 }

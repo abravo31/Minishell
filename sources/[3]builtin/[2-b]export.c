@@ -1,18 +1,23 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   [2]ft_environment.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 19:09:38 by motero            #+#    #+#             */
-/*   Updated: 2022/10/20 14:59:48 by motero           ###   ########.fr       */
+/*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
+/*   Updated: 2023/01/09 23:11:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "builtin.h"
+#include "structures.h"
 
-void	ft_putchar_fd(char c, int fd)
+// export with no options
+int	builtin_export(t_minishell *msh, t_ast *root)
 {
-	write(fd, &c, 1);
+	(void)msh;
+	(void)root;
+	return (printf("Execute export\n"));
 }

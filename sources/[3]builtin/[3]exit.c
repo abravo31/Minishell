@@ -12,8 +12,6 @@
 
 #include "builtin.h"
 
-long long	transform_exit_code(char *cmd);
-
 /* errors to check  : 1) too many arguments 2) argument is not a number 
 ** 3) argument is a number but biger than LLONG_MAX
 */
@@ -43,8 +41,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	else
 		exit_code = 130;
 	free_garbage_collector(ALL);
-	exit(exit_code);
-	return (1);
+	return (exit(exit_code),1);
 }
 
 long long	transform_exit_code(char *cmd)
