@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 21:53:25 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/05 01:55:19 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	init_minishell(t_minishell *msh)
 	msh->prompt = NULL;
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->cmd_expand = NULL;
 	msh->fd_in = -2;
 	msh->fd_out = -2;
 	msh->pid = NULL;
@@ -75,6 +76,7 @@ void	reset_and_free(t_minishell *msh)
 	singleton_heredoc(-1);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
+	msh->cmd_expand = NULL;
 	msh->root = NULL;
 	msh->fd_in = 0;
 	msh->fd_out = 0;
@@ -102,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 
 	init_minishell(&msh);
 	msh.envp = envp;
-	get_env(envp, &msh);
+	get_env(envp, &msh, -1, 0);
 	while (msh.status)
 	{
 		tmp_fd[0] = dup(STDIN_FILENO);
@@ -123,7 +125,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (!get_cmd(&msh))
 			{
-				printf("%s\n", msh.parsing_error);
+				printf("banana %s\n", msh.parsing_error);
 				reset_and_free(&msh);
 				continue ;
 			}

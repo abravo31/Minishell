@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 18:47:34 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 02:33:45 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,12 @@
 /*                               ENV FUNCTIONS                                */
 /*############################################################################*/
 
-int	    get_env(char **env, t_minishell *msh);
-void	__debug_env(t_minishell *msh);
+void		get_env(char **env, t_minishell *msh, int i, int k);
+void		expanded_cmd_list(t_minishell *msh);
+char		*get_env_value(int *index, t_minishell *msh, char *str);
+char		*get_value_from_key(t_minishell *msh, char *key);
+void		ft_dup_list(t_minishell *msh);
+void		ft_join_quote(t_minishell *msh);
+void		__debug_env(t_minishell *msh);
 
 #endif

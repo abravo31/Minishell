@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [99]string_utils.c                                 :+:      :+:    :+:   */
+/*   [99]parsing_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/03 00:07:20 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 02:28:12 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t	i;
+//IMPORTANT check malloc failed
+t_cmd	*new_cmd(char *cmd, t_token id, int space)
+{
+	t_cmd	*elem;
 
-// 	if (!s)
-// 		return (0);
-// 	i = 0;
-// 	while (s[i])
-// 		i++;
-// 	return (i);
-// }
+	elem = malloc(sizeof(t_cmd));
+	elem->cmd = cmd;
+	elem->id = id;
+	elem->space = space;
+	return (elem);
+}
 
 int	is_identical(char *s1, char *s2)
 {
@@ -48,7 +48,7 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 	if (!s1)
 		return (s2);
 	if (!s2)
-		return (s1);	
+		return (s1);
 	size = (ft_strlen(s1) + ft_strlen(s2));
 	dest = malloc(sizeof(char) * (size + 1));
 	i = -1;
@@ -60,28 +60,6 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 	dest[i + j] = '\0';
 	return (dest);
 }
-
-// char	*ft_strdup(const char *s)
-// {
-// 	char	*s1;
-// 	size_t	size;
-// 	size_t	i;
-
-// 	if (!s)
-// 		return (0);
-// 	i = 0;
-// 	size = ft_strlen(s);
-// 	s1 = malloc(sizeof(char) * size + 1);
-// 	if (!s1)
-// 		return (0);
-// 	while (s[i])
-// 	{
-// 		s1[i] = s[i];
-// 		i++;
-// 	}
-// 	s1[i] = '\0';
-// 	return (s1);
-// }
 
 void	get_char(char c, char **cmd)
 {
@@ -97,4 +75,35 @@ void	get_char(char c, char **cmd)
 	free(*cmd);
 	tmp[ft_strlen(tmp) - 1] = c;
 	*cmd = tmp;
+}
+
+//Function to display syntax error at character where.
+char	*syntax_error(char where)
+{
+	char	*ret;
+
+	if (where == '\n')
+	{
+		ret = ft_strdup("syntax error near unexpected token \'newline\'");
+		if (!ret)
+		{
+			free_garbage_collector();
+			printf("error while adding a delimitor, \
+			still not error or way toe xit this function!\n");
+			exit(2);
+		}
+		add_to_garbage_collector((void *)&ret, INT);
+		return (ret);
+	}
+	ret = ft_strdup("syntax error near unexpected token \'?\'");
+	if (!ret)
+	{
+		free_garbage_collector();
+		printf("error while adding a delimitor, still \
+		not error or way toe xit this function!\n");
+		exit(2);
+	}
+	ret[ft_strlen(ret) - 2] = where;
+	add_to_garbage_collector((void *)ret, INT);
+	return (ret);
 }

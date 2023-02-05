@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 18:15:00 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/05 02:08:20 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "structures.h"
 # include "libft.h"
 # include "garbage_collector.h"
+# include "expander.h"
 
 # include <stdio.h>
 # include <string.h>
@@ -39,8 +40,9 @@ char	*syntax_error(char where);
 int		handle_first_node_error(t_minishell *msh);
 void	check_parsing_errors(t_minishell *msh, int end);
 int		end_quote(int d_quo, int s_quo);
-int		is_quote(t_minishell *msh, int pos, char **cmd);
-void	__debug_parsing(t_minishell *msh);
+int		is_quote(t_minishell *msh, int pos, char **cmd, int space);
+void	iter_prompt(t_minishell *msh, char **str, int i);
+void	__debug_parsing(t_list *cmd);
 
 /*############################################################################*/
 /*                              LEXER UTILITY FUNCTIONS						  */
@@ -71,7 +73,5 @@ char	*ft_strjoin_cmd(char *s1, char *s2);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
-
-void __debug_parsing_expand(t_minishell *msh);
 
 #endif
