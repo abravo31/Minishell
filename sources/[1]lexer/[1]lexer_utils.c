@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [99]parsing_utils.c                                :+:      :+:    :+:   */
+/*   [1]parsing_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/05 02:28:12 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:46:24 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*syntax_error(char where)
 		ret = ft_strdup("syntax error near unexpected token \'newline\'");
 		if (!ret)
 		{
-			free_garbage_collector();
+			free_garbage_collector(ALL);
 			printf("error while adding a delimitor, \
 			still not error or way toe xit this function!\n");
 			exit(2);
@@ -98,7 +98,7 @@ char	*syntax_error(char where)
 	ret = ft_strdup("syntax error near unexpected token \'?\'");
 	if (!ret)
 	{
-		free_garbage_collector();
+		free_garbage_collector(ALL);
 		printf("error while adding a delimitor, still \
 		not error or way toe xit this function!\n");
 		exit(2);

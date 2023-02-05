@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 20:06:11 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 21:02:42 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_minishell(&msh);
-	get_env(envp, &msh, -1, 0);
+	get_env(envp, &msh);
 	while (msh.status)
 	{
 		tmp_fd[0] = dup(STDIN_FILENO);

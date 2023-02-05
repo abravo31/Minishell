@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_after_expand.c                                :+:      :+:    :+:   */
+/*   [2]expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 02:28:59 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 21:05:08 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env	*new_env(char *key, char *value)
+{
+	t_env	*elem;
+
+	elem = malloc(sizeof(t_env));
+	if (!elem)
+		return (NULL);
+	elem->key = key;
+	elem->value = value;
+	return (elem);
+}
 
 void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
 {
