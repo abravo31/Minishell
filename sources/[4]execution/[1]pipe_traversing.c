@@ -50,7 +50,7 @@ void	child_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	close(msh->fd_dup[0]);
 	close(msh->fd_dup[1]);
 	main_execution(msh, left, i);
-	free_garbage_collector();
+	free_garbage_collector(ALL);
 	exit(EXIT_SUCCESS);
 }
 

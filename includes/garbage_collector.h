@@ -36,9 +36,9 @@ void				add_to_garbage_collector(void *ptr, t_memory_type type);
 /*                            GARBAGE COLLECTOR FREE BLOCKS                   */
 /*############################################################################*/
 
-void				free_garbage_collector(void);
-void				free_all_blocks(t_garbage_collector *gc);
-void				free_block(t_mem_block *block);
+void				free_garbage_collector(t_mode mode);
+void				free_all_blocks(t_garbage_collector *gc, t_mode mode);
+void				free_block(t_mem_block *block, t_mode mode);
 void				close_fd(t_mem_block *block);
 
 /*############################################################################*/

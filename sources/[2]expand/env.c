@@ -73,6 +73,7 @@ int	get_env(char **env, t_minishell *msh)
 			error_safe_exit("malloc error");
 		msh->env = new;
 		add_to_garbage_collector((void *)&msh->env, ENV);
+		return (0);
 	}
 	while (env[i])
 	{

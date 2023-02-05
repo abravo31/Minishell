@@ -22,6 +22,12 @@
 /*                              GARBAGE COLLECTOR                             */
 /*############################################################################*/
 
+typedef enum e_mode
+{
+	ALL,
+	EXCEPT_ENV,
+}	t_mode;
+
 typedef enum e_memory_type
 {
 	INT,

@@ -69,9 +69,7 @@ void	init_minishell(t_minishell *msh)
 
 void	reset_and_free(t_minishell *msh)
 {
-	free_garbage_collector();
-	//free_ast(msh->root);
-	//ft_lstclear(&msh->fd, &free);
+	free_garbage_collector(EXCEPT_ENV);
 	singleton_heredoc(-1);
 	msh->parsing_error = NULL;
 	msh->cmd = NULL;
@@ -102,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 	get_env(envp, &msh);
 	while (msh.status)
 	{
-		//list_env_to_char_env(&msh);
+		list_env_to_char_env(&msh);
 		i = 0;
 		tmp_fd[0] = dup(STDIN_FILENO);
 		add_to_garbage_collector((void *)&tmp_fd[0], FD);
@@ -128,7 +126,7 @@ int	main(int argc, char **argv, char **envp)
 			head = msh.cmd;
 			msh.root = pipe_sequence(&msh.cmd, &i);
 			if (!msh.root)
-				free_garbage_collector();
+				free_garbage_collector(EXCEPT_ENV);
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd = head;
 			//ft_printf("\nAST:\n");
@@ -146,7 +144,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (msh.prompt)
 		free(msh.prompt);
-	free_garbage_collector();
+	free_garbage_collector(ALL);
 	printf("exit\n");
 	// free(msh.prompt);
 	clean_exit(&msh);

@@ -42,7 +42,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	}
 	else
 		exit_code = 130;
-	free_garbage_collector();
+	free_garbage_collector(ALL);
 	exit(exit_code);
 	return (1);
 }

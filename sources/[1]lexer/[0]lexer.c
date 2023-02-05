@@ -149,7 +149,7 @@ void	delimitor(char **cmd, t_minishell *msh, int space)
 		new = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd), space));
 		if (!new)
 		{
-			free_garbage_collector();
+			free_garbage_collector(ALL);
 			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
 			return ;
 		}
@@ -239,7 +239,7 @@ char	*syntax_error(char where)
 		ret = ft_strdup("syntax error near unexpected token \'newline\'");
 		if (!ret)
 		{
-			free_garbage_collector();
+			free_garbage_collector(ALL);
 			printf("error while adding a delimitor, still not error or way toe xit this function!\n");
 			exit(2);
 		}
@@ -249,7 +249,7 @@ char	*syntax_error(char where)
 	ret = ft_strdup("syntax error near unexpected token \'?\'");
 	if (!ret)
 	{
-		free_garbage_collector();
+		free_garbage_collector(ALL);
 		printf("error while adding a delimitor, still not error or way toe xit this function!\n");
 		exit(2);
 	}

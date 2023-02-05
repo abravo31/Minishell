@@ -24,7 +24,7 @@ void	simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	left->pipe_fd[1] = root->pipe_fd[1];
 	fds_handlings(msh, root, i);
 	execute_builtin(msh, root);
-	free_garbage_collector();
+	free_garbage_collector(ALL);
 	(void)i;
 }
 
@@ -45,6 +45,6 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	main_execution(msh, left, i);
 	fds_handlings(msh, root, i);
 	simple_builtin_traverse(msh, right, i);
-	free_garbage_collector();
+	free_garbage_collector(ALL);
 	(void)i;
 }

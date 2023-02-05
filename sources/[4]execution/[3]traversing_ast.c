@@ -59,11 +59,11 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file, 2);
 		ft_putstr_fd(": command not found\n", 2);
-		free_garbage_collector();
-		exit(EXIT_FAILURE);
+		free_garbage_collector(ALL);
 	}
 	if (!right)
 		free_double_pointer((void **)args);
+	exit(EXIT_FAILURE);
 	(void)i;
 }
 
