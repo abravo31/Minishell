@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 20:07:09 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 20:36:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,12 @@ t_token	eval_token(char *cmd)
 // {
 // 	t_list	*iter;
 // 	t_cmd	*current;
-
-	elem = malloc(sizeof(t_cmd)); //IMPORTANT check malloc failed
-	elem->cmd = cmd;
-	elem->id = id;
-	elem->space = space;
-	return (elem);
-}
+// 	elem = malloc(sizeof(t_cmd)); //IMPORTANT check malloc failed
+// 	elem->cmd = cmd;
+// 	elem->id = id;
+// 	elem->space = space;
+// 	return (elem);
+// }
 
 //Function to display syntax error at character where.
 char	*syntax_error(char where)
