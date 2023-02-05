@@ -102,6 +102,8 @@ int	main(int argc, char **argv, char **envp)
 	{
 		tmp_fd[0] = dup(STDIN_FILENO);
 		tmp_fd[1] = dup(STDOUT_FILENO);
+		add_to_garbage_collector((void *)&tmp_fd[0], FD);
+		add_to_garbage_collector((void *)&tmp_fd[1], FD);
 		list_env_to_char_env(&msh);
 		i = 0;
 		msh.fd_dup[0] = tmp_fd[0];

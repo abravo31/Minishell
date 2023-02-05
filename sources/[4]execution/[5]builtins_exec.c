@@ -26,7 +26,11 @@ void	simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	fds_handlings(msh, root, i);
 	execute_builtin(msh, root);
 	if (*i == 0 || *i == -2)
+	{
+		dup2(msh->fd_dup[0], STDIN_FILENO);
+		dup2(msh->fd_dup[1], STDOUT_FILENO);
 		free_garbage_collector(EXCEPT_ENV);
+	}
 	else
 		free_garbage_collector(ALL);
 	(void)i;
