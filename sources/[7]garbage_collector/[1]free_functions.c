@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [0]main_garbge_collector.c                         :+:      :+:    :+:   */
+/*   [1]free_functions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 22:12:29 by motero            #+#    #+#             */
-/*   Updated: 2023/01/29 18:12:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:24:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,16 @@ void	free_double_pointer(void **ptr)
 	}
 	free(ptr[i]);
 	free(ptr);
+}
+
+void	free_env(void *content)
+{
+	t_env	*env;
+
+	env = (t_env *)content;
+	if (env->key)
+		free(env->key);
+	if (env->value)
+		free(env->value);
+	free(env);
 }

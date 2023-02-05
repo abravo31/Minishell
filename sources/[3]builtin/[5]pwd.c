@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [1]ft_directory.c                                  :+:      :+:    :+:   */
+/*   [5]pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/01/09 23:11:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/04 22:53:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "structures.h"
 
-int	builtin_cd(t_cmd *cmd)
+int	builtin_pwd(t_minishell *msh, t_ast *root)
 {
-	(void)cmd;
-	return (printf("Execute cd\n"));
-}
+	char	*path;
 
-int	builtin_pwd(t_cmd *cmd)
-{
-	(void)cmd;
-	return (printf("Execute pwd\n"));
+	path = getcwd_until_path_fits();
+	if (path == NULL)
+		return (error_safe_exit("pwd: error: unknown error"), 1);
+	add_to_garbage_collector(path, INT);
+	(void)msh;
+	(void)root;
+	return (0);
 }

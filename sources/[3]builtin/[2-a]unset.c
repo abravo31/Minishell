@@ -13,32 +13,45 @@
 
 #include "builtin.h"
 
-void	print_env(char **envp);
-
-//env with no options or arguments
-int	builtin_env(t_minishell *msh, t_ast *root)
+//unset with no options
+int	builtin_unset(t_minishell *msh, t_ast *root)
 {
+	t_list	*env;
+	char	**arg;
+	int		i;
+
+	if (root->right == NULL)
+		return (0);
 	if (msh->env == NULL)
 		return (0);
-	if (root->right != NULL)
+	env = msh->env;
+	arg = root->right->left->arg;
+	i = 1;
+	while (arg[i])
 	{
-		ft_putstr_fd("env: too many arguments\n", 2);
-		return (1);
+		unset_env_value(env, arg[i]);
+		i++;
 	}
-	print_env(msh->envp);
-	(void)root;
-	return (0);
+	return (1);
 }
 
-void	print_env(char **envp)
+void	unset_env_value(t_list *env, char *key)
 {
-	int	i;
+	t_env	*env_var;
+	t_list	*tmp;
 
-	i = 0;
-	while (envp[i])
+	tmp = env;
+	while (tmp)
 	{
-		ft_putstr_fd(envp[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
+		env_var = tmp->content;
+		if (ft_strcmp(env_var->key, key) == 1)
+		{
+			free(env_var->value);
+			env_var->value = NULL;
+			free(env_var->key);
+			env_var->key = NULL;
+			return ;
+		}
+		tmp = tmp->next;
 	}
 }

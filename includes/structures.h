@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/01 23:29:03 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/05 00:25:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 /*############################################################################*/
 /*                              GARBAGE COLLECTOR                             */
 /*############################################################################*/
+
+typedef enum e_mode
+{
+	ALL,
+	EXCEPT_ENV,
+}	t_mode;
 
 typedef enum e_memory_type
 {
@@ -91,7 +97,6 @@ typedef struct s_env
 	char	*key;
 	char	*value;
 }	t_env;
-
 
 typedef enum e_operator{
 	PIPE_SEQUENCE,

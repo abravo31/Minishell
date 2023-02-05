@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   [0]env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 02:32:54 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 20:07:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ char	*get_env_value(int *index, t_minishell *msh, char *str)
 
 t_env	*new_env(char *key, char *value)
 {
-	t_env	*elem;
+	t_env		*elem;
 
 	elem = malloc(sizeof(t_env));
-	if (!elem)
-		return (NULL);
+	if (elem == NULL)
+		error_safe_exit("malloc error");
 	elem->key = key;
 	elem->value = value;
 	return (elem);
@@ -90,10 +90,18 @@ void	get_env(char **env, t_minishell *msh, int i, int k)
 	int		j;
 	char	*key;
 	char	*value;
+	t_list	*new;
 
 	if (!env)
-		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(NULL, NULL)));
-	while (env[++i])
+	{
+		new = ft_lstnew((void *)new_env(NULL, NULL));
+		if (new == NULL)
+			error_safe_exit("malloc error");
+		msh->env = new;
+		add_to_garbage_collector((void *)&msh->env, ENV);
+		return (0);
+	}
+	while (env[i])
 	{
 		j = 0;
 		while (env[i][j] != '=')
@@ -104,10 +112,19 @@ void	get_env(char **env, t_minishell *msh, int i, int k)
 		k = 0;
 		j++;
 		while (env[i][j + k])
-			k++;
-		value = str_from_range(env[i], j, k);
-		if (!value)
-			return ;
-		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
+		    k++;
+        if (!(value = str_from_range(env[i], j, k)))
+			return (-1);
+		if (msh->env == NULL)
+		{
+			new = ft_lstnew((void *)new_env(key, value));
+			if (new == NULL)
+				error_safe_exit("malloc error");
+			msh->env = new;
+			add_to_garbage_collector((void *)&msh->env, ENV);
+		}
+		else
+			ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
+        i++;
 	}
 }
