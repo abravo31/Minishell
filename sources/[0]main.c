@@ -100,12 +100,10 @@ int	main(int argc, char **argv, char **envp)
 	get_env(envp, &msh);
 	while (msh.status)
 	{
+		tmp_fd[0] = dup(STDIN_FILENO);
+		tmp_fd[1] = dup(STDOUT_FILENO);
 		list_env_to_char_env(&msh);
 		i = 0;
-		tmp_fd[0] = dup(STDIN_FILENO);
-		add_to_garbage_collector((void *)&tmp_fd[0], FD);
-		tmp_fd[1] = dup(STDOUT_FILENO);
-		add_to_garbage_collector((void *)&tmp_fd[1], FD);
 		msh.fd_dup[0] = tmp_fd[0];
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
@@ -145,6 +143,8 @@ int	main(int argc, char **argv, char **envp)
 	if (msh.prompt)
 		free(msh.prompt);
 	free_garbage_collector(ALL);
+	close(tmp_fd[0]);
+	close(tmp_fd[1]);
 	printf("exit\n");
 	// free(msh.prompt);
 	clean_exit(&msh);
