@@ -6,13 +6,13 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 23:13:34 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 23:19:28 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 23:42:30 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_tild(char *str)
+char	*expand_tild(t_minishell *msh, char *str)
 {
 	char	*new;
 	char	*home;
@@ -20,14 +20,17 @@ char	*expand_tild(char *str)
 	int		n;
 
 	i = 1;
-	n = -1;
-	home = getenv("HOME");
+	n = 0;
+	home = get_env_value_build(msh->env, "HOME");
 	new = malloc((sizeof (char)) * (ft_strlen(&str[i]) + \
 	ft_strlen(home) + 1));
 	if (!new)
 		return (NULL);
-	while (home[++n])
+	while (home && home[n])
+	{
 		new[n] = home[n];
+		n++;
+	}
 	while (str[i])
 		new[n++] = str[i++];
 	new[n] = '\0';
@@ -46,10 +49,10 @@ void	check_tild(t_minishell *msh)
 	while (iter)
 	{
 		current = (t_cmd *) iter->content;
-		if (current->cmd[0] == '~' && current->id == WORD && \
+		if (current->cmd && current->cmd[0] == '~' && current->id == WORD && \
 		(prev == NULL || prev->space == 1) \
 		&& (current->cmd[1] == '/' || current->cmd[1] == '\0'))
-			current->cmd = expand_tild(current->cmd);
+			current->cmd = expand_tild(msh, current->cmd);
 		prev = (t_cmd *) iter->content;
 		iter = iter->next;
 	}
