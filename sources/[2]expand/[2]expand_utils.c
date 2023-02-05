@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 21:05:08 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/06 00:02:52 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,23 @@ void	ft_dup_list(t_minishell *msh)
 	t_list	*new;
 	t_list	*list;
 	t_cmd	*cmd;
+	int		i;
 
 	list = msh->cmd;
+	i = 0;
 	while (list)
 	{
 		cmd = (t_cmd *)list->content;
 		new = ft_lstnew((void *)new_cmd(cmd->cmd, cmd->id, cmd->space));
-		ft_lstadd_back(&msh->cmd_expand, new);
+		if (i == 0)
+		{
+			msh->cmd_expand = new;
+			add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
+		}
+		else
+			ft_lstadd_back(&msh->cmd_expand, new);
 		list = list->next;
+		i++;
 	}
 }
 

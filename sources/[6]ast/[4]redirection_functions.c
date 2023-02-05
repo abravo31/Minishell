@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:56:22 by motero            #+#    #+#             */
-/*   Updated: 2023/01/27 22:28:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 23:48:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_ast	*redirection_left(t_list **head, int *i)
 	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
+	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
@@ -52,11 +53,15 @@ t_ast	*redirection_right(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
+	t_cmd	*cmd;
 
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
+	cmd = (t_cmd *)(*head)->content;
+	//cmd->id = FILENAME;
+	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
@@ -74,6 +79,7 @@ t_ast	*redirection_double_left(t_list **head, int *i)
 	left = cmd_redir(head, i);
 	here_doc((t_cmd *)(*head)->content, i);
 	right = cmd_name(head, i);
+	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
 
@@ -90,5 +96,6 @@ t_ast	*redirection_double_right(t_list **head, int *i)
 	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
+	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   [1]expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 02:35:01 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 23:53:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,11 @@ void	expanded_cmd_list(t_minishell *msh)
 {
 	t_list	*iter;
 	t_cmd	*current;
+	int		i;
 
 	iter = msh->cmd;
 	current = NULL;
+	i = 0;
 	while (iter)
 	{
 		current = (t_cmd *) iter->content;

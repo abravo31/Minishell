@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 00:25:29 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 23:34:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef enum e_token
 	S_QUOTE,
 	WORD,
 	BUILTIN,
+	FILENAME,
 }	t_token;
 
 typedef struct s_cmd

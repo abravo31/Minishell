@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 21:13:34 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/05 23:04:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
-		// msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
+		//msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
 		if (msh.prompt == NULL)
 		{
 			break ;
@@ -133,7 +133,7 @@ int	main(int argc, char **argv, char **envp)
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd_expand = head;
 			//ft_printf("\nAST:\n");
-			//print2DUtil(msh.root, 0);
+			print2DUtil(msh.root, 0);
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
