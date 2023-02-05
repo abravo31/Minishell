@@ -87,7 +87,16 @@ int	get_env(char **env, t_minishell *msh)
 		    k++;
         if (!(value = str_from_range(env[i], j, k)))
 			return (-1);
-		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
+		if (msh->env == NULL)
+		{
+			new = ft_lstnew((void *)new_env(key, value));
+			if (new == NULL)
+				error_safe_exit("malloc error");
+			msh->env = new;
+			add_to_garbage_collector((void *)&msh->env, ENV);
+		}
+		else
+			ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
         i++;
 	}
     // __debug_env(msh);

@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 	get_env(envp, &msh);
 	while (msh.status)
 	{
-		list_env_to_char_env(&msh);
+		//list_env_to_char_env(&msh);
 		i = 0;
 		tmp_fd[0] = dup(STDIN_FILENO);
 		add_to_garbage_collector((void *)&tmp_fd[0], FD);
