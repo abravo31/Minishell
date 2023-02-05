@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 21:05:22 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 22:55:58 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char		*get_env_value(int *index, t_minishell *msh, char *str);
 char		*get_value_from_key(t_minishell *msh, char *key);
 void		ft_dup_list(t_minishell *msh);
 void		ft_join_quote(t_minishell *msh);
-t_env	    *new_env(char *key, char *value);
+t_env		*new_env(char *key, char *value);
+void		check_tild(t_minishell *msh);
 void		__debug_env(t_minishell *msh);
 
 #endif
