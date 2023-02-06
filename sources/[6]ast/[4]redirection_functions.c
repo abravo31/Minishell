@@ -40,7 +40,11 @@ t_ast	*redirection_left(t_list **head, int *i)
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
-	right = cmd_name(head, i);
+	if (left == NULL)
+		return (NULL);
+	right = cmd_filename(head, i);
+	if (right == NULL)
+		return (NULL);
 	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
@@ -53,14 +57,15 @@ t_ast	*redirection_right(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
-	//t_cmd	*cmd;
 
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
-	right = cmd_name(head, i);
-	//cmd = (t_cmd *)(*head)->content;
-	//cmd->id = FILENAME;
+	if (left == NULL)
+		return (NULL);
+	right = cmd_filename(head, i);
+	if (right == NULL)
+		return (NULL);
 	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
@@ -77,8 +82,12 @@ t_ast	*redirection_double_left(t_list **head, int *i)
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
+	if (left == NULL)
+		return (NULL);
 	here_doc((t_cmd *)(*head)->content, i);
-	right = cmd_name(head, i);
+	right = cmd_filename(head, i);
+	if (right == NULL)
+		return (NULL);
 	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
@@ -95,7 +104,11 @@ t_ast	*redirection_double_right(t_list **head, int *i)
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
-	right = cmd_name(head, i);
+	if (left == NULL)
+		return (NULL);
+	right = cmd_filename(head, i);
+	if (right == NULL)
+		return (NULL);
 	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));
 }
