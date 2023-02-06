@@ -55,7 +55,7 @@ int	get_cmd(t_minishell *msh)
 		return (0);
 	expanded_cmd_list(msh);
 	ft_dup_list(msh);
-	//ft_join_quote(msh);
+	ft_join_quote(msh);
 	return (!msh->parsing_error);
 }
 
