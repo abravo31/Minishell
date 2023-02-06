@@ -73,17 +73,25 @@ void	ft_dup_list(t_minishell *msh)
 	t_list	*list;
 	t_cmd	*cmd;
 	int		i;
+	char	*dup_char;
 
 	list = msh->cmd;
 	i = 0;
 	while (list)
 	{
 		cmd = (t_cmd *)list->content;
-		new = ft_lstnew((void *)new_cmd(cmd->cmd, cmd->id, cmd->space));
+		dup_char = ft_strdup(cmd->cmd);
+		if (!dup_char)
+		{
+			free_garbage_collector(ALL);
+			printf("error while duplicating a delimitor\n");
+			return ;
+		}
+		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
 		if (i == 0)
 		{
 			msh->cmd_expand = new;
-			//add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
+			add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
 		}
 		else
 			ft_lstadd_back(&msh->cmd_expand, new);
