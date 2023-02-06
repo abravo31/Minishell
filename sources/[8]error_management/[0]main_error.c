@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/01/30 18:16:04 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/06 20:41:36 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,13 @@ void	error_safe_exit(char *msg)
 	//perror(strerror(errno));
 	free_garbage_collector(ALL);
 	exit(EXIT_FAILURE);
+}
+
+void	error_message(char	*msg, int error_code)
+{
+	ft_putstr_fd("\nminishell: ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(strerror(error_code), 2);
+	ft_putstr_fd("\n", 2);
 }

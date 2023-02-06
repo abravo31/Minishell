@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 22:34:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/06 23:09:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 		{
 			(cp_head) = (cp_head)->next;
 			(cp_head) = (cp_head)->next;
+			if ((cp_head) == NULL)
+				break ;
 			word = (t_cmd *)(cp_head)->content;
 			continue ;
 		}

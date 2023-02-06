@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 18:37:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/06 20:42:26 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ void	redirect_output(t_minishell *msh, t_ast *root, int *i)
 	fd = open(right->data, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1 && *i >= -1)
 		error_safe_exit(right->data);
+	if (fd == -1 && *i == -2)
+	{
+		*i = -3;
+		return (error_message(right->data, errno));
+	}
 	msh->fd_out = fd;
 	add_to_garbage_collector(&fd, FD);
 	(void)i;
@@ -47,6 +52,11 @@ void	redirect_input(t_minishell *msh, t_ast *root, int *i)
 	fd = open(right->data, O_RDONLY, 0644);
 	if (fd == -1 && *i >= -1)
 		error_safe_exit(right->data);
+	if (fd == -1 && *i == -2)
+	{
+		*i = -3;
+		return (error_message(right->data, errno));
+	}
 	msh->fd_in = fd;
 	add_to_garbage_collector((void *)&fd, FD);
 	(void)i;
@@ -67,6 +77,11 @@ void	redirect_append(t_minishell *msh, t_ast *root, int *i)
 	fd = open(right->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1 && *i >= -1)
 		error_safe_exit(right->data);
+	if (fd == -1 && *i == -2)
+	{
+		*i = -3;
+		return (error_message(right->data, errno));
+	}
 	msh->fd_out = fd;
 	add_to_garbage_collector((void *)&fd, FD);
 	(void)i;
@@ -88,6 +103,11 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 	unlink(right->data);
 	if (fd == -1 && *i >= -1)
 		error_safe_exit(right->data);
+	if (fd == -1 && *i == -2)
+	{
+		*i = -3;
+		return (error_message(right->data, errno));
+	}
 	msh->fd_in = fd;
 	add_to_garbage_collector((void *)&fd, FD);
 	(void)i;
