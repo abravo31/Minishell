@@ -96,23 +96,33 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	t_list	*cmd_args;
 	char	*tmp;
 	char	**arg;
+	t_list	*cp_head;
 
 	if ((*head) == NULL)
 		return (NULL);
+	cp_head = *head;
 	tmp = ft_strdup(cmd->data);
 	cmd_args = ft_lstnew(tmp);
 	if (!cmd_args)
 		error_safe_exit("Malloc failed in cmd_arg");
-	word = (t_cmd *)(*head)->content;
-	while ((*head) && word->id == WORD)
+	word = (t_cmd *)(cp_head)->content;
+	while ((cp_head) && word->id != PIPE)
 	{
+		if (is_redirection(word))
+		{
+			(cp_head) = (cp_head)->next;
+			(cp_head) = (cp_head)->next;
+			word = (t_cmd *)(cp_head)->content;
+			continue ;
+		}
 		tmp = ft_strdup(word->cmd);
+		word->id = CONSUMED;
 		ft_lstadd_back(&cmd_args, ft_lstnew(tmp));
 		(*i)++;
-		(*head) = (*head)->next;
-		if ((*head) == NULL)
+		(cp_head) = (cp_head)->next;
+		if ((cp_head) == NULL)
 			break ;
-		word = (t_cmd *)(*head)->content;
+		word = (t_cmd *)(cp_head)->content;
 	}
 	arg = gets_args(cmd_args);
 	ft_lstclear(&cmd_args, free);

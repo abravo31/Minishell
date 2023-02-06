@@ -74,6 +74,7 @@ typedef enum e_token
 	WORD,
 	BUILTIN,
 	FILENAME,
+	CONSUMED,
 }	t_token;
 
 typedef struct s_cmd
