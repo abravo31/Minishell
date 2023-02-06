@@ -83,7 +83,7 @@ void	ft_dup_list(t_minishell *msh)
 		if (i == 0)
 		{
 			msh->cmd_expand = new;
-			add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
+			//add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
 		}
 		else
 			ft_lstadd_back(&msh->cmd_expand, new);

@@ -53,13 +53,13 @@ t_ast	*redirection_right(t_list **head, int *i)
 {
 	t_ast	*left;
 	t_ast	*right;
-	t_cmd	*cmd;
+	//t_cmd	*cmd;
 
 	left = NULL;
 	right = NULL;
 	left = cmd_redir(head, i);
 	right = cmd_name(head, i);
-	cmd = (t_cmd *)(*head)->content;
+	//cmd = (t_cmd *)(*head)->content;
 	//cmd->id = FILENAME;
 	right->id->token = FILENAME;
 	return (create_ast_no_terminal(REDIRECTION, left, right));

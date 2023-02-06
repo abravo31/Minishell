@@ -83,6 +83,7 @@ char	*ft_expand(t_minishell *msh, int id, char *str)
 			break ;
 		new[n++] = str[i++];
 	}
+	free(str);
 	return (new);
 }
 
@@ -100,5 +101,6 @@ void	expanded_cmd_list(t_minishell *msh)
 		current = (t_cmd *) iter->content;
 		current->cmd = ft_expand(msh, current->id, current->cmd);
 		iter = iter->next;
+		i++;
 	}
 }
