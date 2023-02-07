@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 23:13:21 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/07 21:50:29 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	iter_prompt(t_minishell *msh, char **str, int i)
 			get_char(msh->prompt[i], str);
 		}
 		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
-		{
+		{			
 			if (i > 0 && !is_token(msh->prompt[i - 1]) \
 			&& msh->prompt[i - 1] != ' ')
 				delimitor(str, msh, 0);
@@ -51,6 +51,7 @@ int	get_cmd(t_minishell *msh)
 	iter_prompt(msh, &str, i);
 	delimitor(&str, msh, 0);
 	check_parsing_errors(msh, 1);
+	//__debug_parsing(msh->cmd);
 	check_tild(msh);
 	if (msh->parsing_error)
 		return (0);

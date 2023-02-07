@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 20:59:45 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:08:47 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (!get_cmd(&msh))
 			{
-				printf("banana %s\n", msh.parsing_error);
+				printf("%s\n", msh.parsing_error);
 				reset_and_free(&msh);
 				continue ;
 			}
