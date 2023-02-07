@@ -56,6 +56,7 @@ int	get_cmd(t_minishell *msh)
 	expanded_cmd_list(msh);
 	ft_dup_list(msh);
 	ft_join_quote(msh);
+	add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
 	return (!msh->parsing_error);
 }
 

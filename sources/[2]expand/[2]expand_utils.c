@@ -40,6 +40,7 @@ void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
 			}
 			else
 			{
+				printf("prev is not null\n");
 				tmp = cur->next;
 				prev->next = cur->next;
 				free(cur);
@@ -51,21 +52,6 @@ void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
 			cur = cur->next;
 	}
 }
-
-// void	ft_add_to_list(t_minishell *msh, char *cmd, int id)
-// {
-// 	t_list	*new;
-
-// 	new = ft_lstnew((void *)new_cmd(cmd, id, 0));
-// 	if (!new)
-// 	{
-// 		free_garbage_collector();
-// 		printf("error while adding a delimitor, 
-//		still not error or way toe xit this function!\n");
-// 		return ;
-// 	}
-// 	ft_lstadd_back(&msh->cmd_expand, new);
-// }
 
 void	ft_dup_list(t_minishell *msh)
 {
@@ -88,13 +74,13 @@ void	ft_dup_list(t_minishell *msh)
 			return ;
 		}
 		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
-		if (i == 0)
-		{
-			msh->cmd_expand = new;
-			add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
-		}
-		else
-			ft_lstadd_back(&msh->cmd_expand, new);
+		// if (i == 0)
+		// {
+		// 	msh->cmd_expand = new;
+		// 	add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
+		// }
+		// else
+		ft_lstadd_back(&msh->cmd_expand, new);
 		list = list->next;
 		i++;
 	}
@@ -112,7 +98,7 @@ void	join_elems(t_list *list, t_cmd *cmd, t_cmd *cmd_next)
 			cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
 			ft_pop_list(&list, list, list->next, NULL);
 			if (list->next)
-				cmd_next = (t_cmd *)list->next->content;
+			  	cmd_next = (t_cmd *)list->next->content;
 		}
 		if ((cmd->id >= D_QUOTE && cmd->id <= WORD) && \
 		(cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && list->next)

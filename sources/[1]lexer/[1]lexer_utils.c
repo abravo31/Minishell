@@ -45,10 +45,10 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
+	// if (!s1)
+	// 	return (s2);
+	// if (!s2)
+	// 	return (s1);
 	size = (ft_strlen(s1) + ft_strlen(s2));
 	dest = malloc(sizeof(char) * (size + 1));
 	i = -1;
@@ -58,6 +58,8 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 	while (s2[++j])
 		dest[i + j] = s2[j];
 	dest[i + j] = '\0';
+	free(s1);
+	free(s2);
 	return (dest);
 }
 
