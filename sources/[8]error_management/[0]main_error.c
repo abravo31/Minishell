@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 20:52:04 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:49:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 void	error_safe_exit(char *msg, int error_code)
 {
-	if (error_code != errno)
+	g_status = error_code;
+	if (error_code == errno)
 		g_status = errno;
-	else
-		g_status = error_code;
-	if (errno == 127)
+	if (g_status == 126)
+		print_error(msg, ": Is a directory");
+	else if (g_status == 127)
 	{
 		ft_putstr_fd("\nminishell: ", 2);
 		ft_putstr_fd(msg, 2);
@@ -32,10 +33,17 @@ void	error_safe_exit(char *msg, int error_code)
 
 void	error_message(char	*msg, int error_code)
 {
+	(void)error_code;
 	ft_putstr_fd("\nminishell: ", 2);
 	ft_putstr_fd(msg, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(strerror(error_code), 2);
+	ft_putstr_fd("\n", 2);
+}
+
+void	print_error(char	*name, char *msg)
+{
+	ft_putstr_fd("\nminishell: ", 2);
+	ft_putstr_fd(name, 2);
+	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
 }
 

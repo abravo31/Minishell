@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:30:10 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:13:54 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:48:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_check_direct_path(t_minishell *msh, char *cmd)
 	{
 		path = cmd;
 		if (is_directory(path))
-			error_safe_exit("is a directory\n", 126);
+			error_safe_exit(path, 126);
 		if (access(path, X_OK) == 0)
 			return (path);
 		if ((access(path, X_OK) == -1))
