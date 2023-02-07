@@ -53,7 +53,6 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	main_execution(msh, left, i);
 	if (*i == -3)
 		return ;
-	//fds_handlings(msh, root, i);
 	main_execution(msh, right, i);
 	if (*i == 0 || *i == -2)
 		free_garbage_collector(EXCEPT_ENV);

@@ -97,10 +97,11 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 	right = root->right;
 	if (msh->fd_in == -1)
 		error_safe_exit("FD HD ERROR\n");
-	if (msh->fd_in > 1)
+	if (msh->fd_in > 2)
 		close(msh->fd_out);
 	fd = open(right->data, O_RDONLY, 0644);
-	unlink(right->data);
+	add_to_garbage_collector((void *)&fd, FD);
+	//unlink(right->data);
 	if (fd == -1 && *i >= -1)
 		error_safe_exit(right->data);
 	if (fd == -1 && *i == -2)
@@ -109,6 +110,5 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 		return (error_message(right->data, errno));
 	}
 	msh->fd_in = fd;
-	add_to_garbage_collector((void *)&fd, FD);
 	(void)i;
 }

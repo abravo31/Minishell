@@ -53,7 +53,10 @@ void	unlink_heredoc(char *tmp_name, t_cmd *cmd)
 	if (singleton_heredoc(0) == 1)
 		unlink(tmp_name);
 	else
+	{
+		free(cmd->cmd);
 		cmd->cmd = ft_strdup(tmp_name);
+	}
 	get_next_line(-1);
 }
 
