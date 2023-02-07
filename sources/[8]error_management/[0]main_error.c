@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 17:16:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:00:16 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	error_management(t_list *current)
 	//perror(strerror(g_status));
 	if (g_status == 13 || g_status == 21)
 		g_status = 1;
-	else if (g_status == 1)
-		ft_putstr_fd("error detected/!\n", 2);
-	printf("g_status = %d\n", g_status);
+	// else if (g_status == 1)
+	// 	ft_putstr_fd("error detected/!\n", 2);
+	//printf("g_status = %d\n", g_status);
 }
