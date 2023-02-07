@@ -16,11 +16,11 @@ void	main_execution(t_minishell *msh, t_ast *root, int *i)
 {
 	if (root == NULL)
 		return ;
-	if (*i == -2 && (msh->fd_out == -1 || msh->fd_in == -1))
-	{
-		printf("errror occured during fds handlings\n");
-		return ;
-	}
+	// if (*i == -2 && (msh->fd_out == -1 || msh->fd_in == -1))
+	// {
+	// 	printf("errror occured during fds handlings\n");
+	// 	return ;
+	// }
 	if (root->id->op == PIPE_SEQUENCE)
 		pipe_sequence_traverse(msh, root, i);
 	else if (root->id->op == COMPLEXE_COMMAND)
