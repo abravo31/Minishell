@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/02/06 23:09:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:14:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	tmp = ft_strdup(cmd->data);
 	cmd_args = ft_lstnew(tmp);
 	if (!cmd_args)
-		error_safe_exit("Malloc failed in cmd_arg");
+		error_safe_exit("Malloc failed in cmd_arg", 1);
 	word = (t_cmd *)(cp_head)->content;
 	while ((cp_head) && word->id != PIPE)
 	{
@@ -140,7 +140,7 @@ char	**gets_args(t_list *cmd_args)
 	j = 0;
 	arg = ft_calloc(sizeof(char *), (ft_lstsize(cmd_args) + 1));
 	if (!arg)
-		error_safe_exit("Malloc failed in cmd_arg");
+		error_safe_exit("Malloc failed in cmd_arg", 1);
 	add_to_garbage_collector(arg, D_INT);
 	current = cmd_args;
 	while (current)
@@ -149,7 +149,7 @@ char	**gets_args(t_list *cmd_args)
 		if (!arg[j])
 		{
 			ft_lstclear(&cmd_args, free);
-			error_safe_exit("Malloc failed in cmd_arg");
+			error_safe_exit("Malloc failed in cmd_arg", 1);
 		}
 		current = current->next;
 		j++;

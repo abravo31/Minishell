@@ -6,15 +6,18 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 17:16:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 20:52:04 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error_management.h"
 
-void	error_safe_exit(char *msg)
+void	error_safe_exit(char *msg, int error_code)
 {
-	g_status = errno;
+	if (error_code != errno)
+		g_status = errno;
+	else
+		g_status = error_code;
 	if (errno == 127)
 	{
 		ft_putstr_fd("\nminishell: ", 2);

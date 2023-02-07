@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 23:48:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 20:33:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:11:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	modify_env_value(t_list *env, char *key, char *value)
 			free(env_var->value);
 			env_var->value = ft_strdup(value);
 			if (env_var->value == NULL)
-				error_safe_exit("cd: error: unknown error");
+				error_safe_exit("cd: error: unknown error", 1);
 			return ;
 		}
 		tmp = tmp->next;
@@ -60,7 +60,7 @@ void	list_env_to_char_env(t_minishell *msh)
 	i = 0;
 	env_char = malloc(sizeof(char *) * (ft_lstsize(msh->env) + 1));
 	if (env_char == NULL)
-		error_safe_exit("cd: error: unknown error");
+		error_safe_exit("cd: error: unknown error", 1);
 	msh->envp = env_char;
 	add_to_garbage_collector(msh->envp, D_INT);
 	tmp = msh->env;
@@ -71,17 +71,17 @@ void	list_env_to_char_env(t_minishell *msh)
 		{
 			buffer = ft_strjoin(env_var->key, "=");
 			if (buffer == NULL)
-				error_safe_exit("error: unknown error");
+				error_safe_exit("error: unknown error", 1);
 			msh->envp[i] = ft_strjoin(buffer, env_var->value);
 			free(buffer);
 			if (msh->envp[i] == NULL)
-				error_safe_exit("error: unknown error");
+				error_safe_exit("error: unknown error", 1);
 		}
 		else
 		{	
 			msh->envp[i] = ft_strdup("");
 			if (msh->envp[i] == NULL)
-				error_safe_exit("error: unknown error");
+				error_safe_exit("error: unknown error", 1);
 		}
 		tmp = tmp->next;
 		i++;

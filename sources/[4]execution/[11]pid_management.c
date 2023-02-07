@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:20:24 by motero            #+#    #+#             */
-/*   Updated: 2023/01/31 21:02:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:14:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_pid_to_list(t_minishell *msh, pid_t pid)
 	{
 		new = allocate_and_store_node(pid);
 		if (!new)
-			error_safe_exit("LIST ERROR\n");
+			error_safe_exit("LIST ERROR\n", 1);
 		msh->pid = new;
 		add_to_garbage_collector((void *)&msh->pid, LST);
 	}
@@ -32,7 +32,7 @@ void	add_pid_to_list(t_minishell *msh, pid_t pid)
 	{
 		new = allocate_and_store_node(pid);
 		if (!new)
-			error_safe_exit("LIST ERROR\n");
+			error_safe_exit("LIST ERROR\n", 1);
 		ft_lstadd_back(&msh->pid, new);
 	}
 }

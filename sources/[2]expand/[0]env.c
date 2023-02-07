@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 21:08:58 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:54:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 	{
 		new = ft_lstnew((void *)new_env(key, value));
 		if (new == NULL)
-			error_safe_exit("malloc error");
+			error_safe_exit("malloc error", 1);
 		msh->env = new;
 		add_to_garbage_collector((void *)&msh->env, ENV);
 	}
@@ -111,7 +111,7 @@ void	get_env(char **env, t_minishell *msh)
 	{
 		new = ft_lstnew((void *)new_env(NULL, NULL));
 		if (new == NULL)
-			error_safe_exit("malloc error");
+			error_safe_exit("malloc error", 1);
 		msh->env = new;
 		add_to_garbage_collector((void *)&msh->env, ENV);
 		return ;

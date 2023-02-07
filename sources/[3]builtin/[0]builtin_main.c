@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:14:51 by motero            #+#    #+#             */
-/*   Updated: 2023/01/25 23:46:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:10:38 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	execute_builtin(t_minishell *msh, t_ast *root)
 
 	cmd = root->left->data;
 	if (!cmd)
-		error_safe_exit("builtin is NULL\n");
+		error_safe_exit("builtin is NULL\n", 1);
 	init_builtin_functions(builtin_functions);
 	i = 0;
 	while (i < nbr_builtins)

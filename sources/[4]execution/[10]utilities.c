@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:30:10 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 17:44:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:13:54 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 	cmd = root->data;
 	msh->path = ft_parse_path(msh->envp);
 	if (!msh->path)
-		error_safe_exit("error at checkin access\n");
+		error_safe_exit("error at checkin access\n", 1);
 	add_to_garbage_collector(msh->path, D_INT);
 	path = ft_check_direct_path(msh, cmd);
 	if (path == NULL)
@@ -37,9 +37,9 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 		{
 			path = ft_strjoin(msh->path[i++], cmd);
 			if (!path)
-				error_safe_exit("error at checkin access\n");
+				error_safe_exit("error at checkin access\n", 1);
 			add_to_garbage_collector(path, INT);
-			if (!(access(path, (F_OK & X_OK))))
+			if (!(access(path, (F_OK | X_OK))))
 				return (path);
 		}
 	}
@@ -54,8 +54,13 @@ char	*ft_check_direct_path(t_minishell *msh, char *cmd)
 	if (cmd[0] == '/' || cmd[0] == '.' || cmd[0] == '~')
 	{
 		path = cmd;
-		if (!(access(path, F_OK && X_OK)))
+		if (is_directory(path))
+			error_safe_exit("is a directory\n", 126);
+		if (access(path, X_OK) == 0)
 			return (path);
+		if ((access(path, X_OK) == -1))
+			error_safe_exit(path, errno);
+		ft_putstr_fd("no access\n", 1);
 	}
 	return (NULL);
 }
@@ -91,4 +96,15 @@ char	**ft_parse_path(char **env)
 	while (paths_split[++i])
 		paths_split[i] = ft_strconcat(paths_split[i], "/");
 	return (paths_split);
+}
+
+int	is_directory(char *path)
+{
+	struct stat	buf;
+
+	if (stat(path, &buf) == -1)
+		return (0);
+	if (S_ISDIR(buf.st_mode))
+		return (1);
+	return (0);
 }

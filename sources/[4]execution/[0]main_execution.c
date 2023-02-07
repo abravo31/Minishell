@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:52:02 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 16:12:46 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:11:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ char	**get_char_double_ptr(char *str)
 
 	new = (char **)malloc(sizeof(char *) * 2);
 	if (!new)
-		error_safe_exit("Allocation error before execve\n");
+		error_safe_exit("Allocation error before execve\n", 1);
 	new[0] = ft_strdup(str);
 	if (!new[0])
 	{
 		free(new);
-		error_safe_exit("Allocation error before execve\n");
+		error_safe_exit("Allocation error before execve\n", 1);
 	}
 	new[1] = NULL;
 	return (new);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]parsing_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:18:53 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 02:28:21 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:54:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ int	is_quote(t_minishell *msh, int pos, char **cmd, int space)
 	{
 		t_cmd *cmd = new_cmd(remove_quote(ret), eval_token(ret), space);
 		if (cmd == NULL)
-			error_safe_exit("Error: cmd is NULL");
+			error_safe_exit("Error: cmd is NULL", 1);
 		t_list *new = ft_lstnew((void *)cmd);
 		if (new == NULL)
-			error_safe_exit("Error: list is NULL");
+			error_safe_exit("Error: list is NULL", 1);
 		if (msh->cmd == NULL)
 		{
 			msh->cmd = new;
