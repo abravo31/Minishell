@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:30:10 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 21:40:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 17:44:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_check_access(t_minishell *msh, t_ast *root)
 			if (!path)
 				error_safe_exit("error at checkin access\n");
 			add_to_garbage_collector(path, INT);
-			if (!(access(path, (F_OK | X_OK))))
+			if (!(access(path, (F_OK & X_OK))))
 				return (path);
 		}
 	}
@@ -54,7 +54,7 @@ char	*ft_check_direct_path(t_minishell *msh, char *cmd)
 	if (cmd[0] == '/' || cmd[0] == '.' || cmd[0] == '~')
 	{
 		path = cmd;
-		if (!(access(path, (X_OK))))
+		if (!(access(path, F_OK && X_OK)))
 			return (path);
 	}
 	return (NULL);
