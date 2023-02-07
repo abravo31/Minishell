@@ -43,6 +43,7 @@ void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
 				printf("prev is not null\n");
 				tmp = cur->next;
 				prev->next = cur->next;
+				free(cur->content);
 				free(cur);
 			}
 			cur = tmp;
