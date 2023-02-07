@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:49:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 23:13:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ void	error_safe_exit(char *msg, int error_code)
 	g_status = error_code;
 	if (error_code == errno)
 		g_status = errno;
-	if (g_status == 126)
-		print_error(msg, ": Is a directory");
+	if (g_status == 201)
+		print_error(msg, ": Permission denied", 126);
+	else if (g_status == 200)
+		print_error(msg, ": Is a directory", 126);
+	else if (g_status == 202)
+		print_error(msg, ": No such file or directory", 127);
 	else if (g_status == 127)
 	{
 		ft_putstr_fd("\nminishell: ", 2);
@@ -39,9 +43,10 @@ void	error_message(char	*msg, int error_code)
 	ft_putstr_fd("\n", 2);
 }
 
-void	print_error(char	*name, char *msg)
+void	print_error(char	*name, char *msg, int new_code)
 {
-	ft_putstr_fd("\nminishell: ", 2);
+	g_status = new_code;
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(name, 2);
 	ft_putstr_fd(msg, 2);
 	ft_putstr_fd("\n", 2);
@@ -73,10 +78,7 @@ void	wait_for_children(t_minishell *msh)
 void	error_management(t_list *current)
 {
 	(void)current;
-	//perror(strerror(g_status));
 	if (g_status == 13 || g_status == 21)
 		g_status = 1;
-	else if (g_status == 1)
-		ft_putstr_fd("error detected/!\n", 2);
 	printf("g_status = %d\n", g_status);
 }

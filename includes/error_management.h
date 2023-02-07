@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:48:20 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 23:10:52 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ extern int	g_status;
 
 void		wait_for_children(t_minishell *msh);
 void		error_safe_exit(char *msg, int error_code);
-void		print_error(char	*name, char *msg);
+void		print_error(char	*name, char *msg, int new_code);
 void		error_message(char	*name, int error_code);
 void		error_management(t_list *current);
 
