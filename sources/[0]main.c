@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int		g_status = 0;
+
 void	bash(void *content);
 void	free_list(t_list *lst, void (*free_content)(void *));
 
@@ -114,7 +116,7 @@ int	main(int argc, char **argv, char **envp)
 		// rl_outstream = stderr;
 		msh.prompt = readline(PROMPT_NAME);
 		add_history(msh.prompt);
-		// msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
+
 		if (msh.prompt == NULL)
 		{
 			break ;

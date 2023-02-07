@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 21:05:08 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/06 00:02:52 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
 			}
 			else
 			{
+				printf("prev is not null\n");
 				tmp = cur->next;
 				prev->next = cur->next;
+				free(cur->content);
 				free(cur);
 			}
 			cur = tmp;
@@ -52,34 +54,36 @@ void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
 	}
 }
 
-// void	ft_add_to_list(t_minishell *msh, char *cmd, int id)
-// {
-// 	t_list	*new;
-
-// 	new = ft_lstnew((void *)new_cmd(cmd, id, 0));
-// 	if (!new)
-// 	{
-// 		free_garbage_collector();
-// 		printf("error while adding a delimitor, 
-//		still not error or way toe xit this function!\n");
-// 		return ;
-// 	}
-// 	ft_lstadd_back(&msh->cmd_expand, new);
-// }
-
 void	ft_dup_list(t_minishell *msh)
 {
 	t_list	*new;
 	t_list	*list;
 	t_cmd	*cmd;
+	int		i;
+	char	*dup_char;
 
 	list = msh->cmd;
+	i = 0;
 	while (list)
 	{
 		cmd = (t_cmd *)list->content;
-		new = ft_lstnew((void *)new_cmd(cmd->cmd, cmd->id, cmd->space));
+		dup_char = ft_strdup(cmd->cmd);
+		if (!dup_char)
+		{
+			free_garbage_collector(ALL);
+			printf("error while duplicating a delimitor\n");
+			return ;
+		}
+		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
+		if (i == 0)
+		{
+			msh->cmd_expand = new;
+			add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
+		}
+		else
 		ft_lstadd_back(&msh->cmd_expand, new);
 		list = list->next;
+		i++;
 	}
 }
 
@@ -95,7 +99,7 @@ void	join_elems(t_list *list, t_cmd *cmd, t_cmd *cmd_next)
 			cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
 			ft_pop_list(&list, list, list->next, NULL);
 			if (list->next)
-				cmd_next = (t_cmd *)list->next->content;
+			  	cmd_next = (t_cmd *)list->next->content;
 		}
 		if ((cmd->id >= D_QUOTE && cmd->id <= WORD) && \
 		(cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && list->next)

@@ -45,10 +45,10 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!s1)
-		return (s2);
-	if (!s2)
-		return (s1);
+	// if (!s1)
+	// 	return (s2);
+	// if (!s2)
+	// 	return (s1);
 	size = (ft_strlen(s1) + ft_strlen(s2));
 	dest = malloc(sizeof(char) * (size + 1));
 	i = -1;
@@ -58,6 +58,8 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 	while (s2[++j])
 		dest[i + j] = s2[j];
 	dest[i + j] = '\0';
+	free(s1);
+	free(s2);
 	return (dest);
 }
 
@@ -92,7 +94,7 @@ char	*syntax_error(char where)
 			still not error or way toe xit this function!\n");
 			exit(2);
 		}
-		add_to_garbage_collector((void *)&ret, INT);
+		add_to_garbage_collector((void *)ret, INT);
 		return (ret);
 	}
 	ret = ft_strdup("syntax error near unexpected token \'?\'");
@@ -103,7 +105,7 @@ char	*syntax_error(char where)
 		not error or way toe xit this function!\n");
 		exit(2);
 	}
-	ret[ft_strlen(ret) - 2] = where;
 	add_to_garbage_collector((void *)ret, INT);
+	ret[ft_strlen(ret) - 2] = where;
 	return (ret);
 }

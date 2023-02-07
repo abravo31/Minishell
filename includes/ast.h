@@ -52,6 +52,7 @@ t_ast		*redirection_left(t_list **head, int *i);
 t_ast		*redirection_right(t_list **head, int *i);
 t_ast		*redirection_double_left(t_list **head, int *i);
 t_ast		*redirection_double_right(t_list **head, int *i);
+t_ast		*cmd_filename(t_list **head, int *i);
 /*############################################################################*/
 /*							TERMINAL FUNCTIONS                              */
 /*############################################################################*/

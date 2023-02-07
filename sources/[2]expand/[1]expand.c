@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   [1]expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
 /*   Updated: 2023/02/07 01:02:10 by abravo31         ###   ########.fr       */
@@ -85,6 +85,7 @@ char	*ft_expand(t_minishell *msh, int id, char *str)
 			break ;
 		new[n++] = str[i++];
 	}
+	free(str);
 	return (new);
 }
 
@@ -92,13 +93,16 @@ void	expanded_cmd_list(t_minishell *msh)
 {
 	t_list	*iter;
 	t_cmd	*current;
+	int		i;
 
 	iter = msh->cmd;
 	current = NULL;
+	i = 0;
 	while (iter)
 	{
 		current = (t_cmd *) iter->content;
 		current->cmd = ft_expand(msh, current->id, current->cmd);
 		iter = iter->next;
+		i++;
 	}
 }

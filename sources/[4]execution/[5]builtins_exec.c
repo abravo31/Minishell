@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:06:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 23:09:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 00:14:23 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	right->pipe_fd[0] = root->pipe_fd[0];
 	right->pipe_fd[1] = root->pipe_fd[1];
 	main_execution(msh, left, i);
-	fds_handlings(msh, root, i);
-	simple_builtin_traverse(msh, right, i);
+	if (*i == -3)
+		return ;
+	main_execution(msh, right, i);
 	if (*i == 0 || *i == -2)
 		free_garbage_collector(EXCEPT_ENV);
 	else

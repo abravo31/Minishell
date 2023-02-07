@@ -264,7 +264,7 @@ void	print_cmd(t_list *head)
 void	print2DUtil(t_ast *root, int space)
 {
 	char const	*operators[] = {"PIPE_SEQUENCE", "COMPLEXE_COMMAND", "SIMPLE_COMMAND", "ARGUMENT", "REDIRECTION","SIMPLE_BUILTIN", "CMPLX_BUILT"};
-	char const	*tokens[] = {"UNASSIGNED", "R_REDIR", "R_DREDIR", "L_REDIR", "L_DREDIR", "PIPE", "D_QUOTE", "S_QUOTE", "WORD", "BUILTIN"};
+	char const	*tokens[] = {"UNASSIGNED", "R_REDIR", "R_DREDIR", "L_REDIR", "L_DREDIR", "PIPE", "D_QUOTE", "S_QUOTE", "WORD", "BUILTIN", "FILENAME"};
 
 	if (root == NULL)
 		return ;

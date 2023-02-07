@@ -142,6 +142,11 @@ t_ast	*complexe_command(t_list **head, int *i)
 		return (NULL);
 	left = NULL;
 	right = NULL;
+	while ((*head) && ((t_cmd *)(*head)->content)->id == CONSUMED)
+	{
+		*head = (*head)->next;
+		(*i)++;
+	}
 	if ((*head) && is_redirection((t_cmd *)(*head)->content))
 	{
 		left = redirection(head, i);
@@ -185,7 +190,8 @@ t_ast	*simple_command(t_list **head, int *i)
 	if (((t_cmd *)(*head)->content)->id == WORD)
 	{
 		left = cmd_name(head, i);
-		if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
+		//if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
+		if ((*head) && ((t_cmd *)(*head)->content)->id != PIPE)
 			right = argument(head, i, left);
 	}
 	if (!left && !right)
@@ -212,14 +218,11 @@ t_ast	*argument(t_list **head, int *i, t_ast *command)
 {
 	t_ast			*left;
 	t_ast			*right;
-	t_cmd			*cmd;
 
 	if ((*head) == NULL)
 		return (NULL);
-	cmd = (t_cmd *)(*head)->content;
 	left = NULL;
-	if (cmd->id == WORD)
-		left = cmd_arg(head, i, command);
+	left = cmd_arg(head, i, command);
 	right = NULL;
 	if (left == NULL)
 		return (NULL);
