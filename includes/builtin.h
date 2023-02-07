@@ -74,5 +74,8 @@ void		unset_env_value(t_list *env, char *key);
 t_env		*new_env(char *key, char *value);
 void		export_env_value(t_minishell *msh, t_list *env, char *str);
 int			is_valid_export(const char *env);
+void		print_sorted_env(t_list *env);
+int			str_env_len(char **env);
+void		ft_free_tab(char **tab);
 
 #endif

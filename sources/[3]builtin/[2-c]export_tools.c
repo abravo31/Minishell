@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 22:10:44 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/06 22:58:59 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/07 16:09:06 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,28 @@ int	is_valid_export(const char *env)
 		i++;
 	}
 	return (1);
+}
+
+void	ft_free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	if (tab == NULL)
+		return ;
+	if (*tab == NULL)
+		return ;
+	while (tab && tab[i])
+		free(tab[i++]);
+	free(tab);
+}
+
+int	str_env_len(char **env)
+{
+	int		i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
 }

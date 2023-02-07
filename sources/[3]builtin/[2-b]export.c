@@ -15,7 +15,6 @@
 #include "structures.h"
 
 // export with no options
-
 int	builtin_export(t_minishell *msh, t_ast *root)
 {
 	t_list	*env;
@@ -23,7 +22,7 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 	int		i;
 
 	if (root->right == NULL)
-		return (0);
+		return (print_sorted_env(msh->env), 0);
 	if (msh->env == NULL)
 		return (0);
 	env = msh->env;
