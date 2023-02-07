@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 20:47:43 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/05 23:13:21 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	get_cmd(t_minishell *msh)
 	iter_prompt(msh, &str, i);
 	delimitor(&str, msh, 0);
 	check_parsing_errors(msh, 1);
+	check_tild(msh);
 	if (msh->parsing_error)
 		return (0);
 	expanded_cmd_list(msh);

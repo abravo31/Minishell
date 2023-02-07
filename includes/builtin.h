@@ -70,6 +70,12 @@ char		*get_env_value_build(t_list *env, char *key);
 void		modify_env_value(t_list *env, char *key, char *value);
 void		new_path_normal(t_minishell *msh, t_ast *root);
 void		list_env_to_char_env(t_minishell *msh);
-void	    unset_env_value(t_list *env, char *key);
+void		unset_env_value(t_list *env, char *key);
+t_env		*new_env(char *key, char *value);
+void		export_env_value(t_minishell *msh, t_list *env, char *str);
+int			is_valid_export(const char *env);
+void		print_sorted_env(t_list *env);
+int			str_env_len(char **env);
+void		ft_free_tab(char **tab);
 
 #endif

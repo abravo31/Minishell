@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 15:43:55 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 01:01:36 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,10 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[0] = tmp_fd[0];
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
+		// rl_outstream = stderr;
 		msh.prompt = readline(PROMPT_NAME);
 		add_history(msh.prompt);
-		//msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
+
 		if (msh.prompt == NULL)
 		{
 			break ;

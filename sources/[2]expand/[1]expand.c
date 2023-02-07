@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 23:53:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 01:02:10 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*expand(char *str, int *index, int *n, t_minishell *msh)
 		return ((*index)++, "");
 	if (str[0] == '"')
 		return ("");
+	// if (str[0] == '?')
+	// 	return (*n += 2, ft_strdup("0"));
 	if ((!ft_isalnum(str[0]) && str[0] != '_') || str[0] == '$')
 		return ((*n)++, "$");
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
