@@ -112,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
+		add_history(msh.prompt);
 		//msh.prompt[0] == 0 ---> ENTREE , ON FAIT RIEN SAUF FREEEE!
 		if (msh.prompt == NULL)
 		{
