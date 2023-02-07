@@ -87,8 +87,22 @@ int	is_quote(t_minishell *msh, int pos, char **cmd, int space)
 	if (str[pos] && str[pos] == ' ')
 		space = 1;
 	if (ret)
-		ft_lstadd_back(&msh->cmd, ft_lstnew((void *)new_cmd(remove_quote(ret), \
-		eval_token(ret), space)));
+	{
+		t_cmd *cmd = new_cmd(remove_quote(ret), eval_token(ret), space);
+		if (cmd == NULL)
+			error_safe_exit("Error: cmd is NULL");
+		t_list *new = ft_lstnew((void *)cmd);
+		if (new == NULL)
+			error_safe_exit("Error: list is NULL");
+		if (msh->cmd == NULL)
+		{
+			msh->cmd = new;
+			add_to_garbage_collector((void *)&msh->cmd, CMD);
+		}
+		else
+			ft_lstadd_back(&msh->cmd, new);
+	}
+	free(ret);
 	return (pos - 1);
 }
 
