@@ -75,12 +75,12 @@ void	ft_dup_list(t_minishell *msh)
 			return ;
 		}
 		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
-		// if (i == 0)
-		// {
-		// 	msh->cmd_expand = new;
-		// 	add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
-		// }
-		// else
+		if (i == 0)
+		{
+			msh->cmd_expand = new;
+			add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
+		}
+		else
 		ft_lstadd_back(&msh->cmd_expand, new);
 		list = list->next;
 		i++;
