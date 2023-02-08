@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:08:10 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 20:32:04 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:38:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ void	print_sorted_env(t_minishell *msh)
 	i = 0;
 	while (tab[i])
 	{
+		if (tab[i][0] == 0)
+		{
+			i++;
+			continue ;
+		}
 		ft_putstr("declare -x ");
 		ft_putstr(tab[i]);
 		printf("\n");
