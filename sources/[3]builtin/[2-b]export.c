@@ -12,7 +12,6 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "structures.h"
 
 // export with no options
 int	builtin_export(t_minishell *msh, t_ast *root)

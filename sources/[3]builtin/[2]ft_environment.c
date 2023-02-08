@@ -12,9 +12,6 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
-
-void	print_env(char **envp);
-
 //env with no options or arguments
 int	builtin_env(t_minishell *msh, t_ast *root)
 {
@@ -37,8 +34,11 @@ void	print_env(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		ft_putstr_fd(envp[i], 1);
-		ft_putstr_fd("\n", 1);
+		if (envp[i][0] != '\0')
+		{
+			ft_putstr_fd(envp[i], 1);
+			ft_putstr_fd("\n", 1);
+		}
 		i++;
 	}
 }

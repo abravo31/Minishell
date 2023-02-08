@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2-d]export_sort.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:08:10 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 14:20:19 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:14:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	print_sorted_env(t_list *env)
 	if (!(env_tab = malloc(sizeof(char) * size_env(env) + 1)))
 		return ;
 	str = env_to_str(env, env_tab, NULL);
-	printf("str : %s\n", str);
 	tab = ft_split(str, '\n');
 	free(str);
 	sort_env(tab, str_env_len(tab));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/07 20:57:34 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/08 18:12:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,51 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 void	get_env(char **env, t_minishell *msh)
 {
 	int		i;
-	t_list	*new;
+	// t_list	*new;
+	// t_env	*temp;
 
 	i = -1;
 	if (!env)
 	{
-		new = ft_lstnew((void *)new_env(NULL, NULL));
-		if (new == NULL)
-			error_safe_exit("malloc error", 1);
-		msh->env = new;
-		add_to_garbage_collector((void *)&msh->env, ENV);
+		// temp = new_env(NULL, NULL);
+		// if (temp == NULL)
+		// 	error_safe_exit("malloc error", 1);
+		// new = ft_lstnew((void *)temp);
+		// if (new == NULL)
+		// 	error_safe_exit("malloc error", 1);
+		// msh->env = new;
+		// add_to_garbage_collector((void *)&msh->env, ENV);
+		printf("env is empty");
+		initilialize_emtpy_env(msh);
 		return ;
 	}
 	while (env[++i])
 		env_iter(msh, env[i], 0, 0);
+}
+
+//initialzie emtpy env with pwd and SHLVL at  launch if env empty
+void	initilialize_emtpy_env(t_minishell *msh)
+{
+	t_list	*new;
+	t_env	*temp;
+	char	*pwd;
+
+	pwd = getcwd_until_path_fits();
+	if (pwd == NULL)
+		return (error_safe_exit("pwd: error: unknown error", 1));
+	temp = new_env("PWD", pwd);
+	if (temp == NULL)
+		error_safe_exit("malloc error", 1);
+	new = ft_lstnew((void *)temp);
+	if (new == NULL)
+		error_safe_exit("malloc error", 1);
+	msh->env = new;
+	add_to_garbage_collector((void *)&msh->env, ENV);
+	temp = new_env("SHLVL", "1");
+	if (temp == NULL)
+		error_safe_exit("malloc error", 1);
+	new = ft_lstnew((void *)temp);
+	if (new == NULL)
+		error_safe_exit("malloc error", 1);
+	ft_lstadd_back(&msh->env, new);
 }

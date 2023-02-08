@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/08 03:02:42 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:55:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,43 @@ int	is_identical(char *s1, char *s2)
 
 char	*ft_strjoin_cmd(char *s1, char *s2)
 {
-	int		i;
-	int		j;
-	char	*dest;
-	size_t	size;
+	// int		i;
+	// int		j;
+	// char	*dest;
+	// size_t	size;
+	char	*str;
 
-	if ((!s1 || !s1[0]) && (!s2 || !s2[0]))
+	// if ((!s1 || !s1[0]) && (!s2 || !s2[0]))
+	// 	return (NULL);
+	// if (!s1 || !s1[0])
+	// 	return (s2);
+	// if (!s2 || !s2[0])
+	// 	return (s1);
+	// size = (ft_strlen(s1) + ft_strlen(s2));
+	// dest = malloc(sizeof(char) * (size + 1));
+	// i = -1;
+	// j = -1;
+	// while (s1[++i])
+	// 	dest[i] = s1[i];
+	// while (s2[++j])
+	// 	dest[i + j] = s2[j];
+	// dest[i + j] = '\0';
+	// free(s1);
+	// free(s2);
+	// return (dest);
+	if (s1 && s2)
+		str = ft_strjoin(s1, s2);
+	if (!s1)
+		str = ft_strdup(s2);
+	if (!s2)
+		str = ft_strdup(s1);
+	if (!s1 && !s2)
 		return (NULL);
-	if (!s1 || !s1[0])
-		return (s2);
-	if (!s2 || !s2[0])
-		return (s1);
-	size = (ft_strlen(s1) + ft_strlen(s2));
-	dest = malloc(sizeof(char) * (size + 1));
-	i = -1;
-	j = -1;
-	while (s1[++i])
-		dest[i] = s1[i];
-	while (s2[++j])
-		dest[i + j] = s2[j];
-	dest[i + j] = '\0';
-	free(s1);
-	free(s2);
-	return (dest);
+	if (s1)
+		free(s1);
+	if (s2)
+		free(s2);
+	return (str);
 }
 
 void	get_char(char c, char **cmd)
