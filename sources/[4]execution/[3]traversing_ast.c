@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 23:43:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:15:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 	if (root == NULL)
 		return ;
 	fds_handlings(msh, root, i);
-	setup_sig_child();
 	left = root->left;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, no command\n", 1);

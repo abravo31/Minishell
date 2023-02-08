@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 02:16:57 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:43:55 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,9 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
 		msh.prompt = readline(PROMPT_NAME);
-		add_history(msh.prompt);
 		if (msh.prompt == NULL)
-		{
 			break ;
-		}
+		add_history(msh.prompt);
 		add_to_garbage_collector((void *)msh.prompt, INT);
 		if (msh.prompt != NULL)
 		{
@@ -135,13 +133,13 @@ int	main(int argc, char **argv, char **envp)
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd_expand = head;
 			//ft_printf("\nAST:\n");
-			print2DUtil(msh.root, 0);
+			//print2DUtil(msh.root, 0);
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
-			wait_for_children(&msh);
 			dup2(tmp_fd[0], STDIN_FILENO);
 			dup2(tmp_fd[1], STDOUT_FILENO);
+			wait_for_children(&msh);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/01/28 18:24:34 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:24:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,15 @@ void	setup_signal_handlers(void)
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	rl_clear_history();
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (sig == SIGINT)
+	{
+		g_status = 130;
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+
 }
 
 // Handle the SIGQUIT signal (ctrl-\)
