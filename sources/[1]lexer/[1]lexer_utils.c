@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   [1]parsing_utils.c                                 :+:      :+:    :+:   */
+/*   [1]lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/05 20:46:24 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 03:02:42 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 	char	*dest;
 	size_t	size;
 
-	if (!s1 && !s2)
+	if ((!s1 || !s1[0]) && (!s2 || !s2[0]))
 		return (NULL);
-	// if (!s1)
-	// 	return (s2);
-	// if (!s2)
-	// 	return (s1);
+	if (!s1 || !s1[0])
+		return (s2);
+	if (!s2 || !s2[0])
+		return (s1);
 	size = (ft_strlen(s1) + ft_strlen(s2));
 	dest = malloc(sizeof(char) * (size + 1));
 	i = -1;

@@ -3,14 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   [1]expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/07 01:02:10 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/07 20:57:49 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	lenof(int n)
+{
+	int	len;
+
+	if (n == 0)
+		return (1);
+	len = (n < 0);
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+void	ft_stoval(t_minishell *msh, int n)
+{
+	int				i;
+	int				len;
+	unsigned int	nb;
+
+	nb = -(n < 0) * (n) + (n > 0) * (n);
+	i = (n < 0);
+	len = lenof(n);
+	if (n < 0)
+		msh->value[0] = '-';
+	msh->value[len] = 0;
+	while (--len >= i)
+	{
+		msh->value[len] = (nb % 10) + '0';
+		nb /= 10;
+	}
+}
+
+char	*ft_get_status(t_minishell *msh, int *n, int *i)
+{
+	*n += lenof(g_status);
+	*i += 1;
+	ft_stoval(msh, g_status);
+	return (msh->value);
+}
 
 char	*expand(char *str, int *index, int *n, t_minishell *msh)
 {
@@ -23,14 +65,14 @@ char	*expand(char *str, int *index, int *n, t_minishell *msh)
 		return ((*index)++, "");
 	if (str[0] == '"')
 		return ("");
-	// if (str[0] == '?')
-	// 	return (*n += 2, ft_strdup("0"));
-	if ((!ft_isalnum(str[0]) && str[0] != '_') || str[0] == '$')
+	if ((!ft_isalnum(str[0]) && str[0] != '_' && str[0] != '?'))
 		return ((*n)++, "$");
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+	while (str[i] && (ft_isalnum(str[i]) || str[0] == '?' || str[i] == '_'))
 		i++;
 	c = str[i];
 	str[i] = '\0';
+	if (*str == '?')
+		return (str[i] = c, ft_get_status(msh, n, index));
 	value = get_env_value(index, msh, str);
 	str[i] = c;
 	if (!value)
@@ -45,10 +87,6 @@ char	*ft_boost(char *s1, char *s2, int size)
 	size_t	s1len;
 	size_t	s2len;
 
-	if (!s2)
-		return (s1);
-	if (!s1)
-		return (ft_strdup(s2));
 	s1len = ft_strlen(s1);
 	s2len = ft_strlen(s2);
 	temp = ft_calloc(s1len + s2len + size + 1, 1);

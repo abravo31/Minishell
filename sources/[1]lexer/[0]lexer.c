@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 23:13:21 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:26:43 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	iter_prompt(t_minishell *msh, char **str, int i)
 			get_char(msh->prompt[i], str);
 		}
 		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
-		{
+		{			
 			if (i > 0 && !is_token(msh->prompt[i - 1]) \
 			&& msh->prompt[i - 1] != ' ')
 				delimitor(str, msh, 0);

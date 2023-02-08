@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]parsing_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:18:53 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/07 20:54:17 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:47:15 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ int	is_quote(t_minishell *msh, int pos, char **cmd, int space)
 		get_char(str[pos++], &ret);
 	}
 	if (!end_quote(d_quo, s_quo))
+	{	
 		msh->parsing_error = syntax_error('\n');
+	}
 	if (str[pos] && str[pos] == ' ')
 		space = 1;
 	if (ret)
@@ -127,7 +129,7 @@ void	check_parsing_errors(t_minishell *msh, int end)
 			break ;
 		}
 		if (current->cmd && !iter->next && \
-		end && is_token(current->cmd[0]))
+		end && current->id > UNASSIGNED && current->id <= PIPE)
 			msh->parsing_error = syntax_error('\n');
 		else if (current->id >= R_REDIR && current->id <= L_DREDIR && end \
 		&& (((t_cmd *)(iter->next->content))->id < D_QUOTE || !iter->next))

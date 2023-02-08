@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:08:10 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/07 16:09:29 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:20:19 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*env_to_str(t_list *env_lst, char *env, t_env *env_var)
 	int		j;
 
 	i = 0;
-	while (env_lst && env_lst->next != NULL)
+	while (env_lst)
 	{
 		env_var = env_lst->content;
 		if (env_var->key)
@@ -95,7 +95,7 @@ char	*env_to_str(t_list *env_lst, char *env, t_env *env_var)
 			while (env_var->value[j])
 				env[i++] = env_var->value[j++];
 		}
-		if (env_lst->next->next != NULL)
+		if (env_lst->next && env_lst->next->next != NULL)
 			env[i++] = '\n';
 		env_lst = env_lst->next;
 	}
@@ -113,6 +113,7 @@ void	print_sorted_env(t_list *env)
 	if (!(env_tab = malloc(sizeof(char) * size_env(env) + 1)))
 		return ;
 	str = env_to_str(env, env_tab, NULL);
+	printf("str : %s\n", str);
 	tab = ft_split(str, '\n');
 	free(str);
 	sort_env(tab, str_env_len(tab));
