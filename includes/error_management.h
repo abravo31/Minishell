@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 01:49:50 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 02:03:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		error_safe_exit(char *msg, int error_code);
 void		print_error(char	*name, char *msg, int new_code);
 void		error_message(char	*name, int error_code);
 void		error_management(t_list *current);
-
+void		errors_messages_cases(char *msg, int error_code);
 int			fd_errors_out(char *path);
 int			fd_errors_in(char *path);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 01:01:36 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 02:16:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,8 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[0] = tmp_fd[0];
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
-		// rl_outstream = stderr;
 		msh.prompt = readline(PROMPT_NAME);
 		add_history(msh.prompt);
-
 		if (msh.prompt == NULL)
 		{
 			break ;
@@ -137,7 +135,7 @@ int	main(int argc, char **argv, char **envp)
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd_expand = head;
 			//ft_printf("\nAST:\n");
-			//print2DUtil(msh.root, 0);
+			print2DUtil(msh.root, 0);
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
