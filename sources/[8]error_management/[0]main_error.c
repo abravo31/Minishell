@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 23:49:08 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 00:28:42 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void	errors_messages_cases(char *msg, int error_code)
 	else if (error_code == 401)
 		print_error(msg, "", 2);
 	else
-		perror(msg);
+		print_error(msg, "", 1);
 	//g_status = error_code;
 }
