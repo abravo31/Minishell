@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 14:26:43 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:52:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	get_cmd(t_minishell *msh)
 		return (0);
 	expanded_cmd_list(msh);
 	ft_dup_list(msh);
+	__debug_parsing(msh->cmd_expand);
 	//add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
 	ft_join_quote(msh);
 	return (!msh->parsing_error);
@@ -135,17 +136,17 @@ t_token	eval_token(char *cmd)
 	return (UNASSIGNED);
 }
 
-// void	__debug_parsing(t_list *cmd)
-// {
-// 	t_list	*iter;
-// 	t_cmd	*current;
+void	__debug_parsing(t_list *cmd)
+{
+	t_list	*iter;
+	t_cmd	*current;
 
-// 	iter = cmd;
-// 	current = NULL;
-// 	while (iter)
-// 	{
-// 		current = (t_cmd *) iter->content;
-// 		printf("(%d){%d}[%s]\n", current->space, current->id, current->cmd);
-// 		iter = iter->next;
-// 	}
-// }
+	iter = cmd;
+	current = NULL;
+	while (iter)
+	{
+		current = (t_cmd *) iter->content;
+		printf("(%d){%d}[%s]\n", current->space, current->id, current->cmd);
+		iter = iter->next;
+	}
+}

@@ -1,0 +1,4 @@
+*.o
+objs/
+libft.a
+minishell
