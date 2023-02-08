@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:30:10 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 23:14:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 00:05:53 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*ft_check_direct_path(t_minishell *msh, char *cmd)
 	char	*path;
 
 	(void)msh;
+	if (cmd[0] == '\0')
+		error_safe_exit(cmd, 127);
 	if (cmd[0] == '/' || cmd[0] == '.' || cmd[0] == '~')
 	{
 		path = cmd;

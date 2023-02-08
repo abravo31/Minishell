@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 23:10:52 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 01:49:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "structures.h"
 # include "garbage_collector.h"
+# include "execution.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -35,4 +36,6 @@ void		print_error(char	*name, char *msg, int new_code);
 void		error_message(char	*name, int error_code);
 void		error_management(t_list *current);
 
+int			fd_errors_out(char *path);
+int			fd_errors_in(char *path);
 #endif

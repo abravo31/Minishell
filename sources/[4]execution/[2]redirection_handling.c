@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:26:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:13:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 01:46:21 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	redirect_output(t_minishell *msh, t_ast *root, int *i)
 		close(msh->fd_out);
 	fd = open(right->data, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1 && *i >= -1)
-		error_safe_exit(right->data, errno);
+		error_safe_exit(right->data, 210);
 	if (fd == -1 && *i == -2)
 	{
 		*i = -3;
-		return (error_message(right->data, errno));
+		return (error_message(right->data, 210));
 	}
 	msh->fd_out = fd;
 	add_to_garbage_collector(&fd, FD);
@@ -51,11 +51,11 @@ void	redirect_input(t_minishell *msh, t_ast *root, int *i)
 		close(msh->fd_out);
 	fd = open(right->data, O_RDONLY, 0644);
 	if (fd == -1 && *i >= -1)
-		error_safe_exit(right->data, errno);
+		error_safe_exit(right->data, 211);
 	if (fd == -1 && *i == -2)
 	{
 		*i = -3;
-		return (error_message(right->data, errno));
+		return (error_message(right->data, 211));
 	}
 	msh->fd_in = fd;
 	add_to_garbage_collector((void *)&fd, FD);
@@ -76,11 +76,11 @@ void	redirect_append(t_minishell *msh, t_ast *root, int *i)
 		close(msh->fd_out);
 	fd = open(right->data, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1 && *i >= -1)
-		error_safe_exit(right->data, errno);
+		error_safe_exit(right->data, 210);
 	if (fd == -1 && *i == -2)
 	{
 		*i = -3;
-		return (error_message(right->data, errno));
+		return (error_message(right->data, 210));
 	}
 	msh->fd_out = fd;
 	add_to_garbage_collector((void *)&fd, FD);
@@ -102,11 +102,11 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 	fd = open(right->data, O_RDONLY, 0644);
 	add_to_garbage_collector((void *)&fd, FD);
 	if (fd == -1 && *i >= -1)
-		error_safe_exit(right->data, errno);
+		error_safe_exit(right->data, 211);
 	if (fd == -1 && *i == -2)
 	{
 		*i = -3;
-		return (error_message(right->data, errno));
+		return (error_message(right->data, 211));
 	}
 	msh->fd_in = fd;
 	(void)i;
