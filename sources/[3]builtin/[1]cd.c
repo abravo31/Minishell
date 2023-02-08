@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 20:02:39 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 21:20:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	new_path_empty(t_minishell *msh)
 
 	home = get_env_value_build(msh->env, "HOME");
 	if (home == NULL)
-		error_safe_exit("cd: error: HOME not set", 1);
+		errors_messages_cases("cd: error: HOME not set", 1);
 	else
 	{
 		if (chdir(home) == -1)
