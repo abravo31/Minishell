@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/07 21:50:29 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/08 14:26:43 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	get_cmd(t_minishell *msh)
 	iter_prompt(msh, &str, i);
 	delimitor(&str, msh, 0);
 	check_parsing_errors(msh, 1);
-	//__debug_parsing(msh->cmd);
 	check_tild(msh);
 	if (msh->parsing_error)
 		return (0);

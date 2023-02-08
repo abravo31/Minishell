@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 23:13:34 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/05 23:42:30 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 14:19:12 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*expand_tild(t_minishell *msh, char *str)
 	while (str[i])
 		new[n++] = str[i++];
 	new[n] = '\0';
+	free(str);
 	return (new);
 }
 
