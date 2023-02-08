@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 20:33:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:10:24 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	builtin_cd(t_minishell *msh, t_ast *root)
 	else if (root->right)
 	{
 		if (root->right->left->arg[2] != NULL)
-			error_safe_exit("cd: error: too many arguments");
+			error_safe_exit("cd: error: too many arguments", 1);
 		else
 			new_path_normal(msh, root);
 	}
@@ -38,14 +38,14 @@ char	*getcwd_until_path_fits(void)
 		if (errno == ERANGE)
 		{
 			free(path);
-			error_safe_exit("cd: error: path too long");
+			error_safe_exit("cd: error: path too long", 1);
 		}
 		else if (errno == EACCES)
-			error_safe_exit("cd: error: permission denied");
+			error_safe_exit("cd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			error_safe_exit("cd: error: no such file or directory");
+			error_safe_exit("cd: error: no such file or directory", 1);
 		else
-			error_safe_exit("cd: error: unknown error");
+			error_safe_exit("cd: error: unknown error", 1);
 	}
 	return (path);
 }
@@ -57,23 +57,23 @@ void	new_path_empty(t_minishell *msh)
 
 	home = get_env_value_build(msh->env, "HOME");
 	if (home == NULL)
-		error_safe_exit("cd: error: HOME not set");
+		error_safe_exit("cd: error: HOME not set", 1);
 	else
 	{
 		if (chdir(home) == -1)
 		{
 			if (errno == EACCES)
-				error_safe_exit("cd: error: permission denied");
+				error_safe_exit("cd: error: permission denied", 1);
 			else if (errno == ENOENT)
-				error_safe_exit("cd: error: no such file or directory");
+				error_safe_exit("cd: error: no such file or directory", 1);
 			else
-				error_safe_exit("cd: error: unknown error");
+				error_safe_exit("cd: error: unknown error", 1);
 		}
 		else
 		{	
 			path = getcwd_until_path_fits();
 			if (path == NULL)
-				return (error_safe_exit("cd: error: unknown error"));
+				return (error_safe_exit("cd: error: unknown error", 1));
 			add_to_garbage_collector(path, INT);
 			modify_env_value(msh->env, "PWD", path);
 		}
@@ -87,17 +87,17 @@ void	new_path_normal(t_minishell *msh, t_ast *root)
 	if (chdir(root->right->left->arg[1]) == -1)
 	{
 		if (errno == EACCES)
-			error_safe_exit("cd: error: permission denied");
+			error_safe_exit("cd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			error_safe_exit("cd: error: no such file or directory");
+			error_safe_exit("cd: error: no such file or directory", 1);
 		else
-			error_safe_exit("cd: error: unknown error");
+			error_safe_exit("cd: error: unknown error", 1);
 	}
 	else
 	{
 		path = getcwd_until_path_fits();
 		if (path == NULL)
-			return (error_safe_exit("cd: error: unknown error"));
+			return (error_safe_exit("cd: error: unknown error", 1));
 		add_to_garbage_collector(path, INT);
 		modify_env_value(msh->env, "PWD", path);
 	}

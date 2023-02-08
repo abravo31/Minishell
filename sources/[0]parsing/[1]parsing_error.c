@@ -92,10 +92,10 @@ int	is_quote(t_minishell *msh, int pos, char **cmd, int space)
 	{
 		t_cmd *cmd = new_cmd(remove_quote(ret), eval_token(ret), space);
 		if (cmd == NULL)
-			error_safe_exit("Error: cmd is NULL");
+			error_safe_exit("Error: cmd is NULL", 1);
 		t_list *new = ft_lstnew((void *)cmd);
 		if (new == NULL)
-			error_safe_exit("Error: list is NULL");
+			error_safe_exit("Error: list is NULL", 1);
 		if (msh->cmd == NULL)
 		{
 			msh->cmd = new;

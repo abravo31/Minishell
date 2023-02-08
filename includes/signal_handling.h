@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 15:45:37 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 02:40:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "parsing.h"
+# include "error_management.h"
 
 # ifndef EXIT_SUCCESS
 #  define EXIT_SUCCESS 0

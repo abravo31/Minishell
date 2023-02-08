@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:06:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 00:14:23 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 02:32:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,19 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 	right->pipe_fd[1] = root->pipe_fd[1];
 	main_execution(msh, left, i);
 	if (*i == -3)
+	{
+		dup2(msh->fd_dup[0], STDIN_FILENO);
+		dup2(msh->fd_dup[1], STDOUT_FILENO);
+		free_garbage_collector(EXCEPT_ENV);
 		return ;
+	}
 	main_execution(msh, right, i);
 	if (*i == 0 || *i == -2)
+	{
+		dup2(msh->fd_dup[0], STDIN_FILENO);
+		dup2(msh->fd_dup[1], STDOUT_FILENO);
 		free_garbage_collector(EXCEPT_ENV);
+	}
 	else
 		free_garbage_collector(ALL);
 	(void)i;

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:05:14 by motero            #+#    #+#             */
-/*   Updated: 2023/02/06 20:20:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:13:38 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fds_handlings(t_minishell *msh, t_ast *root, int *i)
 	struct stat	buf;
 
 	if (msh->fd_out == -1 || msh->fd_in == -1)
-		error_safe_exit("FD ERROR\n");
+		error_safe_exit("FD ERROR\n", 1);
 	if (msh->fd_in > 0)
 	{
 		dup2(msh->fd_in, STDIN_FILENO);

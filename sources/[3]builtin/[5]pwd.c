@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/04 22:53:26 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/07 21:11:11 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	builtin_pwd(t_minishell *msh, t_ast *root)
 
 	path = getcwd_until_path_fits();
 	if (path == NULL)
-		return (error_safe_exit("pwd: error: unknown error"), 1);
+		return (error_safe_exit("pwd: error: unknown error", 1), 1);
 	add_to_garbage_collector(path, INT);
 	(void)msh;
 	(void)root;

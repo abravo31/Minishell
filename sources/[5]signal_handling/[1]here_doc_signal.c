@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:35:40 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 19:44:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:09:21 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,17 @@ static void	signint_heredoc(int sig, siginfo_t *info, void *ucontext)
 	(void)info;
 	(void)ucontext;
 	(void)sig;
-	singleton_heredoc(1);
-	ft_putstr_fd("\n", 1);
+	if (sig == SIGINT)
+	{
+		g_status = 130;
+		singleton_heredoc(1);
+		ft_putstr_fd("\n", 2);
+	}
+	if (sig == SIGQUIT)
+	{
+		g_status = 131;
+		ft_putstr_fd("\b\b  sss\b\b", 2);
+	}
 }
 
 // Handle the SIGQUIT signal (ctrl-\)

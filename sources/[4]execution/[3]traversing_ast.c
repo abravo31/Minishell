@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/02 22:06:53 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:15:03 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 	if (root == NULL)
 		return ;
 	fds_handlings(msh, root, i);
-	setup_sig_child();
 	left = root->left;
 	if (!left)
-		error_safe_exit("AST EXECUTION ERROR, no command\n");
+		error_safe_exit("AST EXECUTION ERROR, no command\n", 1);
 	right = root->right;
 	file = ft_check_access(msh, left);
 	if (!file)
@@ -56,15 +55,12 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		args = get_char_double_ptr(left->data);
 	if (execve(file, args, msh->envp) == -1)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		print_error(file, ": command not found\n", 127);
 		free_garbage_collector(ALL);
 	}
 	if (!right)
 		free_double_pointer((void **)args);
-	exit(EXIT_FAILURE);
-	(void)i;
+	exit(127);
 }
 
 //ast root an argument

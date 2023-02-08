@@ -113,14 +113,10 @@ int	main(int argc, char **argv, char **envp)
 		msh.fd_dup[0] = tmp_fd[0];
 		msh.fd_dup[1] = tmp_fd[1];
 		setup_signal_handlers();
-		// rl_outstream = stderr;
 		msh.prompt = readline(PROMPT_NAME);
-		add_history(msh.prompt);
-
 		if (msh.prompt == NULL)
-		{
 			break ;
-		}
+		add_history(msh.prompt);
 		add_to_garbage_collector((void *)msh.prompt, INT);
 		if (msh.prompt != NULL)
 		{
@@ -141,9 +137,9 @@ int	main(int argc, char **argv, char **envp)
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
-			wait_for_children(&msh);
 			dup2(tmp_fd[0], STDIN_FILENO);
 			dup2(tmp_fd[1], STDOUT_FILENO);
+			wait_for_children(&msh);
 			if (msh.parsing_error)
 				printf("%s\n", msh.parsing_error);
 		}

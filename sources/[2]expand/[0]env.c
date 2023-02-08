@@ -93,7 +93,7 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 	{
 		new = ft_lstnew((void *)new_env(key, value));
 		if (new == NULL)
-			error_safe_exit("malloc error");
+			error_safe_exit("malloc error", 1);
 		msh->env = new;
 		add_to_garbage_collector((void *)&msh->env, ENV);
 	}
@@ -111,7 +111,7 @@ void	get_env(char **env, t_minishell *msh)
 	{
 		new = ft_lstnew((void *)new_env(NULL, NULL));
 		if (new == NULL)
-			error_safe_exit("malloc error");
+			error_safe_exit("malloc error", 1);
 		msh->env = new;
 		add_to_garbage_collector((void *)&msh->env, ENV);
 		return ;
