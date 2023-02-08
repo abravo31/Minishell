@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 19:52:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:11:06 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int	get_cmd(t_minishell *msh)
 		return (0);
 	expanded_cmd_list(msh);
 	ft_dup_list(msh);
-	__debug_parsing(msh->cmd_expand);
-	//add_to_garbage_collector((void *)&msh->cmd_expand, CMD);
 	ft_join_quote(msh);
 	return (!msh->parsing_error);
 }

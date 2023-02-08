@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:08:10 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 18:14:00 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:32:04 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,18 +103,12 @@ char	*env_to_str(t_list *env_lst, char *env, t_env *env_var)
 	return (env);
 }
 
-void	print_sorted_env(t_list *env)
+void	print_sorted_env(t_minishell *msh)
 {
 	int		i;
 	char	**tab;
-	char	*str;
-	char	*env_tab;
 
-	if (!(env_tab = malloc(sizeof(char) * size_env(env) + 1)))
-		return ;
-	str = env_to_str(env, env_tab, NULL);
-	tab = ft_split(str, '\n');
-	free(str);
+	tab = msh->envp;
 	sort_env(tab, str_env_len(tab));
 	i = 0;
 	while (tab[i])
@@ -124,5 +118,4 @@ void	print_sorted_env(t_list *env)
 		printf("\n");
 		i++;
 	}
-	ft_free_tab(tab);
 }

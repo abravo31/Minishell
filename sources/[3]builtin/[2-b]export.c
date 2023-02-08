@@ -21,7 +21,7 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 	int		i;
 
 	if (root->right == NULL)
-		return (print_sorted_env(msh->env), 0);
+		return (print_sorted_env(msh), 0);
 	env = msh->env;
 	arg = root->right->left->arg;
 	i = 1;

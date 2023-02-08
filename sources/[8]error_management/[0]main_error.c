@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:00:16 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/08 20:11:14 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ void	error_management(t_list *current)
 	(void)current;
 	if (g_status == 13 || g_status == 21)
 		g_status = 1;
-	// else if (g_status == 1)
-	// 	ft_putstr_fd("error detected/!\n", 2);
-	//printf("g_status = %d\n", g_status);
 }
 
 int	fd_errors_out(char *path)
@@ -114,4 +111,5 @@ void	errors_messages_cases(char *msg, int error_code)
 		print_error(msg, ": command not found", 127);
 	else
 		perror(msg);
+	g_status = error_code;
 }
