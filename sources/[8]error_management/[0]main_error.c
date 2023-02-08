@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 02:32:23 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 02:37:17 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	errors_messages_cases(char *msg, int error_code)
 	else if (error_code == 301)
 		print_error(msg, ": Permission denied", 1);
 	else if (error_code == 300)
-		print_error(msg, ": Is a directory", 126);
+		print_error(msg, ": Is a directory", 1);
 	else if (error_code == 302)
 		print_error(msg, ": No such file or directory", 1);
 	else if (error_code == 127)
