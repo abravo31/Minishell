@@ -12,7 +12,6 @@
 /* ************************************************************************** */
 
 #include "builtin.h"
-#include "structures.h"
 
 // export with no options
 int	builtin_export(t_minishell *msh, t_ast *root)
@@ -22,7 +21,7 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 	int		i;
 
 	if (root->right == NULL)
-		return (print_sorted_env(msh->env), 0);
+		return (print_sorted_env(msh), 0);
 	env = msh->env;
 	arg = root->right->left->arg;
 	i = 1;
@@ -39,16 +38,23 @@ int	check_if_key(t_env *env, char *str)
 {
 	int	i;
 	int	j;
+	int	len;
 
 	i = 0;
 	j = 0;
-	while (env->key[i] && str[i] == env->key[i])
+	while (env && env->key && env->key[i] && str[i] == env->key[i])
 		i++;
 	if (str[i] && str[i] == '=' && !env->key[i])
 	{
 		i++;
 		free(env->value);
-		env->value = malloc((sizeof (char)) * (ft_strlen(&str[i] + 1)));
+		if (str[i] == 0)
+			len = 1;
+		else
+			len = ft_strlen(str + i) + 1;
+		env->value = malloc((sizeof (char)) * len);
+		printf("len = %d\n", len);
+		printf("str = %s\n", str);
 		while (str[i])
 		{
 			env->value[j] = str[i];
@@ -79,7 +85,6 @@ char	*fill_new_key(char *str, int end)
 		j++;
 	}
 	key[j] = '\0';
-
 	return (key);
 }
 

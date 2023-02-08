@@ -20,6 +20,7 @@
 		"string_view": "c",
 		"garbage_collector.h": "c",
 		"limits.h": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"builtin.h": "c"
 	}
 }

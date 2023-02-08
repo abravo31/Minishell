@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 14:37:24 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 19:53:51 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,20 @@ t_env	*new_env(char *key, char *value)
 	return (elem);
 }
 
-void	ft_pop_list(t_list **begin_list, t_list *cur, t_list *rmv, t_list *prev)
+void	ft_join_pop(t_list *cur, t_list *rmv)
 {
-	t_list	*tmp;
+	t_list	*prev;
+	t_cmd	*cmd;
+	t_cmd	*cmd_next;
 
-	while (cur)
-	{
-		if (cur == rmv)
-		{
-			if (prev == NULL)
-			{
-				tmp = *begin_list;
-				*begin_list = (*begin_list)->next;
-				free(tmp);
-			}
-			else
-			{
-				tmp = cur->next;
-				prev->next = cur->next;
-				free(cur);
-			}
-			cur = tmp;
-		}
-		prev = cur;
-		if (cur)
-			cur = cur->next;
-	}
+	cmd = (t_cmd *)cur->content;
+	cmd_next = (t_cmd *)rmv->content;
+	cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
+	cmd->space = cmd_next->space;
+	prev = cur;
+	cur->next = cur->next->next;
+	free(rmv->content);
+	free(rmv);
 }
 
 void	ft_dup_list(t_minishell *msh)
@@ -65,18 +53,13 @@ void	ft_dup_list(t_minishell *msh)
 	while (list)
 	{
 		cmd = (t_cmd *)list->content;
-		if (cmd->cmd && cmd->cmd[0])
+		dup_char = ft_strdup(cmd->cmd);
+		if (!dup_char)
 		{
-			dup_char = ft_strdup(cmd->cmd);
-			if (!dup_char)
-			{
-				free_garbage_collector(ALL);
-				printf("error while duplicating a delimitor\n");
-				return ;
-			}
+			free_garbage_collector(ALL);
+			printf("error while duplicating a delimitor\n");
+			return ;
 		}
-		else
-			dup_char = NULL;
 		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
 		if (i == 0)
 		{
@@ -90,28 +73,13 @@ void	ft_dup_list(t_minishell *msh)
 	}
 }
 
-void	join_elems(t_list *list, t_cmd *cmd, t_cmd *cmd_next)
+int	ft_should_join(t_cmd *cmd, t_cmd *cmd_next)
 {
 	if ((cmd->id >= D_QUOTE && cmd->id <= WORD) && \
 	(cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && cmd->space == 0)
-	{
-		while (cmd && cmd_next && (cmd->id >= D_QUOTE && cmd->id <= WORD) && \
-		(cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && \
-		cmd->space == 0 && cmd_next->space == 0 && list && list->next)
-		{
-			cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
-			ft_pop_list(&list, list, list->next, NULL);
-			if (list->next)
-				cmd_next = (t_cmd *)list->next->content;
-		}
-		if ((cmd->id >= D_QUOTE && cmd->id <= WORD) && \
-		(cmd_next->id >= D_QUOTE && cmd_next->id <= WORD) && list && list->next)
-		{
-			cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
-			ft_pop_list(&list, list, list->next, NULL);
-		}
-	}
-} 
+		return (1);
+	return (0);
+}
 
 void	ft_join_quote(t_minishell *msh)
 {
@@ -124,10 +92,14 @@ void	ft_join_quote(t_minishell *msh)
 	{
 		cmd = (t_cmd *)list->content;
 		cmd_next = (t_cmd *)list->next->content;
-		join_elems(list, cmd, cmd_next);
+		if (ft_should_join(cmd, cmd_next))
+			ft_join_pop(list, list->next);
 		if (cmd->id >= D_QUOTE && cmd->id < WORD)
 			cmd->id = WORD;
-		list = list->next;
+		if (list->next)
+			cmd_next = (t_cmd *)list->next->content;
+		if (list->next && !ft_should_join(cmd, cmd_next))
+			list = list->next;
 	}
 	if (list)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2-d]export_sort.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:08:10 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 14:20:19 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 20:38:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,27 +103,24 @@ char	*env_to_str(t_list *env_lst, char *env, t_env *env_var)
 	return (env);
 }
 
-void	print_sorted_env(t_list *env)
+void	print_sorted_env(t_minishell *msh)
 {
 	int		i;
 	char	**tab;
-	char	*str;
-	char	*env_tab;
 
-	if (!(env_tab = malloc(sizeof(char) * size_env(env) + 1)))
-		return ;
-	str = env_to_str(env, env_tab, NULL);
-	printf("str : %s\n", str);
-	tab = ft_split(str, '\n');
-	free(str);
+	tab = msh->envp;
 	sort_env(tab, str_env_len(tab));
 	i = 0;
 	while (tab[i])
 	{
+		if (tab[i][0] == 0)
+		{
+			i++;
+			continue ;
+		}
 		ft_putstr("declare -x ");
 		ft_putstr(tab[i]);
 		printf("\n");
 		i++;
 	}
-	ft_free_tab(tab);
 }

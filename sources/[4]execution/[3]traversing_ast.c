@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:21:25 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 03:15:03 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 21:25:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	simple_command_traverse(t_minishell *msh, t_ast *root, int *i)
 		args = get_char_double_ptr(left->data);
 	if (execve(file, args, msh->envp) == -1)
 	{
-		print_error(file, ": command not found\n", 127);
+		print_error(file, ": command not found", 127);
 		free_garbage_collector(ALL);
 	}
 	if (!right)
