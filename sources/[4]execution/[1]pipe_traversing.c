@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:12:02 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 03:33:33 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:58:12 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	pid = fork();
 	if (pid < 0)
 		error_safe_exit("FORK ERROR\n", 1);
+	signal(SIGQUIT, handle_sigint_child);
+	signal(SIGINT, handle_sigint_child);
 	if (pid == 0)
 		child_sequence_traverse(msh, root, i);
 	parent_seq_traverse(msh, root, i, pid);
@@ -50,8 +52,6 @@ void	child_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	close(msh->fd_dup[0]);
 	close(msh->fd_dup[1]);
 	//setup_sig_child();
-	signal(SIGQUIT, handle_sigint_child);
-	signal(SIGINT, handle_sigint_child);
 	main_execution(msh, left, i);
 	free_garbage_collector(ALL);
 	exit(EXIT_SUCCESS);
@@ -65,7 +65,7 @@ void	parent_seq_traverse(t_minishell *msh, t_ast *root, int *i, pid_t pid)
 	left = root->left;
 	right = root->right;
 	add_pid_to_list(msh, pid);
-	sig_ignore_all();
+	//sig_ignore_all();
 	close(left->pipe_fd[1]);
 	dup2(left->pipe_fd[0], STDIN_FILENO);
 	close(left->pipe_fd[0]);

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 03:38:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 03:54:40 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	wait_for_children(t_minishell *msh)
 		if (waitpid(*(pid_t *)current->content, &status, 0) < 0)
 			break ;
 		if (WTERMSIG(status) == 2)
-			ft_putstr_fd("\n", 2);
+			ft_putstr_fd("\n", 1);
 		else if (WTERMSIG(status) == 3)
 			ft_putstr_fd("Quit (core dumped)\n", 2);
 		if (WIFEXITED(status))
