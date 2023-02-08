@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 21:20:50 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 00:17:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*getcwd_until_path_fits(void)
 		else if (errno == EACCES)
 			errors_messages_cases("cd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			errors_messages_cases("cd: error: no such file or directory", 1);
+			errors_messages_cases("cd: error: No such File or directory", 1);
 		else
 			errors_messages_cases("cd: error: unknown error", 1);
 	}
@@ -97,7 +97,7 @@ void	new_path_normal(t_minishell *msh, t_ast *root)
 	{
 		path = getcwd_until_path_fits();
 		if (path == NULL)
-			return (error_safe_exit("cd: error: unknown error", 1));
+			return ;
 		add_to_garbage_collector(path, INT);
 		modify_env_value(msh->env, "PWD", path);
 	}
