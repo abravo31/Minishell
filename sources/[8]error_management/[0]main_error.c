@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 20:11:14 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 23:49:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,11 @@ void	errors_messages_cases(char *msg, int error_code)
 		print_error(msg, ": No such file or directory", 1);
 	else if (error_code == 127)
 		print_error(msg, ": command not found", 127);
+	else if (error_code == 99)
+		print_error(msg, "", 2);
+	else if (error_code == 401)
+		print_error(msg, "", 2);
 	else
 		perror(msg);
-	g_status = error_code;
+	//g_status = error_code;
 }

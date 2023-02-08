@@ -29,6 +29,8 @@ int	builtin_unset(t_minishell *msh, t_ast *root)
 	i = 1;
 	while (arg[i])
 	{
+		if (arg[i][0] == '-' && ft_strlen(arg[i]) > 1)
+			return (errors_messages_cases("unset : invalid option", 401), 1);
 		unset_env_value(env, arg[i]);
 		i++;
 	}
