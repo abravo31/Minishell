@@ -42,18 +42,19 @@ int	check_if_key(t_env *env, char *str)
 
 	i = 0;
 	j = 0;
-	while (env->key[i] && str[i] == env->key[i])
+	while (env && env->key && env->key[i] && str[i] == env->key[i])
 		i++;
 	if (str[i] && str[i] == '=' && !env->key[i])
 	{
 		i++;
-		printf("llenght of key %d\n,", i);
 		free(env->value);
 		if (str[i] == 0)
 			len = 1;
 		else
-			len = ft_strlen(&str[i] + 1);
+			len = ft_strlen(str + i) + 1;
 		env->value = malloc((sizeof (char)) * len);
+		printf("len = %d\n", len);
+		printf("str = %s\n", str);
 		while (str[i])
 		{
 			env->value[j] = str[i];
