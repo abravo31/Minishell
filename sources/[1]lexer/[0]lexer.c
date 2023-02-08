@@ -3,23 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 20:11:06 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 23:01:45 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_space(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
+}
 
 void	iter_prompt(t_minishell *msh, char **str, int i)
 {
 	while (msh->prompt[++i] && !msh->parsing_error)
 	{
 		check_parsing_errors(msh, 0);
-		if (msh->prompt[i] == ' ')
+		if (is_space(msh->prompt[i]))
 			delimitor(str, msh, 1);
-		else if (msh->prompt[i] != ' ' && (msh->prompt[i] != '\'' \
+		else if (!is_space(msh->prompt[i]) && (msh->prompt[i] != '\'' \
 		&& msh->prompt[i] != '\"'))
 		{
 			if ((is_token(msh->prompt[i]) && *str && !is_token(*str[0]))
@@ -32,8 +39,8 @@ void	iter_prompt(t_minishell *msh, char **str, int i)
 		}
 		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
 		{			
-			if (i > 0 && !is_token(msh->prompt[i - 1]) \
-			&& msh->prompt[i - 1] != ' ')
+			if ((i > 0 && !is_token(msh->prompt[i - 1])) \
+			&& !is_space(msh->prompt[i - 1]))
 				delimitor(str, msh, 0);
 			i = is_quote(msh, i, &msh->prompt, 0);
 		}

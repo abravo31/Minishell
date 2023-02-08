@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 02:08:20 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/08 23:06:17 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	get_char(char c, char **cmd);
 int		is_identical(char *s1, char *s2);
 void	reset_and_free(t_minishell *msh);
 char	*ft_strjoin_cmd(char *s1, char *s2);
+int		is_space(char c);
 
 /*############################################################################*/
 /*                              LINKED LIST FT                                */

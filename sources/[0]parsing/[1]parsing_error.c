@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]parsing_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:18:53 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 19:55:57 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/08 23:04:07 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	is_quote(t_minishell *msh, int pos, char **cmd, int space)
 	{	
 		msh->parsing_error = syntax_error('\n');
 	}
-	if (str[pos] && str[pos] == ' ')
+	if (str[pos] && is_space(str[pos]))
 		space = 1;
 	if (ret)
 	{
