@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 23:01:45 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/08 23:34:58 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	iter_prompt(t_minishell *msh, char **str, int i)
 	while (msh->prompt[++i] && !msh->parsing_error)
 	{
 		check_parsing_errors(msh, 0);
+		if (msh->prompt[i] == '$'
+			&& (msh->prompt[i + 1] == '"' || msh->prompt[i + 1] == '\''))
+			msh->prompt[i] = ' ';
 		if (is_space(msh->prompt[i]))
 			delimitor(str, msh, 1);
 		else if (!is_space(msh->prompt[i]) && (msh->prompt[i] != '\'' \
