@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 18:12:19 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 02:57:00 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,21 +104,10 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 void	get_env(char **env, t_minishell *msh)
 {
 	int		i;
-	// t_list	*new;
-	// t_env	*temp;
 
 	i = -1;
-	if (!env)
+	if (!env[0])
 	{
-		// temp = new_env(NULL, NULL);
-		// if (temp == NULL)
-		// 	error_safe_exit("malloc error", 1);
-		// new = ft_lstnew((void *)temp);
-		// if (new == NULL)
-		// 	error_safe_exit("malloc error", 1);
-		// msh->env = new;
-		// add_to_garbage_collector((void *)&msh->env, ENV);
-		printf("env is empty");
 		initilialize_emtpy_env(msh);
 		return ;
 	}
@@ -136,7 +125,7 @@ void	initilialize_emtpy_env(t_minishell *msh)
 	pwd = getcwd_until_path_fits();
 	if (pwd == NULL)
 		return (error_safe_exit("pwd: error: unknown error", 1));
-	temp = new_env("PWD", pwd);
+	temp = new_env(ft_strdup("PWD"), pwd);
 	if (temp == NULL)
 		error_safe_exit("malloc error", 1);
 	new = ft_lstnew((void *)temp);
@@ -144,7 +133,7 @@ void	initilialize_emtpy_env(t_minishell *msh)
 		error_safe_exit("malloc error", 1);
 	msh->env = new;
 	add_to_garbage_collector((void *)&msh->env, ENV);
-	temp = new_env("SHLVL", "1");
+	temp = new_env(ft_strdup("SHLVL"), ft_strdup("1"));
 	if (temp == NULL)
 		error_safe_exit("malloc error", 1);
 	new = ft_lstnew((void *)temp);
