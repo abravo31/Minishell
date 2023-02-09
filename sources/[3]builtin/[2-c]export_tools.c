@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 22:10:44 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/09 02:29:06 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 04:58:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_valid_export(const char *env)
 	{
 		while (env[i] == '_')
 			i++;
-		if (ft_isalnum(env[i]) == 0)
+		if (ft_isalnum(env[i]) == 0 && env[i] != '=')
 		{
 			tmp = compose_error_message("minishell: export: `", (char *)env, "': not a valid identifier");
 			errors_messages_cases(tmp, 502);

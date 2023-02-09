@@ -1,50 +1,20 @@
-env | grep "_="
 .
 ..
+echo \" \" \" \"\"\" \'\'\'
 echo $USER $123456789USER $USER123456789
 echo $USER $USER9999 $USER8888 $USER7777
 echo $USER $USER9999 $USER8888 $USER7777 "$USER"
-env | grep "_="
 export | grep "SHLVL"
 export | grep "OLDPWD"
 export | grep "PWD"
-export $?
 export --TEST=123
-export ""=""
-export ''=''
-export "="="="
-export '='='='
 export TE\ST=100
-export TE-ST=100
 export -TEST=100
-export TEST-=100
 export | grep "SHLVL"
-export ==========
-export 1TEST=
-export ""=""
-export TE+S=T=""
-export TES\\T=123
-export TES.T=123
-export TES\$T=123
-export TES\\T
-export TES.T=123
-export TES+T=123
-export TES}T=123
-export TES{T=123
-export TES-T=123
 export -TEST=123
 export TEST_=123
-export TE*ST=123
-export TES#T=123
-export TES@T=123
-export TES!T=123
-export =============123
-export +++++++=123
 export ________=123
-export TES^T=123
-export TES!T=123
-export TES~T=123
-export TEST+=10v
+export TEST+=100
 exit 0 0
 exit 42 42
 exit -42 -24
