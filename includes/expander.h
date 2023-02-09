@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 17:55:55 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 04:02:06 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void		ft_dup_list(t_minishell *msh);
 void		ft_join_quote(t_minishell *msh);
 t_env		*new_env(char *key, char *value);
 void		check_tild(t_minishell *msh);
+void		increment_shlvl(t_minishell *msh);
+void		create_add_shlvl(t_minishell *msh);
 void		__debug_env(t_minishell *msh);
 
 #endif
