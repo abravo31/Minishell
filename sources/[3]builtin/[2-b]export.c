@@ -53,8 +53,6 @@ int	check_if_key(t_env *env, char *str)
 		else
 			len = ft_strlen(str + i) + 1;
 		env->value = malloc((sizeof (char)) * len);
-		printf("len = %d\n", len);
-		printf("str = %s\n", str);
 		while (str[i])
 		{
 			env->value[j] = str[i];

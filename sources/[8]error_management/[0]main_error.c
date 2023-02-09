@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 00:28:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 02:23:10 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,25 @@ void	errors_messages_cases(char *msg, int error_code)
 		print_error(msg, "", 2);
 	else if (error_code == 401)
 		print_error(msg, "", 2);
+	else if (error_code == 501)
+		print_error(msg," not a valid identifier", 1);
 	else
 		print_error(msg, "", 1);
 	//g_status = error_code;
+}
+
+char	*compose_error_message(char *msg1, char *msg2, char *msg3)
+{
+	char	*msg;
+	char	*final_msg;
+
+	msg = ft_strjoin(msg1, msg2);
+	if (!msg)
+		return (error_safe_exit("malloc error", 99), NULL);
+	final_msg = ft_strjoin(msg, msg3);
+	free(msg);
+	if (!final_msg)
+		return (error_safe_exit("malloc error", 99), NULL);
+	add_to_garbage_collector((void *)final_msg, INT);
+	return (final_msg);
 }

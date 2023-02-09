@@ -4,16 +4,6 @@ env | grep "_="
 echo $USER $123456789USER $USER123456789
 echo $USER $USER9999 $USER8888 $USER7777
 echo $USER $USER9999 $USER8888 $USER7777 "$USER"
-cd /Users
-cd "doesntexist"
-cd "doesntexist" 2>/dev/null
-cd "wtf" 2>/dev/null
-cd ?
-cd +
-cd _
-cd woof
-cd bark bark
-cd $OLDPWD/something
 env | grep "_="
 export | grep "SHLVL"
 export | grep "OLDPWD"
