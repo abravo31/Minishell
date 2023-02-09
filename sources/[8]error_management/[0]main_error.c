@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 02:23:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:59:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void	errors_messages_cases(char *msg, int error_code)
 		print_error(msg," not a valid identifier", 1);
 	else
 		print_error(msg, "", 1);
-	//g_status = error_code;
 }
 
 char	*compose_error_message(char *msg1, char *msg2, char *msg3)

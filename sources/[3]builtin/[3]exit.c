@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 05:25:21 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 22:39:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	if (root->right)
 	{
 		cmd = root->right->left->arg;
-		if ((is_numeric(cmd[1]) == 0 && cmd[1][0] != '-')
+		if ((is_numeric(cmd[1]) == 0)
 			|| !is_big_number(ft_atoll(cmd[1]), cmd[1]))
 			exit_code = 2;
 		else if (cmd[2] != NULL)
@@ -51,6 +51,5 @@ long long	transform_exit_code(char *cmd)
 	exit_code = ft_atoll(cmd) % 256;
 	if (exit_code < 0)
 		exit_code += 256;
-	ft_putstr_fd(ft_itoa(exit_code), 2);
 	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 21:48:47 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 23:06:25 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 22:56:09 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ int	is_big_number(long long num, char *str)
 	char		c;
 	int			last_digit;
 
+	if (num < 0)
+		num = -num;
 	i = ft_strlen(str) - 1;
 	c = str[i];
 	last_digit = num % 10;
 	num = num / 10;
-	while (c == (48 + last_digit) && i && num)
+	while (c == (48 + last_digit) && i)
 	{
 		c = str[--i];
 		last_digit = num % 10;
@@ -85,8 +87,8 @@ int	is_big_number(long long num, char *str)
 	}
 	while (c == '0' && i)
 		c = str[--i];
-	if (c == '-' || c == '+')
-		i--;
+	if ((c == '-' || c == '+') && i == 0)
+		return (1);
 	if (i)
 		return (0);
 	return (1);
