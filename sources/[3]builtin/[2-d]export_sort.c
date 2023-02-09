@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:08:10 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 20:38:29 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 02:30:25 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ void	print_sorted_env(t_minishell *msh)
 			i++;
 			continue ;
 		}
-		ft_putstr("declare -x ");
-		ft_putstr(tab[i]);
-		printf("\n");
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(tab[i], 1);
+		ft_putstr_fd("\n", 1);
 		i++;
 	}
 }
