@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 04:26:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 23:45:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,6 @@ void	reset_and_free(t_minishell *msh)
 	msh->path = NULL;
 }
 
-void	clean_exit(t_minishell *msh)
-{
-	printf("\n=======\nCLEAN EXIT\n=======\n");
-	printf("propmt before freeing it's memory: %s\n", msh->prompt);
-	free(msh->prompt);
-}
-
 int	launch_normal(int argc, char **argv, char **envp)
 {
 	t_minishell	msh;
@@ -148,11 +141,10 @@ int	launch_normal(int argc, char **argv, char **envp)
 	if (msh.prompt)
 		free(msh.prompt);
 	free_garbage_collector(ALL);
+	rl_clear_history();
 	close(tmp_fd[0]);
 	close(tmp_fd[1]);
 	printf("exit\n");
-	// free(msh.prompt);
-	clean_exit(&msh);
 	return (0);
 }
 
@@ -211,8 +203,6 @@ int	launch_minishell(char *cmd, char **envp)
 	close(tmp_fd[0]);
 	close(tmp_fd[1]);
 	// printf("exit\n");
-	// free(msh.prompt);
-	// clean_exit(&msh);
 	return (0);
 }
 

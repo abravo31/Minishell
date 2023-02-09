@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:02:50 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 17:59:57 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 23:43:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	error_safe_exit(char *msg, int error_code)
 		g_status = errno;
 	errors_messages_cases(msg, g_status);
 	free_garbage_collector(ALL);
+	rl_clear_history();
 	exit(g_status);
 }
 
