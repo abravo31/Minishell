@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 18:46:15 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:15:49 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_space(char c)
+void	cmd_without_quotes(t_minishell *msh, char prompt, char **str)
 {
-	if ((c >= 9 && c <= 13) || c == ' ')
-		return (1);
-	return (0);
+	if ((is_token(prompt) && *str && !is_token(*str[0]))
+		|| (!is_token(prompt) && *str && is_token(*str[0])))
+		delimitor(str, msh, 0);
+	if ((prompt == '>' || prompt == '<') \
+		&& *str && *str[0] == '|')
+		delimitor(str, msh, 0);
 }
 
 void	iter_prompt(t_minishell *msh, char **str, int i)
@@ -32,12 +35,7 @@ void	iter_prompt(t_minishell *msh, char **str, int i)
 		else if (!is_space(msh->prompt[i]) && (msh->prompt[i] != '\'' \
 		&& msh->prompt[i] != '\"'))
 		{
-			if ((is_token(msh->prompt[i]) && *str && !is_token(*str[0]))
-				|| (!is_token(msh->prompt[i]) && *str && is_token(*str[0])))
-				delimitor(str, msh, 0);
-			if ((msh->prompt[i] == '>' || msh->prompt[i] == '<') \
-			&& *str && *str[0] == '|')
-				delimitor(str, msh, 0);
+			cmd_without_quotes(msh, msh->prompt[i], str);
 			get_char(msh->prompt[i], str);
 		}
 		else if (msh->prompt[i] == '\'' || msh->prompt[i] == '\"')
@@ -121,60 +119,17 @@ void	delimitor(char **cmd, t_minishell *msh, int space)
 	*cmd = NULL;
 }
 
-// Function that returns 1 or 0 weither c is a token or not
-int	is_token(char c)
-{
-	size_t				i;
-	static const char	*tokens[] = {
-		">",
-		"<",
-		"|",
-		NULL,
-	};
+// void	__debug_parsing(t_list *cmd)
+// {
+// 	t_list	*iter;
+// 	t_cmd	*current;
 
-	i = 0;
-	while (tokens[i])
-	{
-		if (tokens[i][0] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-// Function to return corresponding token from string
-t_token	eval_token(char *cmd)
-{
-	if (cmd[0] == '\"')
-		return (D_QUOTE);
-	if (cmd[0] == '\'')
-		return (S_QUOTE);
-	if (is_identical(">", cmd))
-		return (R_REDIR);
-	else if (is_identical(">>", cmd))
-		return (R_DREDIR);
-	else if (is_identical("<", cmd))
-		return (L_REDIR);
-	else if (is_identical("<<", cmd))
-		return (L_DREDIR);
-	else if (is_identical("|", cmd))
-		return (PIPE);
-	else if (!is_token(cmd[0]))
-		return (WORD);
-	return (UNASSIGNED);
-}
-
-void	__debug_parsing(t_list *cmd)
-{
-	t_list	*iter;
-	t_cmd	*current;
-
-	iter = cmd;
-	current = NULL;
-	while (iter)
-	{
-		current = (t_cmd *) iter->content;
-		printf("(%d){%d}[%s]\n", current->space, current->id, current->cmd);
-		iter = iter->next;
-	}
-}
+// 	iter = cmd;
+// 	current = NULL;
+// 	while (iter)
+// 	{
+// 		current = (t_cmd *) iter->content;
+// 		printf("(%d){%d}[%s]\n", current->space, current->id, current->cmd);
+// 		iter = iter->next;
+// 	}
+// }

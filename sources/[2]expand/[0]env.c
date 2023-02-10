@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 19:26:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:20:50 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,21 @@ char	*str_from_range(char *env, int start, int size)
 	return (str);
 }
 
+void	handle_env_null(t_minishell *msh, char *key, char *value)
+{
+	t_list	*new;
+
+	new = ft_lstnew((void *)new_env(key, value));
+	if (new == NULL)
+		error_safe_exit("malloc error", 1);
+	msh->env = new;
+	add_to_garbage_collector((void *)&msh->env, ENV);
+}
+
 void	env_iter(t_minishell *msh, char *env, int j, int k)
 {
 	char	*key;
 	char	*value;
-	t_list	*new;
 
 	while (env[j] != '=')
 		j++;
@@ -88,15 +98,12 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 		k++;
 	value = str_from_range(env, j, k);
 	if (!value)
-		return ;
-	if (msh->env == NULL)
 	{
-		new = ft_lstnew((void *)new_env(key, value));
-		if (new == NULL)
-			error_safe_exit("malloc error", 1);
-		msh->env = new;
-		add_to_garbage_collector((void *)&msh->env, ENV);
+		free(key);
+		return ;
 	}
+	if (msh->env == NULL)
+		handle_env_null(msh, key, value);
 	else
 		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
 }

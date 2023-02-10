@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/10 19:36:08 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:14:13 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,9 @@ void	get_char(char c, char **cmd)
 	*cmd = tmp;
 }
 
-//Function to display syntax error at character where.
-char	*syntax_error(char where)
+int	is_space(char c)
 {
-	char	*ret;
-
-	if (where == '\n')
-	{
-		ret = ft_strdup("syntax error near unexpected token \'newline\'");
-		if (!ret)
-			return (NULL);
-		add_to_garbage_collector((void *)ret, INT);
-		return (ret);
-	}
-	ret = ft_strdup("syntax error near unexpected token \'?\'");
-	if (!ret)
-		return (NULL);
-	add_to_garbage_collector((void *)ret, INT);
-	ret[ft_strlen(ret) - 2] = where;
-	return (ret);
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
 }
