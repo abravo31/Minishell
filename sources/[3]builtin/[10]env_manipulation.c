@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [10]env_manipulation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 23:48:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 21:11:15 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 23:48:06 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,10 @@ void	modify_env_value(t_list *env, char *key, char *value)
 	}
 }
 
-void	list_env_to_char_env(t_minishell *msh)
+void	tmp_iter(t_minishell *msh, t_list *tmp, int i, char *buffer)
 {
-	t_list	*tmp;
 	t_env	*env_var;
-	char	*buffer;
-	char	**env_char;
-	int		i;
 
-	i = 0;
-	env_char = malloc(sizeof(char *) * (ft_lstsize(msh->env) + 1));
-	if (env_char == NULL)
-		error_safe_exit("cd: error: unknown error", 1);
-	msh->envp = env_char;
-	add_to_garbage_collector(msh->envp, D_INT);
-	tmp = msh->env;
 	while (tmp)
 	{
 		env_var = tmp->content;
@@ -87,4 +76,18 @@ void	list_env_to_char_env(t_minishell *msh)
 		i++;
 	}
 	msh->envp[i] = NULL;
+}
+
+void	list_env_to_char_env(t_minishell *msh)
+{
+	t_list	*tmp;
+	char	**env_char;
+
+	env_char = malloc(sizeof(char *) * (ft_lstsize(msh->env) + 1));
+	if (env_char == NULL)
+		error_safe_exit("cd: error: unknown error", 1);
+	msh->envp = env_char;
+	add_to_garbage_collector(msh->envp, D_INT);
+	tmp = msh->env;
+	tmp_iter(msh, tmp, 0, NULL);
 }

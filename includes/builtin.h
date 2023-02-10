@@ -72,13 +72,13 @@ void		new_path_normal(t_minishell *msh, t_ast *root);
 void		list_env_to_char_env(t_minishell *msh);
 void		unset_env_value(t_list *env, char *key);
 t_env		*new_env(char *key, char *value);
-void		export_env_value(t_minishell *msh, t_list *env, char *str);
+void		export_env_value(t_minishell *msh, t_list *env, char *str, int i);
 int			is_valid_export(const char *env);
 void		print_sorted_env(t_minishell *msh);
 int			str_env_len(char **env);
 void		ft_free_tab(char **tab);
 void		print_env(char **envp);
 void		initilialize_emtpy_env(t_minishell *msh);
-char	    *getcwd_pwd(void);
+char		*getcwd_pwd(void);
 
 #endif

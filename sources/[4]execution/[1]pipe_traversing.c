@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]pipe_traversing.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:12:02 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 03:58:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 23:49:17 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	child_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	close(left->pipe_fd[0]);
 	close(msh->fd_dup[0]);
 	close(msh->fd_dup[1]);
-	//setup_sig_child();
 	main_execution(msh, left, i);
 	free_garbage_collector(ALL);
 	exit(EXIT_SUCCESS);
@@ -65,7 +64,6 @@ void	parent_seq_traverse(t_minishell *msh, t_ast *root, int *i, pid_t pid)
 	left = root->left;
 	right = root->right;
 	add_pid_to_list(msh, pid);
-	//sig_ignore_all();
 	close(left->pipe_fd[1]);
 	dup2(left->pipe_fd[0], STDIN_FILENO);
 	close(left->pipe_fd[0]);

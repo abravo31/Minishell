@@ -29,21 +29,17 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 	while (arg[i])
 	{
 		if (is_valid_export(arg[i]))
-			export_env_value(msh, env, arg[i]);
+			export_env_value(msh, env, arg[i], 0);
 		i++;
 	}
 	g_status = 0;
 	return (1);
 }
 
-int	check_if_key(t_env *env, char *str)
+int	check_if_key(t_env *env, char *str, int i, int j)
 {
-	int	i;
-	int	j;
 	int	len;
 
-	i = 0;
-	j = 0;
 	while (env && env->key && env->key[i] && str[i] == env->key[i])
 		i++;
 	if (str[i] && str[i] == '=' && !env->key[i++])
@@ -115,20 +111,19 @@ char	*fill_new_value(char *str, int start, int j, int i)
 	return (value);
 }
 
-void	export_env_value(t_minishell *msh, t_list *env, char *str)
+void	export_env_value(t_minishell *msh, t_list *env, char *str, int i)
 {
 	t_env	*env_var;
 	t_list	*tmp;
 	char	*key;
 	char	*value;
-	int		i;
+	t_list	*new;
 
 	tmp = env;
-	i = 0;
 	while (tmp)
 	{
 		env_var = tmp->content;
-		if (check_if_key(env_var, str) == 1)
+		if (check_if_key(env_var, str, 0, 0) == 1)
 			return ;
 		tmp = tmp->next;
 	}
@@ -138,7 +133,7 @@ void	export_env_value(t_minishell *msh, t_list *env, char *str)
 		return ;
 	key = fill_new_key(str, i);
 	value = fill_new_value(str, i, 0, 0);
-	t_list	*new = ft_lstnew((void *)new_env(key, value));
+	new = ft_lstnew((void *)new_env(key, value));
 	if (!new)
 		error_safe_exit("Malloc failed", 1);
 	ft_lstadd_back(&msh->env, new);

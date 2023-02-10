@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 20:54:44 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 23:19:27 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ char		**ft_split_expand(char const *s);
 size_t		ft_nbr_clm(char const *s);
 void		insert_to_list(int i, char *insert, t_list **iter);
 int			env_iter(t_minishell *msh, char *env, int j, int k);
+char		*ft_get_status(t_minishell *msh, int *n, int *i);
 
 #endif

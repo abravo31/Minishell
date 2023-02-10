@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 00:25:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 23:15:59 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,18 @@ char	*getcwd_until_path_fits(void)
 	return (path);
 }
 
+void	if_chdir(t_minishell *msh, char *path)
+{
+	path = getcwd_until_path_fits();
+	if (path == NULL)
+		return (errors_messages_cases("cd: error: unknown error", 1));
+	add_to_garbage_collector(path, INT);
+	modify_env_value(msh->env, "PWD", path);
+}
+
 void	new_path_empty(t_minishell *msh)
 {
 	char	*home;
-	char	*path;
 
 	home = get_env_value_build(msh->env, "HOME");
 	if (home == NULL)
@@ -67,18 +75,13 @@ void	new_path_empty(t_minishell *msh)
 			if (errno == EACCES)
 				errors_messages_cases("cd: error: permission denied", 1);
 			else if (errno == ENOENT)
-				errors_messages_cases("cd: error: no such file or directory", 1);
+				errors_messages_cases("cd: error: no such file \
+				or directory", 1);
 			else
 				errors_messages_cases("cd: error: unknown error", 1);
 		}
 		else
-		{	
-			path = getcwd_until_path_fits();
-			if (path == NULL)
-				return (errors_messages_cases("cd: error: unknown error", 1));
-			add_to_garbage_collector(path, INT);
-			modify_env_value(msh->env, "PWD", path);
-		}
+			if_chdir(msh, NULL);
 	}
 }
 
