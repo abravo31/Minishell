@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 04:09:45 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:39:07 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_boost(int id, char *s1, char *s2, int size)
 	s2len = ft_strlen(s2);
 	temp = ft_calloc(s1len + s2len + size + 1, 1);
 	if (!temp)
-		return (free(s1), error_safe_exit("Malloc failed", 1), NULL);
+		return (free(s1), error_message("Malloc failed : boost", 1), NULL);
 	ft_strcpy(temp, s1);
 	ft_strcpy(temp + s1len, s2);
 	free(s1);

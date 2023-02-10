@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 03:05:09 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:40:30 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ t_env	*new_env(char *key, char *value)
 {
 	t_env	*elem;
 
+	if (!key || !value)
+		return (NULL);
 	elem = malloc(sizeof(t_env));
 	if (!elem)
-		return (NULL);
+		return (free (key), free(value), NULL);
 	elem->key = key;
 	elem->value = value;
 	return (elem);
@@ -32,6 +34,8 @@ void	ft_join_pop(t_list *cur, t_list *rmv)
 	cmd = (t_cmd *)cur->content;
 	cmd_next = (t_cmd *)rmv->content;
 	cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
+	if (!cmd->cmd)
+		error_safe_exit("Malloc failed join_pop", 1);
 	cmd->space = cmd_next->space;
 	cur->next = cur->next->next;
 	free(rmv->content);
@@ -52,11 +56,9 @@ void	ft_dup_list(t_minishell *msh)
 	{
 		cmd = (t_cmd *)list->content;
 		dup_char = ft_strdup(cmd->cmd);
-		if (!dup_char)
-			error_safe_exit("Malloc failed", 1);
 		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
 		if (!new)
-			error_safe_exit("Malloc failed", 1);
+			error_safe_exit("Malloc failed dup_list 2 ", 1);
 		if (i == 0)
 		{
 			msh->cmd_expand = new;

@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:25:29 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/08 19:45:27 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 19:36:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 	else
 		str = ft_strdup("");
 	if (!str)
-		error_safe_exit("Malloc failed", 1);
+		return (NULL);
 	if (s1)
 		free(s1);
 	if (s2)
@@ -70,11 +70,15 @@ void	get_char(char c, char **cmd)
 	if (!*cmd)
 	{
 		*cmd = ft_strdup("?");
+		if (!*cmd)
+			return (*cmd = NULL, error_message("Malloc failed", 1));
 		*cmd[0] = c;
 		return ;
 	}
 	tmp = ft_strjoin(*cmd, "?");
 	free(*cmd);
+	if (!tmp)
+		return (*cmd = NULL, error_message("Malloc failed", 1));
 	tmp[ft_strlen(tmp) - 1] = c;
 	*cmd = tmp;
 }
@@ -88,23 +92,13 @@ char	*syntax_error(char where)
 	{
 		ret = ft_strdup("syntax error near unexpected token \'newline\'");
 		if (!ret)
-		{
-			free_garbage_collector(ALL);
-			printf("error while adding a delimitor, \
-			still not error or way toe xit this function!\n");
-			exit(2);
-		}
+			return (NULL);
 		add_to_garbage_collector((void *)ret, INT);
 		return (ret);
 	}
 	ret = ft_strdup("syntax error near unexpected token \'?\'");
 	if (!ret)
-	{
-		free_garbage_collector(ALL);
-		printf("error while adding a delimitor, still \
-		not error or way toe xit this function!\n");
-		exit(2);
-	}
+		return (NULL);
 	add_to_garbage_collector((void *)ret, INT);
 	ret[ft_strlen(ret) - 2] = where;
 	return (ret);

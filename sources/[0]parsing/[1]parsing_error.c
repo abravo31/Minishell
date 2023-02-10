@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]parsing_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:18:53 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 23:04:07 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/10 19:29:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	*remove_quote(char *quote)
 	{
 		if (quote[i] != quote[0])
 			get_char(quote[i], &ret);
+		if (!ret)
+			return (NULL);
 		i++;
 	}
 	if (!ret)

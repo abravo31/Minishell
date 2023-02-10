@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 02:28:24 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/10 19:02:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	unlink_heredoc(char *tmp_name, t_cmd *cmd)
 		free(cmd->cmd);
 		cmd->cmd = ft_strdup(tmp_name);
 		if (!cmd->cmd)
-			error_safe_exit("Malloc failed", 1);
+			return (error_message("Malloc failed\n", 1));
 	}
 	get_next_line(-1);
 }

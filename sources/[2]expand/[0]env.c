@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/09 04:02:34 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 19:26:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,10 @@ void	initilialize_emtpy_env(t_minishell *msh)
 		return (error_safe_exit("pwd: error: unknown error", 1));
 	temp = new_env(ft_strdup("PWD"), pwd);
 	if (temp == NULL)
-		error_safe_exit("malloc error", 1);
+		return ;
 	new = ft_lstnew((void *)temp);
 	if (new == NULL)
-		error_safe_exit("malloc error", 1);
+		return (free_env(temp), error_message("malloc error", 1));
 	msh->env = new;
 	add_to_garbage_collector((void *)&msh->env, ENV);
 	create_add_shlvl(msh);
@@ -171,9 +171,9 @@ void	create_add_shlvl(t_minishell *msh)
 
 	temp = new_env(ft_strdup("SHLVL"), ft_strdup("1"));
 	if (temp == NULL)
-		error_safe_exit("malloc error", 1);
+		return (error_message("malloc error", 1));
 	new = ft_lstnew((void *)temp);
 	if (new == NULL)
-		error_safe_exit("malloc error", 1);
+		return (free_env(temp), error_message("malloc error", 1));
 	ft_lstadd_back(&msh->env, new);
 }
