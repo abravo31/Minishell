@@ -21,6 +21,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	long long	exit_code;
 
 	(void)msh;
+	g_status = 0;
 	cmd = NULL;
 	if (root->right)
 	{

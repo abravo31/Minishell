@@ -32,7 +32,10 @@ void	simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 		free_garbage_collector(EXCEPT_ENV);
 	}
 	else
+	{
 		free_garbage_collector(ALL);
+		exit (g_status);
+	}
 	(void)i;
 }
 
@@ -66,6 +69,9 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 		free_garbage_collector(EXCEPT_ENV);
 	}
 	else
+	{
 		free_garbage_collector(ALL);
+		exit (g_status);
+	}
 	(void)i;
 }

@@ -19,6 +19,7 @@ int	builtin_echo(t_minishell *msh, t_ast *root)
 	char	**cmd;
 
 	(void)msh;
+	g_status = 0;
 	if (root->right == NULL)
 		return (ft_putstr_fd("\n", 1), 1);
 	cmd = root->right->left->arg;

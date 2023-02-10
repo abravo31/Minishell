@@ -21,6 +21,7 @@
 		"garbage_collector.h": "c",
 		"limits.h": "c",
 		"type_traits": "c",
-		"builtin.h": "c"
+		"builtin.h": "c",
+		"cerrno": "c"
 	}
 }

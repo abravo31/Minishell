@@ -15,6 +15,8 @@
 
 int	builtin_cd(t_minishell *msh, t_ast *root)
 {
+	
+	g_status = 0;
 	if (root->right == NULL)
 		new_path_empty(msh);
 	else if (root->right)
@@ -45,7 +47,7 @@ char	*getcwd_until_path_fits(void)
 		else if (errno == ENOENT)
 			errors_messages_cases("cd: error: No such File or directory", 1);
 		else
-			errors_messages_cases("cd: error: unknown error", 1);
+			errors_messages_cases(strerror(errno), 1);
 	}
 	return (path);
 }
@@ -73,7 +75,7 @@ void	new_path_empty(t_minishell *msh)
 		{	
 			path = getcwd_until_path_fits();
 			if (path == NULL)
-				return (error_safe_exit("cd: error: unknown error", 1));
+				return (errors_messages_cases("cd: error: unknown error", 1));
 			add_to_garbage_collector(path, INT);
 			modify_env_value(msh->env, "PWD", path);
 		}
