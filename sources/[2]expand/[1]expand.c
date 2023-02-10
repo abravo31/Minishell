@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:16:18 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 23:24:21 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/10 04:09:45 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*expand(char *str, int *index, int *n, t_minishell *msh)
 	return (value);
 }
 
-char	*ft_boost(char *s1, char *s2, int size)
+char	*ft_boost(int id, char *s1, char *s2, int size)
 {
 	char	*temp;
 	size_t	s1len;
@@ -95,6 +95,8 @@ char	*ft_boost(char *s1, char *s2, int size)
 	ft_strcpy(temp, s1);
 	ft_strcpy(temp + s1len, s2);
 	free(s1);
+	if (!temp[0] && id == WORD)
+		return (free(temp), NULL);
 	return (temp);
 }
 
@@ -114,10 +116,8 @@ char	*ft_expand(t_minishell *msh, int id, char *str)
 		while (str[i] && str[i] == '$')
 		{
 			i++;
-			new = ft_boost(new, expand(&str[i], &i, &n, msh), \
-			ft_strlen(&str[i]));
-			if (!new)
-				return (NULL);
+			new = ft_boost(id, new, \
+			expand(&str[i], &i, &n, msh), ft_strlen(&str[i]));
 		}
 		if (!str[i])
 			break ;
@@ -127,20 +127,48 @@ char	*ft_expand(t_minishell *msh, int id, char *str)
 	return (new);
 }
 
-void	expanded_cmd_list(t_minishell *msh)
+void	expanded_cmd_list(t_minishell *msh, t_list *iter)
 {
-	t_list	*iter;
 	t_cmd	*current;
+	char	**tab_cmd;
 	int		i;
+	int		space;
 
-	iter = msh->cmd;
-	current = NULL;
-	i = 0;
+	tab_cmd = NULL;
 	while (iter)
 	{
 		current = (t_cmd *) iter->content;
 		current->cmd = ft_expand(msh, current->id, current->cmd);
+		space = current->space;
+		if (ft_nbr_clm(current->cmd) > 1 && current->id == WORD)
+		{
+			if (!tab_cmd)
+				tab_cmd = ft_split_expand(current->cmd);
+			i = -1;
+			while (tab_cmd && tab_cmd[++i])
+				insert_to_list(i, tab_cmd[i], &iter);
+			((t_cmd *)(iter->content))->space = space;
+		}
 		iter = iter->next;
-		i++;
 	}
+	if (tab_cmd)
+		ft_free_tab(tab_cmd);
 }
+
+// void	expanded_cmd_list(t_minishell *msh)
+// {
+// 	t_list	*iter;
+// 	t_cmd	*current;
+// 	int		i;
+
+// 	iter = msh->cmd;
+// 	current = NULL;
+// 	i = 0;
+// 	while (iter)
+// 	{
+// 		current = (t_cmd *) iter->content;
+// 		current->cmd = ft_expand(msh, current->id, current->cmd);
+// 		iter = iter->next;
+// 		i++;
+// 	}
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]expand_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 19:53:51 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 03:05:09 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_env	*new_env(char *key, char *value)
 
 void	ft_join_pop(t_list *cur, t_list *rmv)
 {
-	t_list	*prev;
 	t_cmd	*cmd;
 	t_cmd	*cmd_next;
 
@@ -34,7 +33,6 @@ void	ft_join_pop(t_list *cur, t_list *rmv)
 	cmd_next = (t_cmd *)rmv->content;
 	cmd->cmd = ft_strjoin_cmd(cmd->cmd, cmd_next->cmd);
 	cmd->space = cmd_next->space;
-	prev = cur;
 	cur->next = cur->next->next;
 	free(rmv->content);
 	free(rmv);
