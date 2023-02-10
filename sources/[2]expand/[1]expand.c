@@ -91,7 +91,7 @@ char	*ft_boost(int id, char *s1, char *s2, int size)
 	s2len = ft_strlen(s2);
 	temp = ft_calloc(s1len + s2len + size + 1, 1);
 	if (!temp)
-		return (free(s1), NULL);
+		return (free(s1), error_safe_exit("Malloc failed", 1), NULL);
 	ft_strcpy(temp, s1);
 	ft_strcpy(temp + s1len, s2);
 	free(s1);
@@ -111,6 +111,8 @@ char	*ft_expand(t_minishell *msh, int id, char *str)
 	if (id == 7)
 		return (str);
 	new = ft_calloc(ft_strlen(str) + 1, 1);
+	if (!new)
+		return (error_safe_exit("Malloc failed", 1), NULL);
 	while (str && str[i])
 	{
 		while (str[i] && str[i] == '$')

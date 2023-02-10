@@ -155,6 +155,8 @@ void	increment_shlvl(t_minishell *msh)
 			shlvl++;
 			free(env->value);
 			env->value = ft_itoa(shlvl);
+			if (env->value == NULL)
+				error_safe_exit("malloc error", 1);
 			return ;
 		}
 		current = current->next;

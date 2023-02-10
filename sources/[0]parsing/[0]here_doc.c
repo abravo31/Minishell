@@ -28,7 +28,7 @@ void	here_doc(t_cmd *cmd, int *i)
 	char		*tmp_name;
 
 	tmp_name = heredoc_init(cmd, i, &delimiter, &tmp);
-	//add_to_garbage_collector((void *)&tmp, FD);
+	add_to_garbage_collector((void *)&tmp, FD);
 	if (singleton_heredoc(0) >= 1 || !tmp_name)
 		return (free(tmp_name), free(delimiter));
 	ft_putstr_fd("heredoc> ", 1);
@@ -58,6 +58,8 @@ void	unlink_heredoc(char *tmp_name, t_cmd *cmd)
 	{
 		free(cmd->cmd);
 		cmd->cmd = ft_strdup(tmp_name);
+		if (!cmd->cmd)
+			error_safe_exit("Malloc failed", 1);
 	}
 	get_next_line(-1);
 }
@@ -84,6 +86,8 @@ char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
 
 	(void)*i;	
 	nbr_tmp = ft_itoa(index);
+	if (!nbr_tmp)
+		return (error_safe_exit("Malloc failed", 1), NULL);
 	tmp_name = ft_strjoin("/tmp/.tmp", nbr_tmp);
 	free(nbr_tmp);
 	if (!tmp_name)

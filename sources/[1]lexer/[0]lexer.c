@@ -101,7 +101,7 @@ void	delimitor(char **cmd, t_minishell *msh, int space)
 	{
 		msh->cmd = ft_lstnew((void *)new_cmd(*cmd, eval_token(*cmd), space));
 		if (!msh->cmd)
-			printf("error while adding a delimitor, but you forgot to free!\n");
+			error_safe_exit("Malloc failed", 1);
 		add_to_garbage_collector((void *)&msh->cmd, CMD);
 	}
 	else

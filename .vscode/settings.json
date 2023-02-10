@@ -26,6 +26,9 @@
 		"system_error": "c",
 		"functional": "c",
 		"tuple": "c",
-		"utility": "c"
+		"utility": "c",
+		"deque": "c",
+		"unordered_map": "c",
+		"vector": "c"
 	}
 }

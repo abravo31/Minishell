@@ -138,5 +138,8 @@ void	export_env_value(t_minishell *msh, t_list *env, char *str)
 		return ;
 	key = fill_new_key(str, i);
 	value = fill_new_value(str, i, 0, 0);
-	ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
+	t_list	*new = ft_lstnew((void *)new_env(key, value));
+	if (!new)
+		error_safe_exit("Malloc failed", 1);
+	ft_lstadd_back(&msh->env, new);
 }

@@ -54,6 +54,8 @@ char	*ft_strjoin_cmd(char *s1, char *s2)
 		str = ft_strjoin(s1, s2);
 	else
 		str = ft_strdup("");
+	if (!str)
+		error_safe_exit("Malloc failed", 1);
 	if (s1)
 		free(s1);
 	if (s2)

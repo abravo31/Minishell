@@ -88,11 +88,17 @@ void	insert_to_list(int i, char *insert, t_list **iter)
 	{
 		free(cur->cmd);
 		cur->cmd = ft_strdup(insert);
+		if (cur->cmd == NULL)
+			error_safe_exit("Malloc failed", 1);
 		cur->space = 1;
 		return ;
 	}
 	cmd_new = new_cmd(ft_strdup(insert), WORD, 1);
+	if (cmd_new == NULL)
+		error_safe_exit("Malloc failed", 1);
 	new = ft_lstnew(cmd_new);
+	if (new == NULL)
+		error_safe_exit("Malloc failed", 1);
 	if (*iter == NULL)
 	{
 		*iter = new;

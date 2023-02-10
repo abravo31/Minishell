@@ -53,12 +53,10 @@ void	ft_dup_list(t_minishell *msh)
 		cmd = (t_cmd *)list->content;
 		dup_char = ft_strdup(cmd->cmd);
 		if (!dup_char)
-		{
-			free_garbage_collector(ALL);
-			printf("error while duplicating a delimitor\n");
-			return ;
-		}
+			error_safe_exit("Malloc failed", 1);
 		new = ft_lstnew((void *)new_cmd(dup_char, cmd->id, cmd->space));
+		if (!new)
+			error_safe_exit("Malloc failed", 1);
 		if (i == 0)
 		{
 			msh->cmd_expand = new;
