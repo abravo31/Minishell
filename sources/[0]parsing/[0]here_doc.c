@@ -41,6 +41,8 @@ void	here_doc(t_cmd *cmd, int *i)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 	}
+	if (line == NULL && singleton_heredoc(0) == 0)
+		ft_putstr_fd("\n", 1);
 	unlink_heredoc(tmp_name, cmd);
 	free(line);
 	free((void *)tmp_name);
