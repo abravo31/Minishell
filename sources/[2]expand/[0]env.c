@@ -66,7 +66,7 @@ char	*str_from_range(char *env, int start, int size)
 	i = -1;
 	str = malloc(sizeof(char) * size + 1);
 	if (!str)
-		return (NULL);
+		error_safe_exit("Malloc failed", 1);
 	while (++i < size)
 		str[i] = env[start + i];
 	str[i] = '\0';

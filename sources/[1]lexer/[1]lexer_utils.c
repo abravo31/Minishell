@@ -18,6 +18,8 @@ t_cmd	*new_cmd(char *cmd, t_token id, int space)
 	t_cmd	*elem;
 
 	elem = malloc(sizeof(t_cmd));
+	if (!elem)
+		error_safe_exit("Malloc failed", 1);
 	elem->cmd = cmd;
 	elem->id = id;
 	elem->space = space;

@@ -27,8 +27,8 @@ void	init_garbage_collector(void)
 	if (!*gc)
 	{
 		*gc = malloc(sizeof(t_garbage_collector));
-		if (!gc)
-			return ;
+		if (!*gc)
+			error_safe_exit("Malloc failed", 1);
 		(*gc)->ptr = NULL;
 	}
 }
@@ -45,12 +45,12 @@ void	add_to_garbage_collector(void *ptr, t_memory_type type)
 	{
 		new = (t_list *)malloc(sizeof(t_list));
 		if (!new)
-			return ;
+			error_safe_exit("Malloc failed", 1);
 		new->content = (t_mem_block *)malloc(sizeof(t_mem_block));
 		if (!new->content)
 		{
 			free(new);
-			return ;
+			error_safe_exit("Malloc failed", 1);
 		}
 		if (type == FD || type == PID)
 			((t_mem_block *)new->content)->ptr_int.val = *(int *)ptr;

@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "structures.h"
+# include "error_management.h"
 
 # include <sys/types.h>
 # include <sys/stat.h>

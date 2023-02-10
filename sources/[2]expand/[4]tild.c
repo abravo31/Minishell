@@ -25,7 +25,7 @@ char	*expand_tild(t_minishell *msh, char *str)
 	new = malloc((sizeof (char)) * (ft_strlen(&str[i]) + \
 	ft_strlen(home) + 1));
 	if (!new)
-		return (NULL);
+		error_safe_exit("Malloc failed", 1);
 	while (home && home[n])
 	{
 		new[n] = home[n];

@@ -57,7 +57,7 @@ char	**ft_split_expand(char const *s)
 
 	split_expand = (char **)malloc(sizeof(char *) * (nbr_words + 1));
 	if (!split_expand)
-		return (NULL);
+		error_safe_exit("Malloc failed", 1);
 	i = 0;
 	while (*s && i < nbr_words)
 	{

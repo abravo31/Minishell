@@ -84,9 +84,13 @@ char	**ft_parse_path(char **env)
 	if (!env[i])
 	{
 		paths_split = malloc(sizeof(char *));
+		if (!paths_split)
+			error_safe_exit("Malloc failed", 1);
 		return (paths_split[0] = 0, paths_split);
 	}
 	paths = malloc(sizeof(char) * (ft_strlen(env[i]) - 4));
+	if (!paths)
+		error_safe_exit("Malloc failed", 1);
 	ft_strlcpy(paths, env[i] + 5, ft_strlen(env[i]) - 5);
 	paths_split = ft_split(paths, ':');
 	free(paths);

@@ -22,6 +22,10 @@
 		"limits.h": "c",
 		"type_traits": "c",
 		"builtin.h": "c",
-		"cerrno": "c"
+		"cerrno": "c",
+		"system_error": "c",
+		"functional": "c",
+		"tuple": "c",
+		"utility": "c"
 	}
 }

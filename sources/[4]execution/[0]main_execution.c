@@ -48,7 +48,7 @@ t_list	*allocate_and_store_node(pid_t pid)
 
 	content = malloc(sizeof(pid_t));
 	if (content == NULL)
-		return (NULL);
+		error_safe_exit("Malloc failed", 1);
 	*content = pid;
 	new = ft_lstnew(content);
 	if (new == NULL)

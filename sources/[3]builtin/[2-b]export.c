@@ -54,6 +54,8 @@ int	check_if_key(t_env *env, char *str)
 		else
 			len = ft_strlen(str + i) + 1;
 		env->value = malloc((sizeof (char)) * len);
+		if (!env->value)
+			error_safe_exit("Malloc failed", 1);
 		while (str[i])
 			env->value[j++] = str[i++];
 		env->value[j] = '\0';
@@ -73,7 +75,7 @@ char	*fill_new_key(char *str, int end)
 	j = 0;
 	key = malloc((sizeof (char)) * (end + 1));
 	if (!key)
-		return (NULL);
+		error_safe_exit("Malloc failed", 1);
 	while (str[j] && j < end)
 	{
 		key[j] = str[j];
@@ -101,7 +103,7 @@ char	*fill_new_value(char *str, int start, int j, int i)
 	{
 		value = malloc((sizeof (char)) * (j + 1));
 		if (!value)
-			return (NULL);
+			error_safe_exit("Malloc failed", 1);
 	}
 	while (str && str[k])
 	{
