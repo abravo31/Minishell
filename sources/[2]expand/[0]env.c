@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 18:12:19 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 04:02:34 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,26 +104,16 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 void	get_env(char **env, t_minishell *msh)
 {
 	int		i;
-	// t_list	*new;
-	// t_env	*temp;
 
 	i = -1;
-	if (!env)
+	if (!env[0])
 	{
-		// temp = new_env(NULL, NULL);
-		// if (temp == NULL)
-		// 	error_safe_exit("malloc error", 1);
-		// new = ft_lstnew((void *)temp);
-		// if (new == NULL)
-		// 	error_safe_exit("malloc error", 1);
-		// msh->env = new;
-		// add_to_garbage_collector((void *)&msh->env, ENV);
-		printf("env is empty");
 		initilialize_emtpy_env(msh);
 		return ;
 	}
 	while (env[++i])
 		env_iter(msh, env[i], 0, 0);
+	increment_shlvl(msh);
 }
 
 //initialzie emtpy env with pwd and SHLVL at  launch if env empty
@@ -136,7 +126,7 @@ void	initilialize_emtpy_env(t_minishell *msh)
 	pwd = getcwd_until_path_fits();
 	if (pwd == NULL)
 		return (error_safe_exit("pwd: error: unknown error", 1));
-	temp = new_env("PWD", pwd);
+	temp = new_env(ft_strdup("PWD"), pwd);
 	if (temp == NULL)
 		error_safe_exit("malloc error", 1);
 	new = ft_lstnew((void *)temp);
@@ -144,7 +134,40 @@ void	initilialize_emtpy_env(t_minishell *msh)
 		error_safe_exit("malloc error", 1);
 	msh->env = new;
 	add_to_garbage_collector((void *)&msh->env, ENV);
-	temp = new_env("SHLVL", "1");
+	create_add_shlvl(msh);
+}
+
+void	increment_shlvl(t_minishell *msh)
+{
+	t_list	*current;
+	t_env	*env;
+	int		shlvl;
+
+	current = msh->env;
+	env = NULL;
+	shlvl = 0;
+	while (current)
+	{
+		env = (t_env *) current->content;
+		if (ft_strcmp(env->key, "SHLVL") == 1)
+		{
+			shlvl = ft_atoi(env->value);
+			shlvl++;
+			free(env->value);
+			env->value = ft_itoa(shlvl);
+			return ;
+		}
+		current = current->next;
+	}
+	create_add_shlvl(msh);
+}
+
+void	create_add_shlvl(t_minishell *msh)
+{
+	t_list	*new;
+	t_env	*temp;
+
+	temp = new_env(ft_strdup("SHLVL"), ft_strdup("1"));
 	if (temp == NULL)
 		error_safe_exit("malloc error", 1);
 	new = ft_lstnew((void *)temp);

@@ -48,7 +48,7 @@ void	redirect_input(t_minishell *msh, t_ast *root, int *i)
 	if (msh->fd_in == -1)
 		error_safe_exit("FD IN ERROR\n", 1);
 	if (msh->fd_in > 2)
-		close(msh->fd_out);
+		close(msh->fd_in);
 	fd = open(right->data, O_RDONLY, 0644);
 	if (fd == -1 && *i >= -1)
 		error_safe_exit(right->data, 211);
@@ -98,7 +98,7 @@ void	redirect_heredoc(t_minishell *msh, t_ast *root, int *i)
 	if (msh->fd_in == -1)
 		error_safe_exit("FD HD ERROR\n", 1);
 	if (msh->fd_in > 2)
-		close(msh->fd_out);
+		close(msh->fd_in);
 	fd = open(right->data, O_RDONLY, 0644);
 	add_to_garbage_collector((void *)&fd, FD);
 	if (fd == -1 && *i >= -1)

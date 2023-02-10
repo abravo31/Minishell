@@ -17,6 +17,7 @@ int	builtin_env(t_minishell *msh, t_ast *root)
 {
 	if (msh->env == NULL)
 		return (0);
+	g_status = 0;
 	if (root->right != NULL)
 	{
 		ft_putstr_fd("env: too many arguments\n", 2);

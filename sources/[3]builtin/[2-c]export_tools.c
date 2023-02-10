@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2-c]export_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 22:10:44 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/07 16:09:06 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/09 04:58:41 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,28 @@
 int	is_valid_export(const char *env)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	if (env[i] == '=')
 	{
-		printf("-minishell: export: `=': not a valid identifier\n");
+		errors_messages_cases("export: '=':", 501);
 		return (0);
 	}
 	if (ft_isdigit(env[i]) == 1)
 	{
-		printf("-minishell: export: `%s': not a valid identifier\n", env);
+		tmp = compose_error_message("minishell: export: `", (char *)env, "': not a valid identifier");
+		errors_messages_cases(tmp, 502);
 		return (0);
 	}
 	while (env[i] && env[i] != '=')
 	{
 		while (env[i] == '_')
 			i++;
-		if (ft_isalnum(env[i]) == 0)
+		if (ft_isalnum(env[i]) == 0 && env[i] != '=')
 		{
-			printf("-minishell: export: `%s': not a valid identifier\n", env);
+			tmp = compose_error_message("minishell: export: `", (char *)env, "': not a valid identifier");
+			errors_messages_cases(tmp, 502);
 			return (0);
 		}
 		i++;

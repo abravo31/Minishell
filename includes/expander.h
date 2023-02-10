@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 03:20:19 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/09 04:02:06 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void		ft_dup_list(t_minishell *msh);
 void		ft_join_quote(t_minishell *msh);
 t_env		*new_env(char *key, char *value);
 void		check_tild(t_minishell *msh);
+void		increment_shlvl(t_minishell *msh);
+void		create_add_shlvl(t_minishell *msh);
 void		__debug_env(t_minishell *msh);
 char		**ft_split_expand(char const *s);
 size_t		ft_nbr_clm(char const *s);

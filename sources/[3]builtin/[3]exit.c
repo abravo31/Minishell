@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/03 23:42:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/09 22:39:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	long long	exit_code;
 
 	(void)msh;
+	g_status = 0;
 	cmd = NULL;
 	if (root->right)
 	{
 		cmd = root->right->left->arg;
-		if (is_numeric(cmd[1]) == 0
+		if ((is_numeric(cmd[1]) == 0)
 			|| !is_big_number(ft_atoll(cmd[1]), cmd[1]))
 			exit_code = 2;
 		else if (cmd[2] != NULL)
 		{
 			ft_putstr_fd("exit\n", 1);
-			ft_putstr_fd("exit: too many arguments\n", 2);
+			errors_messages_cases("exit: too many arguments", 1);
 			exit_code = 1;
 			return (1);
 		}
@@ -41,7 +42,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	else
 		exit_code = 130;
 	free_garbage_collector(ALL);
-	return (exit(exit_code),1);
+	return (exit(exit_code), 1);
 }
 
 long long	transform_exit_code(char *cmd)

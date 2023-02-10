@@ -24,6 +24,7 @@ int	builtin_unset(t_minishell *msh, t_ast *root)
 		return (0);
 	if (msh->env == NULL)
 		return (0);
+	g_status = 0;
 	env = msh->env;
 	arg = root->right->left->arg;
 	i = 1;

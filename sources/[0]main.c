@@ -6,7 +6,7 @@
 /*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 23:10:55 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/09 23:45:19 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,6 @@ void	reset_and_free(t_minishell *msh)
 	msh->path = NULL;
 }
 
-void	clean_exit(t_minishell *msh)
-{
-	printf("\n=======\nCLEAN EXIT\n=======\n");
-	printf("propmt before freeing it's memory: %s\n", msh->prompt);
-	free(msh->prompt);
-}
-
 int	launch_normal(int argc, char **argv, char **envp)
 {
 	t_minishell	msh;
@@ -148,11 +141,10 @@ int	launch_normal(int argc, char **argv, char **envp)
 	if (msh.prompt)
 		free(msh.prompt);
 	free_garbage_collector(ALL);
+	rl_clear_history();
 	close(tmp_fd[0]);
 	close(tmp_fd[1]);
 	printf("exit\n");
-	// free(msh.prompt);
-	clean_exit(&msh);
 	return (0);
 }
 
@@ -190,7 +182,7 @@ int	launch_minishell(char *cmd, char **envp)
 		head = msh.cmd_expand;
 		msh.root = pipe_sequence(&msh.cmd_expand, &i);
 		if (!msh.root)
-			free_garbage_collector(EXCEPT_ENV);
+			free_garbage_collector(ALL);
 		add_to_garbage_collector((void *)msh.root, AST);
 		msh.cmd_expand = head;
 		//ft_printf("\nAST:\n");
@@ -211,8 +203,6 @@ int	launch_minishell(char *cmd, char **envp)
 	close(tmp_fd[0]);
 	close(tmp_fd[1]);
 	// printf("exit\n");
-	// free(msh.prompt);
-	// clean_exit(&msh);
 	return (0);
 }
 
@@ -227,6 +217,7 @@ int	main(int argc, char **argv, char **env)
 		cmds = ft_split(argv[2], ';');
 		while (cmds[i])
 			launch_minishell(cmds[i++], env);
+		free_double_pointer((void **)cmds);
 	}
 	else
 		launch_normal(argc, argv, env);

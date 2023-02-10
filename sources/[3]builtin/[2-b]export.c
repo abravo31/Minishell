@@ -20,6 +20,7 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 	char	**arg;
 	int		i;
 
+	g_status = 0;
 	if (root->right == NULL)
 		return (print_sorted_env(msh), 0);
 	env = msh->env;
@@ -31,6 +32,7 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 			export_env_value(msh, env, arg[i]);
 		i++;
 	}
+	g_status = 0;
 	return (1);
 }
 

@@ -28,7 +28,7 @@ void	here_doc(t_cmd *cmd, int *i)
 	char		*tmp_name;
 
 	tmp_name = heredoc_init(cmd, i, &delimiter, &tmp);
-	add_to_garbage_collector((void *)&tmp, FD);
+	//add_to_garbage_collector((void *)&tmp, FD);
 	if (singleton_heredoc(0) >= 1 || !tmp_name)
 		return (free(tmp_name), free(delimiter));
 	ft_putstr_fd("heredoc> ", 1);
@@ -41,6 +41,8 @@ void	here_doc(t_cmd *cmd, int *i)
 		ft_putstr_fd("heredoc> ", 1);
 		line = get_next_line(0);
 	}
+	if (line == NULL && singleton_heredoc(0) == 0)
+		ft_putstr_fd("\n", 1);
 	unlink_heredoc(tmp_name, cmd);
 	free(line);
 	free((void *)tmp_name);
@@ -76,10 +78,12 @@ int	singleton_heredoc(int i)
 */
 char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
 {
-	char	*tmp_name;
-	char	*nbr_tmp;
+	char		*tmp_name;
+	char		*nbr_tmp;
+	static int	index = 0;
 
-	nbr_tmp = ft_itoa(*i);
+	(void)*i;	
+	nbr_tmp = ft_itoa(index);
 	tmp_name = ft_strjoin("/tmp/.tmp", nbr_tmp);
 	free(nbr_tmp);
 	if (!tmp_name)
@@ -90,6 +94,7 @@ char	*heredoc_init(t_cmd *cmd, int *i, char **delimiter, int *tmp)
 	*tmp = open(tmp_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*tmp == -1)
 		return (free(tmp_name), free(*delimiter), NULL);
+	index++;
 	heredoc_signal_handlers();
 	return (tmp_name);
 }

@@ -19,17 +19,17 @@ static void	signint_heredoc(int sig, siginfo_t *info, void *ucontext)
 {
 	(void)info;
 	(void)ucontext;
-	(void)sig;
+	ft_putstr_fd("sig detected", 2);
 	if (sig == SIGINT)
 	{
 		g_status = 130;
 		singleton_heredoc(1);
-		ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", 1);
 	}
 	if (sig == SIGQUIT)
 	{
 		g_status = 131;
-		ft_putstr_fd("\b\b  sss\b\b", 2);
+		ft_putstr_fd("\b\b  \b\b", 0);
 	}
 }
 
@@ -43,14 +43,10 @@ void	sigquit_heredoc(int sig)
 void	heredoc_signal_handlers(void)
 {
 	struct sigaction	sa;
-	struct sigaction	quit_sa;
 
-	sa.sa_sigaction = &signint_heredoc;
+	sa.sa_sigaction = signint_heredoc;
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, 0);
-	quit_sa.sa_handler = SIG_IGN;
-	quit_sa.sa_flags = 0;
-	sigemptyset(&quit_sa.sa_mask);
-	sigaction(SIGQUIT, &quit_sa, NULL);
+	sigaction(SIGQUIT, &sa, 0);
 }
