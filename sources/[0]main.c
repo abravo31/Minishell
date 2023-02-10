@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 18:50:12 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:37:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	launch_normal(int argc, char **argv, char **envp)
 		{
 			if (!get_cmd(&msh))
 			{
-				errors_messages_cases(msh.parsing_error, 99);
+				error_messages_default_cases(msh.parsing_error, 99);
 				reset_and_free(&msh);
 				continue ;
 			}
@@ -134,7 +134,7 @@ int	launch_normal(int argc, char **argv, char **envp)
 			dup2(tmp_fd[1], STDOUT_FILENO);
 			wait_for_children(&msh);
 			if (msh.parsing_error)
-				errors_messages_cases(msh.parsing_error, 99);
+				error_messages_default_cases(msh.parsing_error, 99);
 		}
 		reset_and_free(&msh);
 	}
@@ -175,7 +175,7 @@ int	launch_minishell(char *cmd, char **envp)
 	{
 		if (!get_cmd(&msh))
 		{
-			errors_messages_cases(msh.parsing_error, 99);
+			error_messages_default_cases(msh.parsing_error, 99);
 			reset_and_free(&msh);
 			return (0);
 		}
@@ -194,7 +194,7 @@ int	launch_minishell(char *cmd, char **envp)
 		dup2(tmp_fd[1], STDOUT_FILENO);
 		wait_for_children(&msh);
 		if (msh.parsing_error)
-			errors_messages_cases(msh.parsing_error, 99);
+			error_messages_default_cases(msh.parsing_error, 99);
 		reset_and_free(&msh);
 	}
 	// if (msh.prompt)

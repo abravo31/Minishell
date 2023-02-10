@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 23:53:01 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:37:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_cd(t_minishell *msh, t_ast *root)
 	else if (root->right)
 	{
 		if (root->right->left->arg[2] != NULL)
-			errors_messages_cases("cd: error: too many arguments", 1);
+			error_messages_default_cases("cd: error: too many arguments", 1);
 		else
 			new_path_normal(msh, root);
 	}
@@ -39,14 +39,14 @@ char	*getcwd_until_path_fits(void)
 		if (errno == ERANGE)
 		{
 			free(path);
-			errors_messages_cases("cd: error: path too long", 1);
+			error_messages_default_cases("cd: error: path too long", 1);
 		}
 		else if (errno == EACCES)
-			errors_messages_cases("cd: error: permission denied", 1);
+			error_messages_default_cases("cd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			errors_messages_cases("cd: error: No such File or directory", 1);
+			error_messages_default_cases("cd: error: No such File or directory", 1);
 		else
-			errors_messages_cases(strerror(errno), 1);
+			error_messages_default_cases(strerror(errno), 1);
 	}
 	return (path);
 }
@@ -55,7 +55,7 @@ void	if_chdir(t_minishell *msh, char *path)
 {
 	path = getcwd_until_path_fits();
 	if (path == NULL)
-		return (errors_messages_cases("cd: error: unknown error", 1));
+		return (error_messages_default_cases("cd: error: unknown error", 1));
 	add_to_garbage_collector(path, INT);
 	modify_env_value(msh->env, "PWD", path);
 }
@@ -66,18 +66,18 @@ void	new_path_empty(t_minishell *msh)
 
 	home = get_env_value_build(msh->env, "HOME");
 	if (home == NULL)
-		errors_messages_cases("cd: error: HOME not set", 1);
+		error_messages_default_cases("cd: error: HOME not set", 1);
 	else
 	{
 		if (chdir(home) == -1)
 		{
 			if (errno == EACCES)
-				errors_messages_cases("cd: error: permission denied", 1);
+				error_messages_default_cases("cd: error: permission denied", 1);
 			else if (errno == ENOENT)
-				errors_messages_cases("cd: error: no such file \
+				error_messages_default_cases("cd: error: no such file \
 				or directory", 1);
 			else
-				errors_messages_cases("cd: error: unknown error", 1);
+				error_messages_default_cases("cd: error: unknown error", 1);
 		}
 		else
 			if_chdir(msh, NULL);
@@ -91,11 +91,11 @@ void	new_path_normal(t_minishell *msh, t_ast *root)
 	if (chdir(root->right->left->arg[1]) == -1)
 	{
 		if (errno == EACCES)
-			errors_messages_cases("cd: error: permission denied", 1);
+			error_messages_default_cases("cd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			errors_messages_cases("cd: error: no such file or directory", 1);
+			error_messages_default_cases("cd: error: no such file or directory", 1);
 		else
-			errors_messages_cases("cd: error: unknown error", 1);
+			error_messages_default_cases("cd: error: unknown error", 1);
 	}
 	else
 	{

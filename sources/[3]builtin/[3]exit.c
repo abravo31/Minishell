@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 18:37:08 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:37:58 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 		else if (cmd[2] != NULL)
 		{
 			ft_putstr_fd("exit\n", 1);
-			errors_messages_cases("exit: too many arguments", 1);
+			error_messages_default_cases("exit: too many arguments", 1);
 			exit_code = 1;
 			return (1);
 		}

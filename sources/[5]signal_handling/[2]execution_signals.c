@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:35:40 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 03:34:10 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:09:14 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ void	handle_sigint_child(int sig)
 	if (sig == SIGINT)
 	{
 		g_status = 130;
-		//printf("\n");
 	}
 	else if (sig == SIGQUIT)
 	{
 		g_status = 131;
-		//printf("Quit (core dumped)\n");
 	}
 }
