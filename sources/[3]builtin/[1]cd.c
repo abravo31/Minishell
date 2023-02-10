@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 23:15:59 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/10 23:53:01 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 int	builtin_cd(t_minishell *msh, t_ast *root)
 {
-	
 	g_status = 0;
 	if (root->right == NULL)
 		new_path_empty(msh);

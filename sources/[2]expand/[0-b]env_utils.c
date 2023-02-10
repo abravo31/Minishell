@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 22:50:35 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/10 23:55:24 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*str_from_range(char *env, int start, int size)
 	str[i] = '\0';
 	return (str);
 }
-
 
 void	handle_env_null(t_minishell *msh, char *key, char *value)
 {
