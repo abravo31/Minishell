@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 21:14:53 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:27:50 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,22 @@ char	*str_from_range(char *env, int start, int size)
 	return (str);
 }
 
+
+void	handle_env_null(t_minishell *msh, char *key, char *value)
+{
+	t_list	*new;
+
+	new = ft_lstnew((void *)new_env(key, value));
+	if (new == NULL)
+		error_safe_exit("malloc error", 1);
+	msh->env = new;
+	add_to_garbage_collector((void *)&msh->env, ENV);
+}
+
 int	env_iter(t_minishell *msh, char *env, int j, int k)
 {
 	char	*key;
 	char	*value;
-	t_list	*new;
 
 	while (env[j] != '=')
 		j++;
@@ -77,13 +88,7 @@ int	env_iter(t_minishell *msh, char *env, int j, int k)
 	if (!value)
 		return (0);
 	if (msh->env == NULL)
-	{
-		new = ft_lstnew((void *)new_env(key, value));
-		if (new == NULL)
-			error_safe_exit("malloc error", 1);
-		msh->env = new;
-		add_to_garbage_collector((void *)&msh->env, ENV);
-	}
+		handle_env_null(msh, key, value);
 	else
 		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
 	return (1);
