@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   [1]init_mini.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/11 00:35:41 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:43:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		g_status = 0;
 
 void	free_list(t_list *lst, void (*free_content)(void *))
 {
