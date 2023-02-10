@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:23:42 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 19:40:30 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:17:16 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_env	*new_env(char *key, char *value)
 	if (!key || !value)
 		return (NULL);
 	elem = malloc(sizeof(t_env));
+	elem->key = NULL;
+	elem->value = NULL;
 	if (!elem)
 		return (free (key), free(value), NULL);
 	elem->key = key;

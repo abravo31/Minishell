@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 04:02:06 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 20:54:44 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void		create_add_shlvl(t_minishell *msh);
 void		__debug_env(t_minishell *msh);
 char		**ft_split_expand(char const *s);
 size_t		ft_nbr_clm(char const *s);
-void        insert_to_list(int i, char *insert, t_list **iter);
+void		insert_to_list(int i, char *insert, t_list **iter);
+int			env_iter(t_minishell *msh, char *env, int j, int k);
 
 #endif

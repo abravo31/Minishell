@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 23:48:31 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:11:40 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:11:15 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ void	list_env_to_char_env(t_minishell *msh)
 	while (tmp)
 	{
 		env_var = tmp->content;
-		if (env_var->key != NULL)
+		if (env_var && env_var->key != NULL)
 		{
 			buffer = ft_strjoin(env_var->key, "=");
 			if (buffer == NULL)
-				error_safe_exit("error: unknown error", 1);
+				return ;
 			msh->envp[i] = ft_strjoin(buffer, env_var->value);
 			free(buffer);
 			if (msh->envp[i] == NULL)
-				error_safe_exit("error: unknown error", 1);
+				return ;
 		}
 		else
 		{	

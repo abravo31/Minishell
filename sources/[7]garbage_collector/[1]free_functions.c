@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 22:12:29 by motero            #+#    #+#             */
-/*   Updated: 2023/02/05 00:24:41 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:12:56 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void	free_env(void *content)
 		free(env->key);
 	if (env->value)
 		free(env->value);
-	free(env);
+	if (env)
+		free(env);
 }

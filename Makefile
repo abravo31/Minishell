@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/02/10 18:48:18 by motero           ###   ########.fr        #
+#    Updated: 2023/02/10 21:20:38 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
 #=============================================================================#
 
 CC = cc
-CFLAGS = -MMD -Wall -Wextra -Werror -g #-fsanitize=leak -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g #-fpie #-fsanitize=leak -fsanitize=address
 LIBA = ar rc
 LIBS = ranlib
 
@@ -189,9 +189,9 @@ $(NAME): $(GNL_OBJ) $(OBJS_PATH) $(OBJS) $(HDRS)
 		@$(CC) $(CFLAGS) $(GNL_OBJ) $(OBJS) $(LIB_BINARY) $(HDR_INC) -o $@
 		@echo "\t[ $(GREEN)✔$(NONE) ] project"
 
-malloc_test: $(OBJS_PATH) $(OBJS)
+malloc_test: $(OBJS_PATH) ${GNL_OBJ} $(OBJS)
 		@make -C libft
-		$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(LIB_BINARY) -L. -lmallocator
+		$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} ${GNL_OBJ} $(LIB_BINARY) -L. -lmallocator
 
 #=============================================================================#
 #                                RULES   PROFILER                             #

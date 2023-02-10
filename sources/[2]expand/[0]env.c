@@ -6,26 +6,11 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 18:29:23 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 19:26:05 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:14:53 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	__debug_env(t_minishell *msh)
-// {
-// 	t_list	*iter;
-// 	t_env	*current;
-
-// 	iter = msh->env;
-// 	current = NULL;
-// 	while (iter)
-// 	{
-// 		current = (t_env *) iter->content;
-// 		printf("(%s){%s}\n", current->key, current->value);
-// 		iter = iter->next;
-// 	}
-// }
 
 char	*get_value_from_key(t_minishell *msh, char *key)
 {
@@ -63,17 +48,19 @@ char	*str_from_range(char *env, int start, int size)
 	char	*str;
 	int		i;
 
+	if (!env)
+		return (NULL);
 	i = -1;
 	str = malloc(sizeof(char) * size + 1);
 	if (!str)
-		error_safe_exit("Malloc failed", 1);
+		return (NULL);
 	while (++i < size)
 		str[i] = env[start + i];
 	str[i] = '\0';
 	return (str);
 }
 
-void	env_iter(t_minishell *msh, char *env, int j, int k)
+int	env_iter(t_minishell *msh, char *env, int j, int k)
 {
 	char	*key;
 	char	*value;
@@ -83,12 +70,12 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 		j++;
 	key = str_from_range(env, 0, j++);
 	if (!key)
-		return ;
+		return (0);
 	while (env[j + k])
 		k++;
 	value = str_from_range(env, j, k);
 	if (!value)
-		return ;
+		return (0);
 	if (msh->env == NULL)
 	{
 		new = ft_lstnew((void *)new_env(key, value));
@@ -99,11 +86,13 @@ void	env_iter(t_minishell *msh, char *env, int j, int k)
 	}
 	else
 		ft_lstadd_back(&msh->env, ft_lstnew((void *)new_env(key, value)));
+	return (1);
 }
 
 void	get_env(char **env, t_minishell *msh)
 {
 	int		i;
+	int		flag;
 
 	i = -1;
 	if (!env[0])
@@ -111,8 +100,11 @@ void	get_env(char **env, t_minishell *msh)
 		initilialize_emtpy_env(msh);
 		return ;
 	}
-	while (env[++i])
-		env_iter(msh, env[i], 0, 0);
+	flag = 1;
+	while (env[++i] && flag)
+		flag = env_iter(msh, env[i], 0, 0);
+	if (!flag)
+		error_safe_exit("Alloc eror : env_iter", 1);
 	increment_shlvl(msh);
 }
 
@@ -149,14 +141,14 @@ void	increment_shlvl(t_minishell *msh)
 	while (current)
 	{
 		env = (t_env *) current->content;
-		if (ft_strcmp(env->key, "SHLVL") == 1)
+		if (env && ft_strcmp(env->key, "SHLVL") == 1)
 		{
 			shlvl = ft_atoi(env->value);
 			shlvl++;
 			free(env->value);
 			env->value = ft_itoa(shlvl);
 			if (env->value == NULL)
-				error_safe_exit("malloc error", 1);
+				break ;
 			return ;
 		}
 		current = current->next;
