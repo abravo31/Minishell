@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/10 03:46:59 by abravo31         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:46:15 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	pop_nulls(t_list **begin_list)
 		pop_nulls(begin_list);
 	}
 	cur = *begin_list;
-	pop_nulls(&cur->next);
+	if (cur)
+		pop_nulls(&cur->next);
 }
 
 // Function to parse cmd from user input
