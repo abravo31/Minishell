@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 22:27:49 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 19:02:57 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 21:46:46 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ void	here_doc(t_cmd *cmd, int *i)
 	}
 	if (line == NULL && singleton_heredoc(0) == 0)
 		ft_putstr_fd("\n", 1);
+	terminate_heredoc(line, tmp_name, cmd, delimiter);
+	close(tmp);
+}
+
+void	terminate_heredoc(char *line, char *tmp_name, t_cmd *cmd,
+			char *delimiter)
+{
 	unlink_heredoc(tmp_name, cmd);
 	free(line);
 	free((void *)tmp_name);
 	free(delimiter);
-	close(tmp);
 }
 
 void	unlink_heredoc(char *tmp_name, t_cmd *cmd)
