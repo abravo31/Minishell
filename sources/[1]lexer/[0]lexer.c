@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/05 02:11:15 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/08 23:34:58 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/10 03:46:59 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,24 @@ void	iter_prompt(t_minishell *msh, char **str, int i)
 	}
 }
 
+void	pop_nulls(t_list **begin_list)
+{
+	t_list	*cur;
+
+	if (begin_list == NULL || *begin_list == NULL)
+		return ;
+	cur = *begin_list;
+	if (((t_cmd *)(cur->content))->cmd == NULL)
+	{
+		*begin_list = cur->next;
+		free((t_cmd *)(cur->content));
+		free(cur);
+		pop_nulls(begin_list);
+	}
+	cur = *begin_list;
+	pop_nulls(&cur->next);
+}
+
 // Function to parse cmd from user input
 int	get_cmd(t_minishell *msh)
 {
@@ -64,9 +82,10 @@ int	get_cmd(t_minishell *msh)
 	check_tild(msh);
 	if (msh->parsing_error)
 		return (0);
-	expanded_cmd_list(msh);
 	ft_dup_list(msh);
+	expanded_cmd_list(msh, msh->cmd_expand);
 	ft_join_quote(msh);
+	pop_nulls(&msh->cmd_expand);
 	return (!msh->parsing_error);
 }
 

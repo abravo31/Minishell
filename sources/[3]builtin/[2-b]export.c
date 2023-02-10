@@ -46,9 +46,8 @@ int	check_if_key(t_env *env, char *str)
 	j = 0;
 	while (env && env->key && env->key[i] && str[i] == env->key[i])
 		i++;
-	if (str[i] && str[i] == '=' && !env->key[i])
+	if (str[i] && str[i] == '=' && !env->key[i++])
 	{
-		i++;
 		free(env->value);
 		if (str[i] == 0)
 			len = 1;
@@ -56,11 +55,7 @@ int	check_if_key(t_env *env, char *str)
 			len = ft_strlen(str + i) + 1;
 		env->value = malloc((sizeof (char)) * len);
 		while (str[i])
-		{
-			env->value[j] = str[i];
-			i++;
-			j++;
-		}
+			env->value[j++] = str[i++];
 		env->value[j] = '\0';
 		if (!env->value)
 			return (0);

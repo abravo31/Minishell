@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
 /*   Updated: 2023/02/09 23:45:19 by motero           ###   ########.fr       */
@@ -126,7 +126,7 @@ int	launch_normal(int argc, char **argv, char **envp)
 			add_to_garbage_collector((void *)msh.root, AST);
 			msh.cmd_expand = head;
 			//ft_printf("\nAST:\n");
-			//print2DUtil(msh.root, 0);
+			print2DUtil(msh.root, 0);
 			i = 0;
 			if (singleton_heredoc(0) == 0 && msh.root)
 				main_execution(&msh, msh.root, &i);
