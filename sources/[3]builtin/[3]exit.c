@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/09 22:39:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/10 18:37:08 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 
 	(void)msh;
 	g_status = 0;
+	exit_code = 0;
 	cmd = NULL;
 	if (root->right)
 	{
@@ -39,8 +40,6 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 		else
 			exit_code = transform_exit_code(cmd[1]);
 	}
-	else
-		exit_code = 130;
 	free_garbage_collector(ALL);
 	return (exit(exit_code), 1);
 }
