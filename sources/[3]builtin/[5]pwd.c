@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 21:31:42 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:47:43 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ char	*getcwd_pwd(void)
 		if (errno == ERANGE)
 		{
 			free(path);
-			errors_messages_cases("pwd: error: path too long", 1);
+			error_messages_default_cases("pwd: error: path too long", 1);
 		}
 		else if (errno == EACCES)
-			errors_messages_cases("pwd: error: permission denied", 1);
+			error_messages_default_cases("pwd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			errors_messages_cases("pwd: error: No such File or directory", 1);
+			error_messages_default_cases("pwd: error: No such File \
+				or directory", 1);
 		else
-			errors_messages_cases(strerror(errno), 1);
+			error_messages_default_cases(strerror(errno), 1);
 	}
 	return (path);
 }

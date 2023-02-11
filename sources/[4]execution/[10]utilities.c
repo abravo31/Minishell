@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:30:10 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 00:05:53 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:55:11 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,7 @@ char	**ft_parse_path(char **env)
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
 	if (!env[i])
-	{
-		paths_split = malloc(sizeof(char *));
-		if (!paths_split)
-			error_safe_exit("Malloc failed", 1);
-		return (paths_split[0] = 0, paths_split);
-	}
+		return (ft_empty_path());
 	paths = malloc(sizeof(char) * (ft_strlen(env[i]) - 4));
 	if (!paths)
 		error_safe_exit("Malloc failed", 1);
@@ -95,14 +90,21 @@ char	**ft_parse_path(char **env)
 	paths_split = ft_split(paths, ':');
 	free(paths);
 	if (!paths_split)
-	{
-		ft_putstr_fd("Error: No environement PATH found\n", STDERR_FILENO);
-		return (NULL);
-	}
+		return (error_message("Error: No environement PATH found", 1), NULL);
 	i = -1;
 	while (paths_split[++i])
 		paths_split[i] = ft_strconcat(paths_split[i], "/");
 	return (paths_split);
+}
+
+char	**ft_empty_path(void)
+{
+	char	**paths_split;
+
+	paths_split = malloc(sizeof(char *));
+	if (!paths_split)
+		error_safe_exit("Malloc failed", 1);
+	return (paths_split[0] = 0, paths_split);
 }
 
 int	is_directory(char *path)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2-a]unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 23:53:54 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:47:02 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	builtin_unset(t_minishell *msh, t_ast *root)
 	while (arg[i])
 	{
 		if (arg[i][0] == '-' && ft_strlen(arg[i]) > 1)
-			return (errors_messages_cases("unset : invalid option", 401), 1);
+			return (error_messages_default_cases("unset : invalid option", 401),
+				1);
 		unset_env_value(env, arg[i]);
 		i++;
 	}

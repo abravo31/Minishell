@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [0]main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/11 00:37:16 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:55:36 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	minishell_loop(t_minishell *msh, int *tmp_fd_0, int *tmp_fd_1)
 		{
 			if (!get_cmd(msh))
 			{
-				errors_messages_cases(msh->parsing_error, 99);
+				error_messages_default_cases(msh->parsing_error, 99);
 				reset_and_free(msh);
 				continue ;
 			}

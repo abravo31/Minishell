@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 22:10:44 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/11 01:01:20 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:32:45 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	env_iter_bef_equal(const char *env, char *tmp)
 		{
 			tmp = compose_error_message("minishell: export: `", (char *)env, "':\
 			not a valid identifier");
-			errors_messages_cases(tmp, 501);
+			error_messages_default_cases(tmp, 501);
 			return (0);
 		}
 		i++;
@@ -45,14 +45,14 @@ int	is_valid_export(const char *env)
 	i = 0;
 	if (env[i] == '=' || env[i] == '+')
 	{
-		errors_messages_cases("export:", 501);
+		error_messages_default_cases("export: '=':", 501);
 		return (0);
 	}
 	if (ft_isdigit(env[i]) == 1)
 	{
 		tmp = compose_error_message("minishell: export: `", (char *)env, "':\
 		not a valid identifier");
-		errors_messages_cases(tmp, 501);
+		error_messages_default_cases(tmp, 502);
 		return (0);
 	}
 	if (!env_iter_bef_equal(env, NULL))

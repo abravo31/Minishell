@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 11:36:43 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 20:44:45 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:07:57 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void		simple_command_traverse(t_minishell *msh, t_ast *root, int *i);
 void		argument_traverse(t_minishell *msh, t_ast *root, int *i);
 void		simple_builtin_traverse(t_minishell *msh, t_ast *root, int *i);
 void		complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i);
+void		complex_builtin_traverse_no_fork(t_minishell *msh, int *i);
 
 /*############################################################################*/
 /*                              no-terminal traversing						  */
@@ -87,5 +88,6 @@ char		*ft_check_access(t_minishell *msh, t_ast *root);
 char		*ft_check_direct_path(t_minishell *msh, char *cmd);
 char		**ft_parse_path(char **env);
 int			is_directory(char *path);
+char		**ft_empty_path(void);
 
 #endif
