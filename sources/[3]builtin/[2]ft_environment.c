@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]ft_environment.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 23:54:27 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 17:12:32 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	builtin_env(t_minishell *msh, t_ast *root)
 	g_status = 0;
 	if (root->right != NULL)
 	{
-		ft_putstr_fd("env: too many arguments\n", 2);
+		error_messages_default_cases("env : too many arguments", 2);
 		return (1);
 	}
 	print_env(msh->envp);
