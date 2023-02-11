@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/11 00:55:36 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 16:01:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void	minishell_loop(t_minishell *msh, int *tmp_fd_0, int *tmp_fd_1)
 		setup_loop(msh, tmp_fd_0, tmp_fd_1, &i);
 		if (msh->prompt == NULL)
 			break ;
-		add_history(msh->prompt);
 		add_to_garbage_collector((void *)msh->prompt, INT);
 		if (msh->prompt != NULL)
 		{
+			if (msh->prompt[0] != '\0')
+				add_history(msh->prompt);
 			if (!get_cmd(msh))
 			{
 				error_messages_default_cases(msh->parsing_error, 99);

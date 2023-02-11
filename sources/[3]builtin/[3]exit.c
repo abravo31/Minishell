@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/11 00:37:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 16:43:23 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 		cmd = root->right->left->arg;
 		if ((is_numeric(cmd[1]) == 0)
 			|| !is_big_number(ft_atoll(cmd[1]), cmd[1]))
-			exit_code = 2;
+			return (error_messages_default_cases("numeric argument require"
+					"d", 1), exit_code = 2, 1);
 		else if (cmd[2] != NULL)
 		{
 			error_messages_default_cases("exit: too many arguments", 1);
-			exit_code = 1;
-			return (1);
+			return (exit_code = 1, 1);
 		}
 		else
 			exit_code = transform_exit_code(cmd[1]);

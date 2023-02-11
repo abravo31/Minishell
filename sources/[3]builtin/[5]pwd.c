@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/11 00:47:43 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 16:42:48 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ char	*getcwd_pwd(void)
 		else if (errno == EACCES)
 			error_messages_default_cases("pwd: error: permission denied", 1);
 		else if (errno == ENOENT)
-			error_messages_default_cases("pwd: error: No such File \
-				or directory", 1);
+			error_messages_default_cases("pwd: error: No such File "\
+			"or directory", 1);
 		else
 			error_messages_default_cases(strerror(errno), 1);
 	}

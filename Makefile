@@ -6,7 +6,7 @@
 #    By: motero <motero@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:38:23 by motero            #+#    #+#              #
-#    Updated: 2023/02/11 01:40:00 by motero           ###   ########.fr        #
+#    Updated: 2023/02/11 15:48:20 by motero           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,6 @@ SRCS_NAME_project = \
 [5]signal_handling/[0]signal_handling.c \
 [5]signal_handling/[2]execution_signals.c \
 [5]signal_handling/[1]here_doc_signal.c \
-[99]debug_functions.c \
 [8]error_management/[0]main_error.c \
 [8]error_management/[1]error_messages.c \
 [3]builtin/[2-d]export_sort.c \
@@ -320,7 +319,7 @@ $(OBJS_PATH_VALGND):
 $(OBJS_PATH_VALGND)%.o: $(SRCS_DIR_project)%.c $(HDRS) $(LIBFT)
 		@$(CC) $(CFLAGS) $(VALGND_FLAG) $(HDR_INC) $(LIBFT_HDIR_INC) -o $@ -c $<
 		@echo "\t[ $(GREEN)✔$(NONE) ] $@ objet project_valgrind"
-
+ns a passer et  10 projets a rendre avant :(
 $(VALGND) : $(OBJS_PATH_VALGND) $(OBJS_VALGND) $(LIBFT) $(HDRS)
 		@echo "\n[$(GREEN)$(bold)VALGND COMPILATION"
 		@$(CC) $(CFLAGS) $(VALGND_FLAG) $(OBJS_VALGND) $(LIB_BINARY) -o $@
