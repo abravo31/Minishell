@@ -50,10 +50,62 @@ SRCS_RAW_NAME_DIRECTORIES = $(wildcard $(SRCS_DIR_project)* )
 SRCS_NAME_DIRECTORIES = $(patsubst sources/%,%,$(SRCS_RAW_NAME_DIRECTORIES))
 
 #SRCS_ALL = $(wildcard $(SRCS_RAW_NAME_DIRECTORIES)/)
-SRCS_RAW_ALL = $(shell find $(SRCS_DIR_project) -type f -name "*.c")
-SRCS_ALL = $(patsubst sources/%,%,$(SRCS_RAW_ALL))
-
-SRCS_NAME_project = $(SRCS_ALL)
+#SRCS_RAW_ALL = $(shell find $(SRCS_DIR_project) -type f -name "*.c")
+#SRCS_ALL = $(patsubst sources/%,%,$(SRCS_RAW_ALL))
+#SRCS_NAME_project = $(SRCS_ALL)
+SRCS_NAME_project = \
+[6]ast/[3]auxiliary_functions.c  \
+[6]ast/[2]terminal_functions.c \
+[6]ast/[1]no_terminal_functions.c \
+[6]ast/[2-bis]terminal_functions.c \
+[6]ast/[0]main_ast.c \
+[6]ast/[4-bis]redirection_functions.c \
+[6]ast/[4]redirection_functions.c \
+[7]garbage_collector/[0]main_garbge_collector.c \
+[7]garbage_collector/[1]free_functions.c \
+[7]garbage_collector/[2]free_blocks.c \
+[4]execution/[0]main_execution.c \
+[4]execution/[2]redirection_handling.c \
+[4]execution/[10]utilities.c \
+[4]execution/[3]traversing_ast.c \
+[4]execution/[5]builtins_exec.c \
+[4]execution/[11]pid_management.c \
+[4]execution/[1]pipe_traversing.c \
+[4]execution/[4]fds_ands_redirs.c \
+[0]parsing/[0]here_doc.c \
+[0]parsing/[2]handle_quote.c \
+[0]parsing/[1]parsing_error.c \
+[1]init_mini.c \
+[5]signal_handling/[0]signal_handling.c \
+[5]signal_handling/[2]execution_signals.c \
+[5]signal_handling/[1]here_doc_signal.c \
+[99]debug_functions.c \
+[8]error_management/[0]main_error.c \
+[8]error_management/[1]error_messages.c \
+[3]builtin/[2-d]export_sort.c \
+[3]builtin/[4]echo.c \
+[3]builtin/[5]pwd.c \
+[3]builtin/[10]env_manipulation.c \
+[3]builtin/[2-c]export_tools.c \
+[3]builtin/[2-b]export.c \
+[3]builtin/[1]cd.c \
+[3]builtin/[3]exit.c \
+[3]builtin/[2]ft_environment.c \
+[3]builtin/[2-a]unset.c \
+[3]builtin/[0]builtin_main.c \
+[3]builtin/[11]utilities.c \
+[0]main.c \
+[1]lexer/[0]lexer.c \
+[1]lexer/[1]lexer_utils.c \
+[1]lexer/[3]tokens_utils.c \
+[2]expand/[3-b]expand_export_utils.c \
+[2]expand/[0-b]env_utils.c \
+[2]expand/[0-a]env.c \
+[2]expand/[1]expand.c \
+[2]expand/[4]tild.c \
+[2]expand/[2-a]expand_utils_2.c \
+[2]expand/[3-a]expand_export.c \
+[2]expand/[2-b]expand_utils.c \
 
 SRCS_PROJECT = $(addprefix $(SRCS_DIR_project), $(SRCS_NAME_project))
 

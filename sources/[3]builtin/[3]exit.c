@@ -24,6 +24,7 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 	g_status = 0;
 	exit_code = 0;
 	cmd = NULL;
+	ft_putstr_fd("exit\n", 1);
 	if (root->right)
 	{
 		cmd = root->right->left->arg;
@@ -32,7 +33,6 @@ int	builtin_exit(t_minishell *msh, t_ast *root)
 			exit_code = 2;
 		else if (cmd[2] != NULL)
 		{
-			ft_putstr_fd("exit\n", 1);
 			error_messages_default_cases("exit: too many arguments", 1);
 			exit_code = 1;
 			return (1);

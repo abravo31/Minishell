@@ -17,10 +17,8 @@ int		g_status = 0;
 void	minishell_loop(t_minishell *msh, int *tmp_fd_0, int *tmp_fd_1)
 {
 	int		i;
-	t_list	*head;
 
 	i = 0;
-	head = NULL;
 	while (msh->status)
 	{
 		setup_loop(msh, tmp_fd_0, tmp_fd_1, &i);

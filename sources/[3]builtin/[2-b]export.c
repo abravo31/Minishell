@@ -36,7 +36,9 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 
 void	append_export(t_env *env, char *str, int i)
 {
-	
+	(void)str;
+	(void)i;
+	(void)env;	
 }
 
 int	check_if_key(t_env *env, char *str, int i, int j)
