@@ -6,7 +6,7 @@
 /*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 20:33:00 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 23:54:52 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:24:51 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,12 @@ int	builtin_export(t_minishell *msh, t_ast *root)
 			export_env_value(msh, env, arg[i], 0);
 		i++;
 	}
-	g_status = 0;
 	return (1);
+}
+
+void	append_export(t_env *env, char *str, int i)
+{
+	
 }
 
 int	check_if_key(t_env *env, char *str, int i, int j)
@@ -41,10 +45,12 @@ int	check_if_key(t_env *env, char *str, int i, int j)
 
 	while (env && env->key && env->key[i] && str[i] == env->key[i])
 		i++;
-	if (str[i] && str[i] == '=' && !env->key[i++])
+	if (str[i] && (str[i] == '=' || (str[i] == '+' && ++i)) && !env->key[i++])
 	{
 		free(env->value);
-		if (str[i] == 0)
+		if (str[--i] == '+')
+			return (append_export(env, str, i), 0);
+		if (str[++i] == 0)
 			len = 1;
 		else
 			len = ft_strlen(str + i) + 1;

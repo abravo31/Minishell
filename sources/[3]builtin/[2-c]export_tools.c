@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2-c]export_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 22:10:44 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/11 00:37:58 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:32:45 by abravo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,23 @@ int	env_iter_bef_equal(const char *env, char *tmp)
 	int	i;
 
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (env[i] && env[i] != '=' && env[i] != '+')
 	{
 		while (env[i] == '_')
 			i++;
-		if (ft_isalnum(env[i]) == 0 && env[i] != '=')
+		if (ft_isalnum(env[i]) == 0 && env[i] != '=' && \
+		!(env[i] == '+' && env[i + 1] && env[i + 1] == '='))
 		{
 			tmp = compose_error_message("minishell: export: `", (char *)env, "':\
 			not a valid identifier");
-			error_messages_default_cases(tmp, 502);
+			error_messages_default_cases(tmp, 501);
 			return (0);
 		}
 		i++;
 	}
+	if (env[i] == '+' && env[i + 1] != '=')
+		return (errors_messages_cases("export: not a valid identifier",
+				501), 0);
 	return (1);
 }
 
@@ -39,7 +43,7 @@ int	is_valid_export(const char *env)
 	char	*tmp;
 
 	i = 0;
-	if (env[i] == '=')
+	if (env[i] == '=' || env[i] == '+')
 	{
 		error_messages_default_cases("export: '=':", 501);
 		return (0);
