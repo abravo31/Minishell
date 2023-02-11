@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 23:49:47 by motero            #+#    #+#             */
-/*   Updated: 2023/02/07 21:14:19 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:34:01 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,16 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 	if (!cmd_args)
 		error_safe_exit("Malloc failed in cmd_arg", 1);
 	word = (t_cmd *)(cp_head)->content;
+	cmd_arg_loop(cp_head, word, cmd_args, i);
+	arg = gets_args(cmd_args);
+	ft_lstclear(&cmd_args, free);
+	return (create_ast_terminal_w_args(arg, NULL, NULL));
+}
+
+void	cmd_arg_loop(t_list *cp_head, t_cmd *word, t_list *cmd_args, int *i)
+{
+	char	*tmp;
+
 	while ((cp_head) && word->id != PIPE)
 	{
 		if (is_redirection(word))
@@ -126,9 +136,6 @@ t_ast	*cmd_arg(t_list **head, int *i, t_ast *cmd)
 			break ;
 		word = (t_cmd *)(cp_head)->content;
 	}
-	arg = gets_args(cmd_args);
-	ft_lstclear(&cmd_args, free);
-	return (create_ast_terminal_w_args(arg, NULL, NULL));
 }
 
 char	**gets_args(t_list *cmd_args)
@@ -156,25 +163,4 @@ char	**gets_args(t_list *cmd_args)
 	}
 	arg[j] = NULL;
 	return (arg);
-}
-
-/*
-This function is used to extract the redirection operator from the
-input list and create an AST node for it. It checks if the current
-element in the input list is a redirection operator.
-*/
-t_ast	*cmd_redir(t_list **head, int *i)
-{
-	t_cmd	*cmd;
-
-	if ((*head) == NULL)
-		return (NULL);
-	cmd = (t_cmd *)(*head)->content;
-	if (is_redirection(cmd))
-	{
-		(*i)++;
-		(*head) = (*head)->next;
-		return (create_ast_terminal(cmd, NULL, NULL));
-	}
-	return (NULL);
 }

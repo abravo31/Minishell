@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [1]pipe_traversing.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 21:12:02 by motero            #+#    #+#             */
-/*   Updated: 2023/02/10 23:49:17 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:12:05 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	pipe_sequence_traverse(t_minishell *msh, t_ast *root, int *i)
 	right = root->right;
 	if (!left)
 		error_safe_exit("AST EXECUTION ERROR, Impossible structure\n", 1);
-	(void)right;
 	if (!right)
 		*i = -1;
 	if (pipe(left->pipe_fd) == -1)

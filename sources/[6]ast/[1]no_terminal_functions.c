@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 17:13:22 by motero            #+#    #+#             */
-/*   Updated: 2023/02/04 20:29:39 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:38:18 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,11 @@ t_ast	*complexe_command(t_list **head, int *i)
 		right = simple_command(head, i);
 		left = complexe_command(head, i);
 	}
+	return (complexe_command_node(left, right));
+}
+
+t_ast	*complexe_command_node(t_ast *left, t_ast *right)
+{
 	if (right == NULL)
 		return (left);
 	if (left == NULL)
@@ -190,7 +195,6 @@ t_ast	*simple_command(t_list **head, int *i)
 	if (((t_cmd *)(*head)->content)->id == WORD)
 	{
 		left = cmd_name(head, i);
-		//if ((*head) && ((t_cmd *)(*head)->content)->id == WORD)
 		if ((*head) && ((t_cmd *)(*head)->content)->id != PIPE)
 			right = argument(head, i, left);
 	}
@@ -227,39 +231,4 @@ t_ast	*argument(t_list **head, int *i, t_ast *command)
 	if (left == NULL)
 		return (NULL);
 	return (create_ast_no_terminal(ARGUMENT, left, right));
-}
-//left = cmd_word(head, i);
-
-/*
-The function redirection is responsible for handling different
-types of redirection operators.
-
--It checks the type of redirection operator currently at the head
-of the list and calls the appropriate function to handle it.
--It uses an array of function pointers, redirection_function,
-to store the functions for handling each type of redirection.
--This array is initialized with the init_redirection_function function,
-which assigns the appropriate functions to each index of the array.
--The redirection_function array is then used to call the function that
-corresponds to the current redirection operator.
--It iterates over the possible redirection operators, and when it finds
-the one matching the current operator it calls the function with the
-function pointer of that operator.
-*/
-t_ast	*redirection(t_list **head, int *i)
-{
-	int			index;
-	t_ast		*(*redirection_function[4])(t_list **, int *i);
-
-	if ((*head) == NULL)
-		return (NULL);
-	init_redirection_function(redirection_function);
-	index = 1;
-	while (index <= L_DREDIR)
-	{
-		if (index == (int)((t_cmd *)(*head)->content)->id)
-			return (redirection_function[index - 1](head, i));
-		index++;
-	}
-	return (NULL);
 }
