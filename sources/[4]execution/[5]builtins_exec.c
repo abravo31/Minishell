@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:06:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/08 02:32:56 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 01:07:29 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 		return ;
 	}
 	main_execution(msh, right, i);
+	complex_builtin_traverse_no_fork(msh, i);
+}
+
+void	complex_builtin_traverse_no_fork(t_minishell *msh, int *i)
+{
 	if (*i == 0 || *i == -2)
 	{
 		dup2(msh->fd_dup[0], STDIN_FILENO);
@@ -73,5 +78,4 @@ void	complex_builtin_traverse(t_minishell *msh, t_ast *root, int *i)
 		free_garbage_collector(ALL);
 		exit (g_status);
 	}
-	(void)i;
 }

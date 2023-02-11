@@ -6,7 +6,7 @@
 /*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:38:23 by motero            #+#    #+#             */
-/*   Updated: 2023/02/11 00:43:48 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 00:55:59 by motero           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_start_prompt(t_minishell *msh, int tmp_fd_0, int tmp_fd_1, int *i)
 	dup2(tmp_fd_1, STDOUT_FILENO);
 	wait_for_children(msh);
 	if (msh->parsing_error)
-		errors_messages_cases(msh->parsing_error, 99);
+		error_messages_default_cases(msh->parsing_error, 99);
 }
 
 void	setup_loop(t_minishell *msh, int *tmp_fd_0, int *tmp_fd_1, int *i)
