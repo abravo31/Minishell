@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   [2]handle_quote.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abravo <abravo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 20:59:58 by abravo            #+#    #+#             */
-/*   Updated: 2023/02/10 21:00:46 by abravo           ###   ########.fr       */
+/*   Updated: 2023/02/11 15:20:36 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ char	*remove_quote(char *quote)
 	{
 		if (quote[i] != quote[0])
 			get_char(quote[i], &ret);
-		if (!ret)
-			return (NULL);
 		i++;
 	}
 	if (!ret)

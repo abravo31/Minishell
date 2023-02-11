@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   [2-c]export_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: motero <motero@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abravo31 <abravo31@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 22:10:44 by abravo31          #+#    #+#             */
-/*   Updated: 2023/02/11 01:41:02 by motero           ###   ########.fr       */
+/*   Updated: 2023/02/11 14:37:01 by abravo31         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	append_export(t_env *env, char *str, int i)
+{
+	void	*p;
+
+	p = env->value;
+	env->value = ft_strjoin(env->value, (str + i));
+	free(p);
+}
 
 int	env_iter_bef_equal(const char *env, char *tmp)
 {
@@ -32,7 +41,7 @@ int	env_iter_bef_equal(const char *env, char *tmp)
 		i++;
 	}
 	if (env[i] == '+' && env[i + 1] != '=')
-		return (error_messages_default_cases("export: not a valid identifier",
+		return (error_messages_default_cases("export: ",
 				501), 0);
 	return (1);
 }

@@ -80,5 +80,6 @@ void		ft_free_tab(char **tab);
 void		print_env(char **envp);
 void		initilialize_emtpy_env(t_minishell *msh);
 char		*getcwd_pwd(void);
+void		append_export(t_env *env, char *str, int i);
 
 #endif

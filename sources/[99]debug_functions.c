@@ -126,7 +126,7 @@ t_list	*hardcode_cmds(void)
 // 	cmd.id = UNASSIGNED;
 // 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 // 	current = current->next;
-	
+
 // 	cmd.cmd = ">";
 // 	cmd.id = R_DREDIR;
 // 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
@@ -166,7 +166,7 @@ t_list	*hardcode_cmds(void)
 // 	cmd.id = UNASSIGNED;
 // 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 // 	current = current->next;
-	
+
 // 	cmd.cmd = ">>";
 // 	cmd.id = R_DREDIR;
 // 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
@@ -176,7 +176,7 @@ t_list	*hardcode_cmds(void)
 // 	cmd.id = UNASSIGNED;
 // 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
 // 	current = current->next;
-	
+
 // 	cmd.cmd = "<<";
 // 	cmd.id = L_DREDIR;
 // 	current->next = ft_lstnew2(&cmd, sizeof(t_cmd));
